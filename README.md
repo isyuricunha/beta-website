@@ -12,7 +12,7 @@
   </a>
 </p>
 
-> I use this to show some of my projects off, and test things out. You can see the websites & tools that I like. Sometimes I even write blogs.
+> This is my updated personal website. I use this to show some of my projects off, and test things out. You can see the websites & tools that I like. Sometimes I even write blogs. And, here I update my website with new features and bug fixes. Of course, try to keep it up to date with the latest tech and best practices. Here I put updated packages and tools that I use in my projects. I also try to keep my website as light as possible, so I can learn more about performance and optimization. I hope you enjoy it!
 
 ### 🏠 [Homepage](https://www.yuricunha.xyz/)
 
