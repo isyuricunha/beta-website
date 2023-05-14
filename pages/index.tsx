@@ -1,118 +1,130 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { Box, useColorModeValue } from '@chakra-ui/react' // Importing the box component for the page
+import { Flex } from '@chakra-ui/react' // Importing the flex component for the page
+import { Heading } from '@chakra-ui/react' // Importing the heading component for the page
+import { Image } from '@chakra-ui/react' // Importing the image component for the page
+import { chakra } from '@chakra-ui/react' // Importing the chakra component for the page
+import { Skeleton } from '@chakra-ui/react' // Importing the skeleton component for the page
+import { Link as ChakraLink } from '@chakra-ui/react' // Importing the link component for the page
+import { useBreakpoint } from '@chakra-ui/react' // Importing the breakpoint hook for the page
 
-const inter = Inter({ subsets: ['latin'] })
+import Link from 'next/link' // Importing the link component for the page
 
-export default function Home() {
+import { NextSeo } from 'next-seo'; // Importing next seo for the page
+import { Inter } from 'next/font/google' // Importing the font for the page
+
+import React, { useState } from 'react'; // Importing react for the page
+
+import AboutTerminal from '@/components/AboutTerminal/AboutTerminal';
+
+const inter = Inter({ subsets: ['latin'] }) // Setting the font subset for the page
+
+export default function Home(): React.ReactElement {
+  const [imageLoad, setImageLoad] = useState(false);
+  const bp = useBreakpoint();
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      <NextSeo title="Home" />
+
+      <Box
+        minH="100vh"
+        height="full"
+        width={{ base: '95%', md: '90%', lg: '80%', xl: '90%W' }}
+        maxW="7xl"
+        mx="auto"
+        pt={{ base: '28', sm: '14', md: '16', xl: '20' }}
+      >
+        {/* Im not actually too sure why this needs to be here, but without this additional flex
+        the body doesn't begin at the top of the page... */}
+        <Flex
+          direction="column"
+          justifyContent={{ base: 'center', md: 'flex-start' }}
+          height="full"
+          width="full"
+          p={{ base: 0, sm: 16 }}
+        >
+          <Flex
+            direction={{ base: `column`, lg: `row` }}
+            alignItems="center"
+            mx="auto"
+            my={{ xl: '16' }}
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+            <Skeleton
+              isLoaded={imageLoad}
+              boxSize="250px"
+              borderRadius="2xl"
+              m="auto"
+            >
+              <Image
+                flexGrow={3}
+                borderRadius="2xl"
+                boxSize="250px"
+                src="./static/images/profile.jpeg"
+                objectFit="cover"
+                alt="Yuri Cunha"
+                onLoad={() => setImageLoad(true)}
+              />
+            </Skeleton>
+            <Flex
+              alignSelf="center"
+              direction="column"
+              pl={{ base: 0, lg: 10 }}
+              my={{ base: 10, lg: 0 }}
+              flexGrow={1}
+            >
+              <Heading
+                bgGradient={`linear(to-r, ${useColorModeValue(
+                  `brand.600`,
+                  `brand.400`
+                )}, ${useColorModeValue(
+                  `teal.600`,
+                  `teal.400`
+                )}, ${useColorModeValue(`blue.600`, `blue.300`)})`}
+                className="moving-grad"
+                bgClip="text"
+                fontSize={{ base: `5xl`, lg: `7xl` }}
+                textAlign={{ base: `center`, lg: `left` }}
+              >
+                Hi, I&apos;m Yuri!
+              </Heading>
+              <chakra.p
+                maxW="650px"
+                textAlign={{ base: `center`, lg: `left` }}
+                fontSize="xl"
+                mt={2}
+              >
+                Welcome to my website! I use this to show some of my{' '}
+                <Link href="/projects" passHref>
+                  <ChakraLink>projects</ChakraLink>
+                </Link>{' '}
+                off, and test things out.
+                {/* You can see what music I am listening
+                to on the{' '}
+                <Link href="/music" passHref>
+                  <ChakraLink>music page</ChakraLink>
+                </Link>{' '}
+                or the{' '} */}{' '}
+                You can see the{' '}
+                <Link href="/links" passHref>
+                  <ChakraLink>websites</ChakraLink>
+                </Link>{' '}
+                &{' '}
+                <Link href="/tools" passHref>
+                  <ChakraLink>tools</ChakraLink>
+                </Link>{' '}
+                that I like. Sometimes I even write{' '}
+                <Link href="/blog" passHref>
+                  <ChakraLink>blogs</ChakraLink>
+                </Link>
+                . I&apos;m a Database Administrator with over{' '}
+                {new Date().getFullYear() - 2020} years of experience, and a
+                student who spends most all of his free time doing open source
+                projects/websites/softwares.
+              </chakra.p>
+            </Flex>
+          </Flex>
+          {!['base', 'sm'].includes(bp) && <AboutTerminal />}
+        </Flex>
+      </Box>
+    </>
+  );
 }
