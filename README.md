@@ -16,9 +16,9 @@
 
 > Here is a updated version with new version of packages. I also added some new features and fixed some bugs. 
 
-### 🏠 [Homepage](https://www.yuricunha.xyz/)
+### 🏠 [Homepage](https://www.yuricunha.com/)
 
-### ✨ [Demo](https://www.yuricunha.xyz/)
+### ✨ [Demo](https://www.yuricunha.com/)
 
 ## Install
 
@@ -42,7 +42,7 @@ yarn dev
 
 👤 **https://www.github.com/isyuricunha**
 
-* Website: https://www.yuricunha.xyz/
+* Website: https://www.yuricunha.com/
 * Twitter: [@isyuricunha](https://twitter.com/isyuricunha)
 * Github: [@isyuricunha](https://github.com/isyuricunha)
 * LinkedIn: [@isyuricunha](https://linkedin.com/in/isyuricunha)
