@@ -281,10 +281,11 @@ const About = ({ links }: AboutProps) => {
 const AboutText = () => {
   return (
     <>
-      I am a developer and student at <H>UC Irvine</H> majoring in{" "}
-      <H>Computer Science</H>. I create innovative and robust{" "}
-      <H>applications</H> people can <H>interact</H> with, and I strive to pay
-      attention to that extra <H>personal touch</H> in my work!
+      I am a Database Administrator and majoring in <H>Database Management</H>.
+      I excel in maintaining and optimizing <H>databases</H>, ensuring data
+      integrity and availability. I am committed to delivering{" "}
+      <H>high-performance database solutions</H> and always prioritize data
+      security.
     </>
   );
 };
