@@ -1,27 +1,27 @@
 import { DefaultSeo } from "next-seo";
 
 const config = {
-  title: "Samuel Kraft - Design engineer",
-  description: "I design & build interfaces",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://samuelkraft.com",
-    site_name: "Samuel Kraft",
-    images: [
-      {
-        url: "https://samuelkraft.com/og.jpg",
-        alt: "Samuel Kraft",
-      },
-    ],
-  },
-  twitter: {
-    handle: "@samuelkraft",
-    site: "@samuelkraft",
-    cardType: "summary_large_image",
-  },
+	title: "Yuri Cunha - Design engineer",
+	description: "I design & build interfaces",
+	openGraph: {
+		type: "website",
+		locale: "en_US",
+		url: "https://samuelkraft.com",
+		site_name: "Yuri Cunha",
+		images: [
+			{
+				url: "https://samuelkraft.com/og.jpg",
+				alt: "Yuri Cunha",
+			},
+		],
+	},
+	twitter: {
+		handle: "@samuelkraft",
+		site: "@samuelkraft",
+		cardType: "summary_large_image",
+	},
 };
 
 export default function SEO() {
-  return <DefaultSeo {...config} />;
+	return <DefaultSeo {...config} />;
 }
