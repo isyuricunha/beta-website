@@ -26,7 +26,7 @@ export const connectLinks = [
 
 const workplaces = [
 	{
-		title: "Design Engineer",
+		title: "Database Administrator",
 		description: "Bitrefill",
 		time: "2021 - Now",
 		imageSrc: bitrefillLogo,
@@ -40,7 +40,7 @@ const workplaces = [
 		link: "https://tracklib.com",
 	},
 	{
-		title: "Design Engineer",
+		title: "Database Administrator",
 		description: "Styleroom",
 		time: "2013 - 2016",
 		imageSrc: styleroomLogo,

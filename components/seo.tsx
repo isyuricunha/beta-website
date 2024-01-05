@@ -1,7 +1,7 @@
 import { DefaultSeo } from "next-seo";
 
 const config = {
-	title: "Yuri Cunha - Design engineer",
+	title: "Yuri Cunha - Database Administrator",
 	description: "I design & build database",
 	openGraph: {
 		type: "website",
