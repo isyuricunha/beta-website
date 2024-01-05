@@ -19,7 +19,7 @@ import avatar from "public/avatar.png";
 import { getActivities, getActivity } from "lib/strava";
 
 export const connectLinks = [
-	{ label: "Email", href: "mailto:samuelkraft@me.com" },
+	{ label: "Email", href: "mailto:me@yuricunha.com" },
 	{ label: "Twitter", href: "https://twitter.com/samuelkraft" },
 	{ label: "GitHub", href: "https://github.com/samuelkraft" },
 ];
