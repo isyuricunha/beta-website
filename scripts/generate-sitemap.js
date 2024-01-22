@@ -7,7 +7,7 @@ function addPage(page) {
 	const route = path === "/index" ? "" : path;
 
 	return `  <url>
-    <loc>${`https://yuricunha.com}${route}`}</loc>
+    <loc>${`https://beta.yuricunha.com}${route}`}</loc>
     <changefreq>hourly</changefreq>
   </url>`;
 }

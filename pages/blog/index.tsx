@@ -31,7 +31,7 @@ export default function Blog({ posts }: BlogProps) {
 				description={seoDesc}
 				openGraph={{
 					title: seoTitle,
-					url: `https://yuricunha.com/blog/`,
+					url: `https://beta.yuricunha.com/blog/`,
 					description: seoDesc,
 					site_name: "Yuri Cunha",
 				}}

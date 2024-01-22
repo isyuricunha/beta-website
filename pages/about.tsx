@@ -19,7 +19,7 @@ import avatar from "public/avatar.png";
 import { getActivities, getActivity } from "lib/strava";
 
 export const connectLinks = [
-	{ label: "Email", href: "mailto:me@yuricunha.com" },
+	{ label: "Email", href: "mailto:me@beta.yuricunha.com" },
 	{ label: "Twitter", href: "https://twitter.com/samuelkraft" },
 	{ label: "GitHub", href: "https://github.com/samuelkraft" },
 ];
@@ -53,7 +53,7 @@ const sideProjects = [
 		title: "Shape",
 		description: "A calendar for your workouts",
 		imageSrc: shapeLogo,
-		link: "https://shape.yuricunha.com",
+		link: "https://shape.beta.yuricunha.com",
 	},
 	{
 		title: "Trail Routes",
@@ -98,7 +98,7 @@ export default function About({
 				openGraph={{
 					title: seoTitle,
 					description: seoDesc,
-					url: `https://yuricunha.com/about/`,
+					url: `https://beta.yuricunha.com/about/`,
 					site_name: "Yuri Cunha",
 				}}
 				twitter={{

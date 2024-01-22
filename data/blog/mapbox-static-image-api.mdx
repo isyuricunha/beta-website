@@ -5,7 +5,7 @@ summary: 'How to use Mapbox static image API and Node Canvas to generate custom 
 tags: ["Mapbox", "React"]
 ---
 
-Mapbox is one of the nicest way to embed custom dynamic maps in an app as there are lots of customisation options. I'm using their service on my route exploration website [Trail Router](https://routes.yuricunha.com) to display running & hiking routes from gpx files. In this post I'll go over how I used Mapbox's [static image api](https://docs.mapbox.com/help/glossary/static-images-api/) and [Node Canvas](https://github.com/Automattic/node-canvas) to create custom og sharing images like the example below:
+Mapbox is one of the nicest way to embed custom dynamic maps in an app as there are lots of customisation options. I'm using their service on my route exploration website [Trail Router](https://routes.beta.yuricunha.com) to display running & hiking routes from gpx files. In this post I'll go over how I used Mapbox's [static image api](https://docs.mapbox.com/help/glossary/static-images-api/) and [Node Canvas](https://github.com/Automattic/node-canvas) to create custom og sharing images like the example below:
 
 <Image
   alt="Nyckelviken Trail Route"
@@ -117,7 +117,7 @@ In this example we have used specific coordinates to specify what we want render
 
 ## Using Mapbox's static api with geoJson
 
-Our route data is in the form of a geoJson object. Check out my article [Building a mapping platform with React and Mapbox GL](https://yuricunha.com/blog/trailroutes) for details how to parse geoJson from gpx files.
+Our route data is in the form of a geoJson object. Check out my article [Building a mapping platform with React and Mapbox GL](https://beta.yuricunha.com/blog/trailroutes) for details how to parse geoJson from gpx files.
 
 The api supports geoJson using a `geoJson=({})` parameter, however it only accepts 8,192 or fewer characters. Even after simplifying the geojson and removing redundant coordinates to get it below the limit I did not manage to get it working. Instead I opted for the [Path](https://docs.mapbox.com/api/maps/static-images/#path) parameter which looks like this and accepts an encoded polyline:
 
