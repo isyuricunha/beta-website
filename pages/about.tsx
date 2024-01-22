@@ -53,7 +53,7 @@ const sideProjects = [
 		title: "Shape",
 		description: "A calendar for your workouts",
 		imageSrc: shapeLogo,
-		link: "https://shape.samuelkraft.com",
+		link: "https://shape.yuricunha.com",
 	},
 	{
 		title: "Trail Routes",
@@ -98,7 +98,7 @@ export default function About({
 				openGraph={{
 					title: seoTitle,
 					description: seoDesc,
-					url: `https://samuelkraft.com/about/`,
+					url: `https://yuricunha.com/about/`,
 					site_name: "Yuri Cunha",
 				}}
 				twitter={{

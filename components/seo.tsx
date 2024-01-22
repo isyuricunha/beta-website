@@ -6,11 +6,11 @@ const config = {
 	openGraph: {
 		type: "website",
 		locale: "en_US",
-		url: "https://samuelkraft.com",
+		url: "https://yuricunha.com",
 		site_name: "Yuri Cunha",
 		images: [
 			{
-				url: "https://samuelkraft.com/og.jpg",
+				url: "https://yuricunha.com/og.jpg",
 				alt: "Yuri Cunha",
 			},
 		],

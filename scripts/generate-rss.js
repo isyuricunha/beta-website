@@ -7,8 +7,8 @@ const matter = require("gray-matter");
 async function generate() {
 	const feed = new RSS({
 		title: "Yuri Cunha",
-		site_url: "https://samuelkraft.com",
-		feed_url: "https://samuelkraft.com/feed.xml",
+		site_url: "https://yuricunha.com",
+		feed_url: "https://yuricunha.com/feed.xml",
 	});
 
 	const posts = await fs.readdir(path.join(__dirname, "..", "data", "blog"));
@@ -22,7 +22,7 @@ async function generate() {
 
 			feed.item({
 				title: frontmatter.data.title,
-				url: "https://samuelkraft.com/blog/" + name.replace(/\.mdx?/, ""),
+				url: "https://yuricunha.com/blog/" + name.replace(/\.mdx?/, ""),
 				date: frontmatter.data.publishedAt,
 				description: frontmatter.data.summary,
 			});

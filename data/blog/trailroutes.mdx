@@ -5,7 +5,7 @@ summary: 'How I built my side project Trail Routes'
 tags: ["Mapbox", "React"]
 ---
 
-I built <a href="https://routes.samuelkraft.com">Trail Routes</a> as a way to share some of the best running & hiking routes I've discovered, and in this post I will outline the build process.
+I built <a href="https://routes.yuricunha.com">Trail Routes</a> as a way to share some of the best running & hiking routes I've discovered, and in this post I will outline the build process.
 
 ## The goal
 My goal was to show a list of routes I enjoy coupled with basic information like distance, elevation gain and my rating. The routes should be visible on a map, and clicking a route should display more information about it, including an elevation map. There should be a way to download each route as a gpx file.
@@ -251,7 +251,7 @@ map.on('click', `${slug}-fill`, () => {
 })
 ```
 
-Now we just need to remove the other routes from the map. We could do this in the onclick above - but that won't work if we link directly to a specific route (e.g. <a href="https://routes.samuelkraft.com/?route=nyckelviken">https://routes.samuelkraft.com/?route=nyckelviken</a>). In order to solve this we can add a useEffect instead with the current query as a dependency. Every time the route/query is updated our function will run and update the visible route on the map. The simplest way i found to remove the non-active routes was not to remove the layers but to simply update the layer's visibility to none. In order to get access to our `map` object that's only accessible in the original effect we can save it in a local state variable. 
+Now we just need to remove the other routes from the map. We could do this in the onclick above - but that won't work if we link directly to a specific route (e.g. <a href="https://routes.yuricunha.com/?route=nyckelviken">https://routes.yuricunha.com/?route=nyckelviken</a>). In order to solve this we can add a useEffect instead with the current query as a dependency. Every time the route/query is updated our function will run and update the visible route on the map. The simplest way i found to remove the non-active routes was not to remove the layers but to simply update the layer's visibility to none. In order to get access to our `map` object that's only accessible in the original effect we can save it in a local state variable. 
 
 ```jsx
 
@@ -354,7 +354,7 @@ To finalise the app I added the list of routes as a sidebar and styled it with [
 
 ## Wrapping up
 
-The last thing I did was create some nice assets, like a favicon and a meta sharing image. Check out <a href="https://routes.samuelkraft.com">Trail Routes</a> and let me know if you enjoyed this write-up by pressing like below!
+The last thing I did was create some nice assets, like a favicon and a meta sharing image. Check out <a href="https://routes.yuricunha.com">Trail Routes</a> and let me know if you enjoyed this write-up by pressing like below!
 
 <Image
 alt="Trail Routes og image"
