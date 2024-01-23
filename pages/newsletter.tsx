@@ -9,7 +9,7 @@ import Link from "components/Link";
 
 export default function NewsletterPage() {
 	const { query } = useRouter();
-	const seoTitle = "Newsletter | Yuri Cunha";
+	const seoTitle = "Newsletter / Yuri Cunha";
 	const seoDesc =
 		"A newsletter in the realm between design & development. Learn animations, CSS, web development tips & tricks and creating delightful and useful interfaces!";
 

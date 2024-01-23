@@ -14,7 +14,7 @@ type ProjectProps = {
 };
 
 export default function Project({ project, rest }: ProjectProps) {
-	const seoTitle = `${project.title} Case Study | Yuri Cunha`;
+	const seoTitle = `${project.title} Case Study / Yuri Cunha`;
 	const seoDesc = `${project.description}`;
 	const url = `https://beta.yuricunha.com/project/${project.slug}`;
 	const Component = useMDXComponent(project.body.code);

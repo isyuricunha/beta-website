@@ -21,7 +21,7 @@ type PostProps = {
 };
 
 export default function Post({ post, related }: PostProps) {
-	const seoTitle = `${post.title} | Yuri Cunha`;
+	const seoTitle = `${post.title} / Yuri Cunha`;
 	const seoDesc = `${post.summary}`;
 	const url = `https://beta.yuricunha.com/blog/${post.slug}`;
 	const Component = useMDXComponent(post.body.code);

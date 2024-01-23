@@ -81,7 +81,7 @@ const sideProjects = [
 	},
 ];
 
-const seoTitle = "About | Yuri Cunha";
+const seoTitle = "About / Yuri Cunha";
 const seoDesc =
 	"A designer/frontend developer hybrid that loves to build great products with delightful interfaces.";
 

@@ -7,7 +7,7 @@ import Input from "components/input";
 import { useState } from "react";
 import { IconSearch } from "components/Icons";
 
-const seoTitle = "Blog | Yuri Cunha";
+const seoTitle = "Blog / Yuri Cunha";
 const seoDesc =
 	"I write about development, design, React, CSS, animation and more!";
 

@@ -1,7 +1,7 @@
 import { DefaultSeo } from "next-seo";
 
 const config = {
-	title: "Yuri Cunha - Database Administrator",
+	title: "Yuri Cunha",
 	description: "I design & build database",
 	openGraph: {
 		type: "website",
@@ -16,8 +16,8 @@ const config = {
 		],
 	},
 	twitter: {
-		handle: "@samuelkraft",
-		site: "@samuelkraft",
+		handle: "@isyuricunha",
+		site: "@isyuricunha",
 		cardType: "summary_large_image",
 	},
 };
