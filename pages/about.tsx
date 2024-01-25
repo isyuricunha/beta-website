@@ -200,7 +200,10 @@ export default function About({
 					</Section>
 					<Section heading="Side projects" headingAlignment="right">
 						<div className="flex flex-col w-full gap-8">
-							<p>I enjoy hacking on the side.</p>
+							<p>
+								In my spare time, I like to play god with data. It&apos;s like a
+								board game, but with more lines of code.
+							</p>
 							<Workplaces items={sideProjects} />
 						</div>
 					</Section>
