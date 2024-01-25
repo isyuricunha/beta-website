@@ -7,10 +7,11 @@ import Workplaces from "components/Workplaces";
 import Gallery from "components/Gallery";
 import { ActivityType } from "components/Activity";
 
-import bitrefillLogo from "public/projects/bitrefill-logo.png";
-import tracklibLogo from "public/projects/tracklib-logo.png";
-import styleroomLogo from "public/projects/styleroom-logo.png";
-import trailroutesLogo from "public/projects/trailroutes-logo.png";
+import yuricunhaLogo from "public/projects/yuricunha-logo.png";
+import laryssacostaLogo from "public/projects/laryssacosta-logo.png";
+import divinobitLogo from "public/projects/divinobit-logo.png";
+import geosigaLogo from "public/projects/geosiga-logo.png";
+import lumenLogo from "public/projects/lumen-logo.png";
 import notionLogo from "public/projects/notion-logo.png";
 import strengthLogo from "public/projects/strength-logo.png";
 import shapeLogo from "public/projects/shape-logo.png";
@@ -26,38 +27,38 @@ export const connectLinks = [
 
 const workplaces = [
 	{
-		title: "Database Administrator",
+		title: "Database Administrator & Specialist",
 		description: "Yuri Cunha",
 		time: "2022 - Now",
-		imageSrc: bitrefillLogo,
+		imageSrc: yuricunhaLogo,
 		link: "https://yuricunha.com",
 	},
 	{
-		title: "Database Administrator",
+		title: "Senior Database Administrator",
 		description: "Laryssa Costa logo",
 		time: "2022 - Now",
-		imageSrc: tracklibLogo,
+		imageSrc: laryssacostaLogo,
 		link: "https://www.massagealternativa.com/",
 	},
 	{
-		title: "Database Administrator",
+		title: "Junior Database Administrator",
 		description: "DivinoBit (currently named Bairon)",
 		time: "2021 - 2023",
-		imageSrc: styleroomLogo,
+		imageSrc: divinobitLogo,
 		link: "https://bairon.com.br/",
 	},
 	{
-		title: "Database Administrator",
+		title: "Junior Database Administrator",
 		description: "Geosiga",
 		time: "2019 - 2021",
-		imageSrc: styleroomLogo,
+		imageSrc: geosigaLogo,
 		link: "https://www.geosiga.com.br/",
 	},
 	{
 		title: "Intern",
 		description: "Lúmen Centro de Diagnósticos",
 		time: "2016 - 2017",
-		imageSrc: styleroomLogo,
+		imageSrc: lumenLogo,
 		link: "https://www.lumendiagnosticos.com.br/",
 	},
 ];
