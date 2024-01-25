@@ -27,24 +27,38 @@ export const connectLinks = [
 const workplaces = [
 	{
 		title: "Database Administrator",
-		description: "Bitrefill",
-		time: "2021 - Now",
+		description: "Yuri Cunha",
+		time: "2022 - Now",
 		imageSrc: bitrefillLogo,
-		link: "https://bitrefill.com",
+		link: "https://yuricunha.com",
 	},
 	{
 		title: "Database Administrator",
-		description: "Tracklib",
-		time: "2016 - 2021",
+		description: "Laryssa Costa logo",
+		time: "2022 - Now",
 		imageSrc: tracklibLogo,
-		link: "https://tracklib.com",
+		link: "https://www.massagealternativa.com/",
 	},
 	{
 		title: "Database Administrator",
-		description: "Styleroom",
-		time: "2013 - 2016",
+		description: "DivinoBit (currently named Bairon)",
+		time: "2021 - 2023",
 		imageSrc: styleroomLogo,
-		link: "https://styleroom.se/app",
+		link: "https://bairon.com.br/",
+	},
+	{
+		title: "Database Administrator",
+		description: "Geosiga",
+		time: "2019 - 2021",
+		imageSrc: styleroomLogo,
+		link: "https://www.geosiga.com.br/",
+	},
+	{
+		title: "Intern",
+		description: "Lúmen Centro de Diagnósticos",
+		time: "2016 - 2017",
+		imageSrc: styleroomLogo,
+		link: "https://www.lumendiagnosticos.com.br/",
 	},
 ];
 
@@ -124,30 +138,43 @@ export default function About({
 					<Section heading="About me" headingAlignment="right">
 						<div className="flex flex-col gap-6">
 							<p>
-								<em className="font-semibold">Hi there!</em>&nbsp; I’m Yuri, a
-								designer/database administrator hybrid that loves to build great
-								products with delightful interfaces.
+								<em className="font-semibold">Hi there!</em>&nbsp; I'm Yuri, a
+								database administrator with a passion for data integrity and
+								making applications hum smoothly. When I'm not wrangling
+								servers, you'll find me pounding the pavement (or trail) - I'm
+								obsessed with the magic of putting one foot in front of the
+								other and seeing the world tick by.
 							</p>
 							<p>
 								Currently working at{" "}
-								<Link href="https://bitrefill.com">Bitrefill</Link>, making
-								living on crypto possible. Before that I worked at music startup{" "}
-								<Link href="https://tracklib.com">Tracklib</Link>, the record
-								store for sampling.
+								<Link href="https://massagealternativa.com/">
+									Laryssa Costa
+								</Link>
+								, where I ensure the data backbone of our operations runs strong
+								(in which I manage a IT team). Prior to that, I honed my skills
+								at{" "}
+								<Link href="https://bairon.com.br/">
+									Divinobit (currently named Bairon)
+								</Link>
+								, optimizing databases for peak performance.
 							</p>
 							<p>
-								I love working in the realm between design and code. Some things
-								that makes me excited are CSS, Design Systems, Animation,
-								crafting excellent component apis and making interfaces feel fun
-								and human.
+								What excites me most? Diving into complex queries, crafting
+								efficient schemas, and watching databases transform into
+								powerful engines. It's like plumbing for the digital age, but
+								with more lines of code than pipes!
 							</p>
 							<p>
-								I grew up in Nacka just outside of Stockholm, Sweden and come
-								from a background of studying Photography.
+								While São Bernardo do Campo, in Brazil, is my hometown, my
+								wanderlust often pulls me solo to new corners of the globe.
+								Trekking through ancient ruins, soaking in bustling cityscapes,
+								or escaping to serene landscapes - solo travel fuels my soul and
+								inspires fresh perspectives.
 							</p>
 							<p>
-								Outside of work I’m obsessed with endurance sports and
-								travelling with my family.
+								So, whether it's optimizing databases or pushing my limits on a
+								run, I'm all about building, exploring, and finding the rhythm
+								in things. Let's see where the data (or the road) takes us!
 							</p>
 						</div>
 					</Section>
@@ -163,8 +190,8 @@ export default function About({
 					<Section heading="Work" headingAlignment="right">
 						<div className="flex flex-col w-full gap-8">
 							<p>
-								{new Date().getFullYear() - 2013}+ years of experience working
-								in both design & engineering.
+								{new Date().getFullYear() - 2017}+ years of experience crafting
+								and maintaining robust databases.
 							</p>
 							<Workplaces items={workplaces} />
 						</div>
