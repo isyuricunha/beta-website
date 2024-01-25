@@ -8,7 +8,7 @@ import PostList from "components/postlist";
 
 import BitrefillGraphic from "components/projects/BitrefillGraphic";
 import TrailRoutesGraphic from "components/projects/TrailRoutesGraphic";
-import TracklibGraphic from "components/projects/TracklibGraphic";
+import RainForRelaxGraphic from "components/projects/RainForRelaxGraphic";
 
 type HomeProps = {
 	posts: Post[];
@@ -48,7 +48,9 @@ export default function Home({ posts, projects }: HomeProps) {
 											</Link>
 										</div>
 										<Link href={`/project/${project.slug}`}>
-											{project.slug === "tracklib" && <TracklibGraphic />}
+											{project.slug === "rainforrelax" && (
+												<RainForRelaxGraphic />
+											)}
 											{project.slug === "bitrefill" && <BitrefillGraphic />}
 											{project.slug === "trailroutes" && <TrailRoutesGraphic />}
 										</Link>
