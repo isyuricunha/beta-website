@@ -157,7 +157,7 @@ export default function Gallery({
 				<Photo
 					src={imageMe}
 					meta="2021-07-12"
-					alt="Yuri Cunha in House"
+					alt="Yuri in house"
 					width={240}
 					height={240}
 					rotate={6.3}
@@ -167,8 +167,8 @@ export default function Gallery({
 				/>
 				<Photo
 					src={imageRun}
-					meta="2021-05-20"
-					alt="Samuel running in the sunset"
+					meta="2024-01-20"
+					alt="Yuri running in the street"
 					width={270}
 					height={225}
 					rotate={-5.4}
