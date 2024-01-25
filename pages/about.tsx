@@ -13,7 +13,6 @@ import divinobitLogo from "public/projects/divinobit-logo.png";
 import geosigaLogo from "public/projects/geosiga-logo.png";
 import lumenLogo from "public/projects/lumen-logo.png";
 import pokemonLogo from "public/projects/pokemon-logo.png";
-import strengthLogo from "public/projects/strength-logo.png";
 import githubLogo from "public/projects/github-logo.png";
 import rainforrelaxLogo from "public/projects/rain-for-relax-logo.png";
 import avatar from "public/avatar.png";
@@ -82,12 +81,6 @@ const sideProjects = [
 		description: "Get greeted by a Pokémon. Have a wonderful day!",
 		imageSrc: pokemonLogo,
 		link: "https://github.com/isyuricunha/pokemon-greeting",
-	},
-	{
-		title: "Strength",
-		description: "iOS & WatchOS strength tracking app",
-		imageSrc: strengthLogo,
-		link: "https://isyuricunha.github.io/strength/",
 	},
 	{
 		title: "Website",
