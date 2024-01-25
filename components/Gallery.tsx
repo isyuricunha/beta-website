@@ -6,8 +6,7 @@ import localFont from "@next/font/local";
 import imageMe from "public/gallery/me.jpg";
 import imageRun from "public/gallery/running.jpg";
 import imageTravelling from "public/gallery/travelling-qebec.jpg";
-import imageSkate from "public/gallery/skate.jpg";
-import imageTrailrun from "public/gallery/trailrun.jpg";
+import imageServer from "public/gallery/server.jpg";
 import { ReactNode } from "react";
 import Activity, { ActivityType } from "./Activity";
 import Link from "./Link";
@@ -159,7 +158,7 @@ export default function Gallery({
 					meta="2021-07-12"
 					alt="Yuri in house"
 					width={240}
-					height={240}
+					height={270}
 					rotate={6.3}
 					left={198}
 					index={2}
@@ -167,10 +166,10 @@ export default function Gallery({
 				/>
 				<Photo
 					src={imageRun}
-					meta="2024-01-20"
+					meta="2023-09-27"
 					alt="Yuri running in the street"
 					width={270}
-					height={225}
+					height={270}
 					rotate={-5.4}
 					left={343}
 					index={3}
@@ -201,9 +200,9 @@ export default function Gallery({
 					</Photo>
 				) : (
 					<Photo
-						src={imageTrailrun}
+						src={imageServer}
 						meta="2022-09-10"
-						alt={"Trail Run view"}
+						alt={"Server Side"}
 						width={190}
 						height={253}
 						rotate={7.6}
