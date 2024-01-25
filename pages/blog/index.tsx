@@ -47,7 +47,7 @@ export default function Blog({ posts }: BlogProps) {
 							className="text-secondary animate-in"
 							style={{ "--index": 1 } as React.CSSProperties}
 						>
-							I'm the DBA that'll make you laugh, cry, and learn about
+							I&apos;m the DBA that&apos;ll make you laugh, cry, and learn about
 							technology.
 						</p>
 					</div>
