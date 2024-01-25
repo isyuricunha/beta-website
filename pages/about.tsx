@@ -73,7 +73,7 @@ const sideProjects = [
 	{
 		title: "Trail Routes",
 		description: "Mapping platform built with react, mapbox, swiftUI",
-		imageSrc: trailroutesLogo,
+		imageSrc: lumenLogo,
 		link: "https://github.com/isyuricunha/routes",
 	},
 	{
