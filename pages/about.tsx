@@ -98,7 +98,7 @@ const sideProjects = [
 
 const seoTitle = "About / Yuri Cunha";
 const seoDesc =
-	"I&apos;m not just a DBA, I&apos;m the data whisperer, the performance guru, the uptime champion.";
+	"I'm not just a DBA, I'm the data whisperer, the performance guru, the uptime champion.";
 
 export default function About({
 	lastActivity,
