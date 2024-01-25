@@ -139,12 +139,12 @@ export default function About({
 					<Section heading="About me" headingAlignment="right">
 						<div className="flex flex-col gap-6">
 							<p>
-								<em className="font-semibold">Hi there!</em>&nbsp; I'm Yuri, a
-								database administrator with a passion for data integrity and
-								making applications hum smoothly. When I'm not wrangling
-								servers, you'll find me pounding the pavement (or trail) - I'm
-								obsessed with the magic of putting one foot in front of the
-								other and seeing the world tick by.
+								<em className="font-semibold">Hi there!</em>&nbsp; I&apos;m
+								Yuri, a database administrator with a passion for data integrity
+								and making applications hum smoothly. When I&apos;m not
+								wrangling servers, you&apos;ll find me pounding the pavement (or
+								trail) - I&apos;m obsessed with the magic of putting one foot in
+								front of the other and seeing the world tick by.
 							</p>
 							<p>
 								Currently working at{" "}
@@ -162,8 +162,8 @@ export default function About({
 							<p>
 								What excites me most? Diving into complex queries, crafting
 								efficient schemas, and watching databases transform into
-								powerful engines. It's like plumbing for the digital age, but
-								with more lines of code than pipes!
+								powerful engines. It&apos;s like plumbing for the digital age,
+								but with more lines of code than pipes!
 							</p>
 							<p>
 								While São Bernardo do Campo, in Brazil, is my hometown, my
@@ -173,9 +173,10 @@ export default function About({
 								inspires fresh perspectives.
 							</p>
 							<p>
-								So, whether it's optimizing databases or pushing my limits on a
-								run, I'm all about building, exploring, and finding the rhythm
-								in things. Let's see where the data (or the road) takes us!
+								So, whether it&apos;s optimizing databases or pushing my limits
+								on a run, I&apos;m all about building, exploring, and finding
+								the rhythm in things. Let&apos;s see where the data (or the
+								road) takes us!
 							</p>
 						</div>
 					</Section>
