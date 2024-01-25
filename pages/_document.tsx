@@ -5,17 +5,14 @@ export default class MyDocument extends Document {
 		return (
 			<Html lang="en">
 				<Head>
-					<meta
-						name="google-site-verification"
-						content="RJQJipgMnyEfg3XESXsr7jXnVDOaAr1xtlCGRaoTQSo"
-					/>
+					<meta name="google-site-verification" content="" />
 					<link
 						rel="webmention"
-						href="https://webmention.io/beta.yuricunha.com/webmention"
+						href="https://webmention.io/yuricunha.com/webmention"
 					/>
 					<link
 						rel="pingback"
-						href="https://webmention.io/beta.yuricunha.com/xmlrpc"
+						href="https://webmention.io/yuricunha.com/xmlrpc"
 					/>
 					<link href="https://github.com/isyuricunha" rel="me" />
 				</Head>
