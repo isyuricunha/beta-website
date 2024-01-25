@@ -146,21 +146,22 @@ export default function Gallery({
 				<Photo
 					src={imageTravelling}
 					meta="2024-01-04"
-					alt="Yuri Cunha in Qebec"
+					alt="Yuri in Qebec"
 					width={314}
 					height={229}
 					rotate={-6}
 					left={-86}
 					index={1}
+					flipDirection="right"
 				/>
 				<Photo
 					src={imageMe}
 					meta="2021-07-12"
 					alt="Yuri in house"
-					width={240}
-					height={270}
+					width={300}
+					height={240}
 					rotate={6.3}
-					left={198}
+					left={145}
 					index={2}
 					flipDirection="right"
 				/>
@@ -173,6 +174,7 @@ export default function Gallery({
 					rotate={-5.4}
 					left={343}
 					index={3}
+					flipDirection="right"
 				/>
 				{lastActivity.photos ? (
 					<Photo
@@ -194,7 +196,7 @@ export default function Gallery({
 						rotate={7.6}
 						left={587}
 						index={4}
-						flipDirection="left"
+						flipDirection="right"
 					>
 						<Activity activity={lastActivity} />
 					</Photo>
@@ -203,12 +205,12 @@ export default function Gallery({
 						src={imageServer}
 						meta="2022-09-10"
 						alt={"Server Side"}
-						width={190}
+						width={275}
 						height={253}
 						rotate={7.6}
 						left={587}
 						index={4}
-						flipDirection="left"
+						flipDirection="right"
 					/>
 				)}
 			</section>
