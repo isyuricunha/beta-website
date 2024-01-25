@@ -14,7 +14,7 @@ import geosigaLogo from "public/projects/geosiga-logo.png";
 import lumenLogo from "public/projects/lumen-logo.png";
 import notionLogo from "public/projects/notion-logo.png";
 import strengthLogo from "public/projects/strength-logo.png";
-import shapeLogo from "public/projects/shape-logo.png";
+import githubLogo from "public/projects/github-logo.png";
 import avatar from "public/avatar.png";
 
 import { getActivities, getActivity } from "lib/strava";
@@ -65,10 +65,10 @@ const workplaces = [
 
 const sideProjects = [
 	{
-		title: "Shape",
-		description: "A calendar for your workouts",
-		imageSrc: shapeLogo,
-		link: "https://shape.beta.yuricunha.com",
+		title: "Top Github User",
+		description: "Check your ranking in GitHub!",
+		imageSrc: githubLogo,
+		link: "https://isyuricunha.github.io/top-github-users/",
 	},
 	{
 		title: "Trail Routes",
