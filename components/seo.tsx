@@ -2,7 +2,8 @@ import { DefaultSeo } from "next-seo";
 
 const config = {
 	title: "Yuri Cunha",
-	description: "I design & build database",
+	description:
+		"Not just a DBA, but a data craftsman building digital legacies.",
 	openGraph: {
 		type: "website",
 		locale: "en_US",

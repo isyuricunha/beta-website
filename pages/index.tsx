@@ -25,7 +25,9 @@ export default function Home({ posts, projects }: HomeProps) {
 						className="text-secondary animate-in"
 						style={{ "--index": 1 } as React.CSSProperties}
 					>
-						I design & build database
+						I design & build database. <br />
+						Big data whisperer, AI confidante: I bridge the gap between silicon
+						and insight.
 					</p>
 				</div>
 				<div
