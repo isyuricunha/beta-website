@@ -124,7 +124,7 @@ export default function About({
 					<Section heading="About me" headingAlignment="right">
 						<div className="flex flex-col gap-6">
 							<p>
-								<em className="font-semibold">Hi there!</em>&nbsp; I’m Samuel, a
+								<em className="font-semibold">Hi there!</em>&nbsp; I’m Yuri, a
 								designer/database administrator hybrid that loves to build great
 								products with delightful interfaces.
 							</p>
