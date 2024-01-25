@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import cn from "clsx";
 import localFont from "@next/font/local";
 
-import imageGotland from "public/gallery/me.jpg";
+import imageMe from "public/gallery/me.jpg";
 import imageRun from "public/gallery/running.jpg";
+import imageTravelling from "public/gallery/travelling-qebec.jpg";
 import imageSkate from "public/gallery/skate.jpg";
 import imageTrailrun from "public/gallery/trailrun.jpg";
 import { ReactNode } from "react";
@@ -144,9 +145,9 @@ export default function Gallery({
 		<>
 			<section className="flex gap-4 h-[268px] relative">
 				<Photo
-					src={imageGotland}
-					meta="2021-07-12"
-					alt="Yuri Cunha in Gotland"
+					src={imageTravelling}
+					meta="2024-01-04"
+					alt="Yuri Cunha in Qebec"
 					width={314}
 					height={229}
 					rotate={-6}
@@ -154,15 +155,15 @@ export default function Gallery({
 					index={1}
 				/>
 				<Photo
-					src={imageSkate}
-					meta="2017-07-04"
-					alt="Samuel skateboarding"
-					width={180}
+					src={imageMe}
+					meta="2021-07-12"
+					alt="Yuri Cunha in House"
+					width={240}
 					height={240}
 					rotate={6.3}
 					left={198}
 					index={2}
-					flipDirection="left"
+					flipDirection="right"
 				/>
 				<Photo
 					src={imageRun}
