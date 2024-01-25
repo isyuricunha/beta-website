@@ -33,7 +33,7 @@ const workplaces = [
 		link: "https://bitrefill.com",
 	},
 	{
-		title: "Frontend Developer",
+		title: "Database Administrator",
 		description: "Tracklib",
 		time: "2016 - 2021",
 		imageSrc: tracklibLogo,
@@ -74,16 +74,16 @@ const sideProjects = [
 		link: "https://isyuricunha.github.io/strength/",
 	},
 	{
-		title: "yuricunha",
+		title: "Website",
 		description: "The website you are looking at!",
 		imageSrc: avatar,
-		link: "https://github.com/isyuricunha/yuricunha",
+		link: "https://github.com/isyuricunha/Website",
 	},
 ];
 
 const seoTitle = "About / Yuri Cunha";
 const seoDesc =
-	"A designer/frontend developer hybrid that loves to build great products with delightful interfaces.";
+	"I'm not just a DBA, I'm the data whisperer, the performance guru, the uptime champion.";
 
 export default function About({
 	lastActivity,
@@ -125,7 +125,7 @@ export default function About({
 						<div className="flex flex-col gap-6">
 							<p>
 								<em className="font-semibold">Hi there!</em>&nbsp; I’m Samuel, a
-								designer/frontend developer hybrid that loves to build great
+								designer/database administrator hybrid that loves to build great
 								products with delightful interfaces.
 							</p>
 							<p>
