@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import cn from "clsx";
 import localFont from "@next/font/local";
 
-import imageGotland from "public/gallery/gotland.jpg";
+import imageGotland from "public/gallery/me.jpg";
 import imageRun from "public/gallery/running.jpg";
 import imageSkate from "public/gallery/skate.jpg";
 import imageTrailrun from "public/gallery/trailrun.jpg";
