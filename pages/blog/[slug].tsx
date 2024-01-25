@@ -40,7 +40,7 @@ export default function Post({ post, related }: PostProps) {
 						{
 							url: post.og
 								? `https://beta.yuricunha.com${post.og}`
-								: `https://og-image.samuelkraft.vercel.app/${encodeURIComponent(
+								: `https://og-image.yu.vercel.app/${encodeURIComponent(
 										post.title
 								  )}?desc=${encodeURIComponent(seoDesc)}&theme=dark.png`,
 							alt: post.title,

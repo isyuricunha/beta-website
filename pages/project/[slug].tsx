@@ -34,7 +34,7 @@ export default function Project({ project, rest }: ProjectProps) {
 					description: seoDesc,
 					images: [
 						{
-							url: `https://og-image.samuelkraft.vercel.app/${encodeURIComponent(
+							url: `https://og-image.yuricunha.vercel.app/${encodeURIComponent(
 								project.title
 							)}?desc=${encodeURIComponent("Case study")}&theme=dark.png`,
 							alt: project.title,

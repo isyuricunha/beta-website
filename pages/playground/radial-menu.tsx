@@ -236,7 +236,7 @@ export default function Playground() {
 					description: desc,
 					images: [
 						{
-							url: `https://og-image.samuelkraft.vercel.app/${encodeURIComponent(
+							url: `https://og-image.yuricunha.vercel.app/${encodeURIComponent(
 								title
 							)}?desc=${encodeURIComponent(desc)}&theme=dark.png`,
 							alt: title,

@@ -19,9 +19,9 @@ import avatar from "public/avatar.png";
 import { getActivities, getActivity } from "lib/strava";
 
 export const connectLinks = [
-	{ label: "Email", href: "mailto:me@beta.yuricunha.com" },
-	{ label: "Twitter", href: "https://twitter.com/samuelkraft" },
-	{ label: "GitHub", href: "https://github.com/samuelkraft" },
+	{ label: "Email", href: "mailto:me@yuricunha.com" },
+	{ label: "Twitter", href: "https://twitter.com/isyuricunha" },
+	{ label: "GitHub", href: "https://github.com/isyuricunha" },
 ];
 
 const workplaces = [
@@ -59,25 +59,25 @@ const sideProjects = [
 		title: "Trail Routes",
 		description: "Mapping platform built with react, mapbox, swiftUI",
 		imageSrc: trailroutesLogo,
-		link: "https://github.com/samuelkraft/routes",
+		link: "https://github.com/isyuricunha/routes",
 	},
 	{
 		title: "notion-blog-nextjs",
 		description: "Next.js starter repo with a blog powered by Notion",
 		imageSrc: notionLogo,
-		link: "https://github.com/samuelkraft/notion-blog-nextjs",
+		link: "https://github.com/isyuricunha/notion-blog-nextjs",
 	},
 	{
 		title: "Strength",
 		description: "iOS & WatchOS strength tracking app",
 		imageSrc: strengthLogo,
-		link: "https://samuelkraft.github.io/strength/",
+		link: "https://isyuricunha.github.io/strength/",
 	},
 	{
-		title: "samuelkraft-next",
+		title: "yuricunha",
 		description: "The website you are looking at!",
 		imageSrc: avatar,
-		link: "https://github.com/samuelkraft/samuelkraft-next",
+		link: "https://github.com/isyuricunha/yuricunha",
 	},
 ];
 
