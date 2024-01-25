@@ -15,6 +15,7 @@ import lumenLogo from "public/projects/lumen-logo.png";
 import notionLogo from "public/projects/notion-logo.png";
 import strengthLogo from "public/projects/strength-logo.png";
 import githubLogo from "public/projects/github-logo.png";
+import rainforrelaxLogo from "public/projects/rain-for-relax-logo.png";
 import avatar from "public/avatar.png";
 
 import { getActivities, getActivity } from "lib/strava";
@@ -71,10 +72,10 @@ const sideProjects = [
 		link: "https://isyuricunha.github.io/top-github-users/",
 	},
 	{
-		title: "Trail Routes",
-		description: "Mapping platform built with react, mapbox, swiftUI",
-		imageSrc: lumenLogo,
-		link: "https://github.com/isyuricunha/routes",
+		title: "Rain for relax",
+		description: "Just appreciate. Relax. Be well",
+		imageSrc: rainforrelaxLogo,
+		link: "https://www.rain-for-relax.yuricunha.com/",
 	},
 	{
 		title: "notion-blog-nextjs",
