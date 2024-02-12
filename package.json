@@ -14,7 +14,7 @@
 		"@headlessui/react": "^1.7.18",
 		"@mapbox/polyline": "^1.2.1",
 		"@next/font": "^13.1.1",
-		"@radix-ui/colors": "^0.1.8",
+		"@radix-ui/colors": "^3.0.0",
 		"clsx": "^2.1.0",
 		"contentlayer": "^0.2.9",
 		"faunadb": "^4.8.0",
