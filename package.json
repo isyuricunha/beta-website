@@ -21,7 +21,7 @@
 		"framer-motion": "^11.0.5",
 		"globby": "^14.0.1",
 		"next": "13.1.1",
-		"next-contentlayer": "^0.2.9",
+		"next-contentlayer": "^0.3.3",
 		"next-seo": "^6.5.0",
 		"next-themes": "^0.2.1",
 		"random-words": "^1.2.1",
