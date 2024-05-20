@@ -17,6 +17,7 @@
 		"@radix-ui/colors": "^0.1.8",
 		"clsx": "^1.2.1",
 		"contentlayer": "^0.2.9",
+		"esbuild": "0.14.54",
 		"faunadb": "^4.7.1",
 		"framer-motion": "^10.11.2",
 		"globby": "^13.1.3",
