@@ -43,4 +43,3 @@ next-env.d.ts
 .vscode/*
 !.vscode/launch.json
 .env
-pnpm-lock.yaml
