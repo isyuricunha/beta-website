@@ -6,7 +6,6 @@ import Link from "components/Link";
 import Section from "components/Section";
 import PostList from "components/postlist";
 
-import BitrefillGraphic from "components/projects/BitrefillGraphic";
 import TrailRoutesGraphic from "components/projects/TrailRoutesGraphic";
 import RainForRelaxGraphic from "components/projects/RainForRelaxGraphic";
 
@@ -51,7 +50,6 @@ export default function Home({ posts, projects }: HomeProps) {
 											{project.slug === "rainforrelax" && (
 												<RainForRelaxGraphic />
 											)}
-											{project.slug === "bitrefill" && <BitrefillGraphic />}
 											{project.slug === "trailroutes" && <TrailRoutesGraphic />}
 										</Link>
 									</div>
