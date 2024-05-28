@@ -36,7 +36,7 @@ const workplaces = [
 	{
 		title: "Senior Database Administrator",
 		description: "Laryssa Costa logo",
-		time: "2022 - Now",
+		time: "2022 - 2024",
 		imageSrc: laryssacostaLogo,
 		link: "https://www.massagealternativa.com/",
 	},
