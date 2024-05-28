@@ -26,13 +26,13 @@ export const connectLinks = [
 ];
 
 const workplaces = [
-	{
-		title: "Database Administrator & Specialist",
-		description: "Yuri Cunha",
-		time: "2022 - Now",
-		imageSrc: yuricunhaLogo,
-		link: "https://yuricunha.com",
-	},
+	// {
+	// 	title: "Database Administrator & Specialist",
+	// 	description: "Yuri Cunha",
+	// 	time: "2022 - Now",
+	// 	imageSrc: yuricunhaLogo,
+	// 	link: "https://yuricunha.com",
+	// },
 	{
 		title: "Senior Database Administrator",
 		description: "Laryssa Costa logo",
