@@ -95,7 +95,7 @@ const Metrics = () => {
     },
     {
       title: t('dashboard.metric.blog-total-views'),
-      link: 'https://honghong.me',
+      link: 'https://yuricunha.com',
       value: viewsQuery.data?.views,
       icon: <PencilIcon className='size-6 text-[#ff0f7b]' />,
       linkText: 'Blog',
@@ -106,7 +106,7 @@ const Metrics = () => {
     },
     {
       title: t('dashboard.metric.blog-total-likes'),
-      link: 'https://honghong.me',
+      link: 'https://yuricunha.com',
       value: likesQuery.data?.likes,
       icon: <PencilIcon className='size-6 text-[#ff0f7b]' />,
       linkText: 'Blog',
