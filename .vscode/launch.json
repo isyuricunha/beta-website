@@ -1,28 +1,28 @@
 {
-  "version": "0.2.0",
   "configurations": [
     {
+      "command": "pnpm dev",
       "name": "Next.js: debug server-side",
-      "type": "node-terminal",
       "request": "launch",
-      "command": "yarn dev"
+      "type": "node-terminal"
     },
     {
       "name": "Next.js: debug client-side",
-      "type": "chrome",
       "request": "launch",
+      "type": "chrome",
       "url": "http://localhost:3000"
     },
     {
+      "command": "pnpm dev",
       "name": "Next.js: debug full stack",
-      "type": "node-terminal",
       "request": "launch",
-      "command": "yarn dev",
       "serverReadyAction": {
+        "action": "debugWithChrome",
         "pattern": "started server on .+, url: (https?://.+)",
-        "uriFormat": "%s",
-        "action": "debugWithChrome"
-      }
+        "uriFormat": "%s"
+      },
+      "type": "node-terminal"
     }
-  ]
+  ],
+  "version": "0.2.0"
 }
