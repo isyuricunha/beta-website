@@ -12,10 +12,7 @@ const Footer = () => {
             </Link>
           </Column>
           <Column className='align-middle'>
-            <Link
-              href='https://github.com/tszhong0411/yuricunha.com'
-              className='text-xl text-black'
-            >
+            <Link href='https://github.com/tszhong0411/beta-website' className='text-xl text-black'>
               <Img
                 src='https://yuricunha.com/images/email/github.png'
                 alt='GitHub'

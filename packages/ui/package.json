@@ -4,13 +4,13 @@
   "description": "The UI components for tszhong0411's projects",
   "license": "MIT",
   "author": "tszhong0411 <me@yuricunha.com> (https://github.com/tszhong0411/)",
-  "homepage": "https://github.com/tszhong0411/yuricunha.com#readme",
+  "homepage": "https://github.com/tszhong0411/beta-website#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tszhong0411/yuricunha.com.git"
+    "url": "git+https://github.com/tszhong0411/beta-website.git"
   },
   "bugs": {
-    "url": "https://github.com/tszhong0411/yuricunha.com/issues"
+    "url": "https://github.com/tszhong0411/beta-website/issues"
   },
   "type": "module",
   "exports": {

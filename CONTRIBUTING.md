@@ -14,7 +14,7 @@ Welcome to the yuricunha.com repository! We're glad you're interested in contrib
 
 ## Issues
 
-If you encounter any issues, have suggestions, or want to report a bug, feel free to [create an issue](https://github.com/tszhong0411/yuricunha.com/issues). When creating an issue, please include a clear and descriptive title, along with relevant details about the problem or suggestion. This will help us understand and address the issue more effectively.
+If you encounter any issues, have suggestions, or want to report a bug, feel free to [create an issue](https://github.com/tszhong0411/beta-website/issues). When creating an issue, please include a clear and descriptive title, along with relevant details about the problem or suggestion. This will help us understand and address the issue more effectively.
 
 ## Pull Requests
 

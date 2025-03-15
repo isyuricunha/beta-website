@@ -8,7 +8,7 @@ type EditOnGitHubProps = {
 const EditOnGitHub = (props: EditOnGitHubProps) => {
   const { filePath } = props
 
-  const url = `https://github.com/tszhong0411/yuricunha.com/blob/main/apps/docs/src/content/${filePath}`
+  const url = `https://github.com/tszhong0411/beta-website/blob/main/apps/docs/src/content/${filePath}`
 
   return (
     <Link href={url} className='inline-flex items-center gap-2 text-sm font-medium' variant='muted'>
