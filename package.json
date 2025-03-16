@@ -1,10 +1,10 @@
 {
   "private": true,
-  "name": "website",
-  "author": "tszhong0411 <me@yuricunha.com> (https://github.com/tszhong0411/)",
+  "name": "honghong-me",
+  "author": "tszhong0411 <me@honghong.me> (https://github.com/tszhong0411/)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tszhong0411/beta-website.git"
+    "url": "git+https://github.com/tszhong0411/honghong.me.git"
   },
   "type": "module",
   "scripts": {
@@ -31,7 +31,7 @@
     "format:write": "prettier --cache --write --list-different --ignore-path .gitignore --ignore-path .prettierignore .",
     "preinstall": "npx --yes only-allow pnpm",
     "lint": "turbo lint && eslint . --max-warnings 0",
-    "lint:fix": "turbo lint:fix && eslint --fix --no-warn-ignored .",
+    "lint:fix": "turbo lint:fix && eslint --fix .",
     "prepare": "simple-git-hooks && pnpm build:packages",
     "release": "changeset publish",
     "test:e2e": "turbo test:e2e",
@@ -48,11 +48,6 @@
     "commitizen": {
       "path": "./node_modules/cz-git"
     }
-  },
-  "dependencies": {
-    "@t3-oss/env-nextjs": "^0.12.0",
-    "@tszhong0411/ui": "^0.0.61",
-    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
@@ -73,7 +68,6 @@
     "cz-git": "^1.11.0",
     "dotenv-cli": "^8.0.0",
     "eslint": "^9.21.0",
-    "eslint-plugin-json": "^4.0.1",
     "jsdom": "^26.0.0",
     "knip": "^5.45.0",
     "lint-staged": "^15.4.3",

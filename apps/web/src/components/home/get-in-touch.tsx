@@ -124,10 +124,10 @@ const GetInTouch = () => {
             </p>
             <div className='my-8'>
               <a
-                href='mailto:me@yuricunha.com'
+                href='mailto:me@honghong.me'
                 className='bg-email-button rounded-full px-4 py-2 text-sm text-white'
               >
-                me@yuricunha.com
+                me@honghong.me
               </a>
             </div>
           </div>

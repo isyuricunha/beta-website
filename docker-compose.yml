@@ -3,43 +3,43 @@ version: '3'
 services:
   db:
     image: postgres:16-alpine
-    container_name: isyuricunhame-postgres
+    container_name: honghongme-postgres
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=isyuricunhame
+      - POSTGRES_DB=honghongme
     volumes:
       - db:/var/lib/postgresql/data
     networks:
-      - isyuricunhame-network
+      - honghongme-network
   redis:
     image: redis
-    container_name: isyuricunhame-redis
+    container_name: honghongme-redis
     ports:
       - '6379:6379'
     volumes:
       - redis:/data
     networks:
-      - isyuricunhame-network
+      - honghongme-network
 
   serverless-redis-http:
     image: hiett/serverless-redis-http:latest
-    container_name: isyuricunhame-redis-http
+    container_name: honghongme-redis-http
     ports:
       - '8079:80'
     environment:
       SRH_MODE: env
-      SRH_TOKEN: isyuricunhame
+      SRH_TOKEN: honghongme
       SRH_CONNECTION_STRING: 'redis://redis:6379'
     networks:
-      - isyuricunhame-network
+      - honghongme-network
 
 volumes:
   db:
   redis:
 
 networks:
-  isyuricunhame-network:
+  honghongme-network:
     driver: bridge

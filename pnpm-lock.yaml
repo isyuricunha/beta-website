@@ -7,16 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@t3-oss/env-nextjs':
-        specifier: ^0.12.0
-        version: 0.12.0(typescript@5.7.3)(valibot@1.0.0-beta.15(typescript@5.7.3))(zod@3.24.2)
-      '@tszhong0411/ui':
-        specifier: ^0.0.61
-        version: 0.0.61(@tanstack/react-table@8.21.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@tszhong0411/utils@0.0.21)(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(next@15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
-      zod:
-        specifier: ^3.24.2
-        version: 3.24.2
     devDependencies:
       '@changesets/cli':
         specifier: ^2.28.1
@@ -72,9 +62,6 @@ importers:
       eslint:
         specifier: ^9.21.0
         version: 9.21.0(jiti@2.4.2)
-      eslint-plugin-json:
-        specifier: ^4.0.1
-        version: 4.0.1
       jsdom:
         specifier: ^26.0.0
         version: 26.0.0
@@ -128,7 +115,7 @@ importers:
         version: 0.7.1
       geist:
         specifier: ^1.3.1
-        version: 1.3.1(next@15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: 1.3.1(next@15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       hast-util-to-jsx-runtime:
         specifier: ^2.3.5
         version: 2.3.5
@@ -137,7 +124,7 @@ importers:
         version: 0.476.0(react@19.0.0)
       next:
         specifier: ^15.2.0
-        version: 15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-themes:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -174,7 +161,7 @@ importers:
         version: 0.2.0(@content-collections/core@0.8.0(typescript@5.7.3))(acorn@8.14.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@content-collections/next':
         specifier: ^0.2.4
-        version: 0.2.4(@content-collections/core@0.8.0(typescript@5.7.3))(next@15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: 0.2.4(@content-collections/core@0.8.0(typescript@5.7.3))(next@15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       '@next/bundle-analyzer':
         specifier: ^15.2.0
         version: 15.2.0
@@ -596,7 +583,7 @@ importers:
     dependencies:
       next-intl:
         specifier: ^3.26.5
-        version: 3.26.5(next@15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+        version: 3.26.5(next@15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@tszhong0411/eslint-config':
         specifier: workspace:*
@@ -609,7 +596,7 @@ importers:
         version: 19.0.10
       next:
         specifier: ^15.2.0
-        version: 15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   packages/kv:
     dependencies:
@@ -721,7 +708,7 @@ importers:
     dependencies:
       next:
         specifier: ^15.2.0
-        version: 15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       typescript:
         specifier: 5.x
         version: 5.5.4
@@ -872,7 +859,7 @@ importers:
         version: 19.0.4(@types/react@19.0.10)
       next:
         specifier: ^15.2.0
-        version: 15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -5022,18 +5009,6 @@ packages:
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  '@tszhong0411/ui@0.0.61':
-    resolution: {integrity: sha512-2TKWv31/3UOj8IghIPwBgp4JVoIEy5yDULSWIS1H+qR9B2i4JheQnHXweuzSZE9AgbezRY7oX5Nbb/HNS/0psA==}
-    peerDependencies:
-      '@tanstack/react-table': ^8
-      '@tszhong0411/utils': '>=0'
-      next: ^15
-      react: ^19
-      react-dom: ^19
-
-  '@tszhong0411/utils@0.0.21':
-    resolution: {integrity: sha512-dx9F0J9PRt9QbvPlVzguXHDMDWbxm4psqHiwkqLW4q2LYOXE1RA6ANnXEQoQvwZ+ENsjZWm+cDHwnc7dnHGCGQ==}
-
   '@turbo/gen@2.4.4':
     resolution: {integrity: sha512-02DR0UFngfVROq/L7j4VdkpT46Rnk5mm8i5AE985jV114SjuN57Y2oBjSK9Lzm6hlun/H0MQtdJBRybk4nRIAQ==}
     hasBin: true
@@ -7024,10 +6999,6 @@ packages:
       '@typescript-eslint/parser':
         optional: true
 
-  eslint-plugin-json@4.0.1:
-    resolution: {integrity: sha512-3An5ISV5dq/kHfXdNyY5TUe2ONC3yXFSkLX2gu+W8xAhKhfvrRvkSAeKXCxZqZ0KJLX15ojBuLPyj+UikQMkOA==}
-    engines: {node: '>=18.0'}
-
   eslint-plugin-jsx-a11y@6.10.2:
     resolution: {integrity: sha512-scB3nz4WmG75pV8+3eRUQOHZlNSUhFNq37xnpgRkCCELU3XMvXAxLk1eqWWyE22Ki4Q01Fnsw9BA3cJHDPgn2Q==}
     engines: {node: '>=4.0'}
@@ -8297,9 +8268,6 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
-
-  jsonc-parser@3.3.1:
-    resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
 
   jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
@@ -11326,17 +11294,8 @@ packages:
   vlq@1.0.1:
     resolution: {integrity: sha512-gQpnTgkubC6hQgdIcRdYGDSDc+SaujOdyesZQMv6JlfQee/9Mp0Qhnys6WxDWvQnL5WZdT7o2Ul187aSt0Rq+w==}
 
-  vscode-json-languageservice@4.2.1:
-    resolution: {integrity: sha512-xGmv9QIWs2H8obGbWg+sIPI/3/pFgj/5OWBhNzs00BkYQ9UaB2F6JJaGB/2/YOZJ3BvLXQTC4Q7muqU25QgAhA==}
-
   vscode-languageserver-textdocument@1.0.12:
     resolution: {integrity: sha512-cxWNPesCnQCcMPeenjKKsOCKQZ/L6Tv19DTRIGuLWe32lyzWhihGVJ/rcckZXJxfdKCFvRLS3fpBIsV/ZGX4zA==}
-
-  vscode-languageserver-types@3.17.5:
-    resolution: {integrity: sha512-Ld1VelNuX9pdF39h2Hgaeb5hEZM2Z3jUrrMgWQAu82jMtZp7p3vJT3BzToKtZI7NgQssZje5o0zryOrhQvzQAg==}
-
-  vscode-nls@5.2.0:
-    resolution: {integrity: sha512-RAaHx7B14ZU04EU31pT+rKz2/zSl7xMsfIZuo8pd+KZO6PXtQmpevpq3vxvWNcrGbdmhM/rr5Uw5Mz+NBfhVng==}
 
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
@@ -12890,6 +12849,12 @@ snapshots:
       '@content-collections/core': 0.8.0(typescript@5.7.3)
       '@content-collections/integrations': 0.2.1(@content-collections/core@0.8.0(typescript@5.7.3))
       next: 15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+
+  '@content-collections/next@0.2.4(@content-collections/core@0.8.0(typescript@5.7.3))(next@15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
+    dependencies:
+      '@content-collections/core': 0.8.0(typescript@5.7.3)
+      '@content-collections/integrations': 0.2.1(@content-collections/core@0.8.0(typescript@5.7.3))
+      next: 15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   '@cspell/cspell-bundled-dicts@8.17.5':
     dependencies:
@@ -15895,66 +15860,6 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@tszhong0411/ui@0.0.61(@tanstack/react-table@8.21.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@tszhong0411/utils@0.0.21)(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(next@15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)':
-    dependencies:
-      '@ark-ui/react': 4.9.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@icons-pack/react-simple-icons': 12.0.0(react@19.0.0)
-      '@radix-ui/react-accordion': 1.2.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-alert-dialog': 1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-aspect-ratio': 1.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-avatar': 1.1.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-checkbox': 1.1.4(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-collapsible': 1.1.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-context': 1.1.1(@types/react@19.0.10)(react@19.0.0)
-      '@radix-ui/react-context-menu': 2.2.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-dialog': 1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-dropdown-menu': 2.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-hover-card': 1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-label': 2.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-menubar': 1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-navigation-menu': 1.2.5(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-popover': 1.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-radio-group': 1.2.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-scroll-area': 1.2.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-select': 2.1.6(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-separator': 1.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-slot': 1.1.2(@types/react@19.0.10)(react@19.0.0)
-      '@radix-ui/react-switch': 1.1.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-tabs': 1.1.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-toggle': 1.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-toggle-group': 1.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-tooltip': 1.1.8(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@radix-ui/react-visually-hidden': 1.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tailwindcss/typography': 0.5.16(tailwindcss@4.0.9)
-      '@tanstack/react-table': 8.21.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tszhong0411/utils': 0.0.21
-      cmdk: 1.0.4(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      cva: 1.0.0-beta.3(typescript@5.7.3)
-      embla-carousel-react: 8.5.2(react@19.0.0)
-      framer-motion: 12.4.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      input-otp: 1.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      lucide-react: 0.476.0(react@19.0.0)
-      merge-refs: 1.3.0(@types/react@19.0.10)
-      next: 15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      react-hook-form: 7.54.2(react@19.0.0)
-      react-resizable-panels: 2.1.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react-textarea-autosize: 8.5.7(@types/react@19.0.10)(react@19.0.0)
-      sonner: 2.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      vaul: 1.1.2(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-    transitivePeerDependencies:
-      - '@emotion/is-prop-valid'
-      - '@types/react'
-      - '@types/react-dom'
-      - tailwindcss
-      - typescript
-
-  '@tszhong0411/utils@0.0.21':
-    dependencies:
-      clsx: 2.1.1
-      tailwind-merge: 3.0.2
-
   '@turbo/gen@2.4.4(@types/node@22.13.5)(typescript@5.7.3)':
     dependencies:
       '@turbo/workspaces': 2.4.4
@@ -18504,11 +18409,6 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-json@4.0.1:
-    dependencies:
-      lodash: 4.17.21
-      vscode-json-languageservice: 4.2.1
-
   eslint-plugin-jsx-a11y@6.10.2(eslint@9.21.0(jiti@2.4.2)):
     dependencies:
       aria-query: 5.3.2
@@ -19130,6 +19030,10 @@ snapshots:
   geist@1.3.1(next@15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
     dependencies:
       next: 15.2.0(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+
+  geist@1.3.1(next@15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
+    dependencies:
+      next: 15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   gel@2.0.0:
     dependencies:
@@ -20036,8 +19940,6 @@ snapshots:
       minimist: 1.2.8
 
   json5@2.2.3: {}
-
-  jsonc-parser@3.3.1: {}
 
   jsonfile@4.0.0:
     optionalDependencies:
@@ -21125,6 +21027,14 @@ snapshots:
       react: 19.0.0
       use-intl: 3.26.5(react@19.0.0)
 
+  next-intl@3.26.5(next@15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0):
+    dependencies:
+      '@formatjs/intl-localematcher': 0.5.9
+      negotiator: 1.0.0
+      next: 15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react: 19.0.0
+      use-intl: 3.26.5(react@19.0.0)
+
   next-themes@0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       react: 19.0.0
@@ -21168,6 +21078,33 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       styled-jsx: 5.1.6(@babel/core@7.26.0)(react@19.0.0)
+    optionalDependencies:
+      '@next/swc-darwin-arm64': 15.2.0
+      '@next/swc-darwin-x64': 15.2.0
+      '@next/swc-linux-arm64-gnu': 15.2.0
+      '@next/swc-linux-arm64-musl': 15.2.0
+      '@next/swc-linux-x64-gnu': 15.2.0
+      '@next/swc-linux-x64-musl': 15.2.0
+      '@next/swc-win32-arm64-msvc': 15.2.0
+      '@next/swc-win32-x64-msvc': 15.2.0
+      '@opentelemetry/api': 1.9.0
+      '@playwright/test': 1.50.1
+      sharp: 0.33.5
+    transitivePeerDependencies:
+      - '@babel/core'
+      - babel-plugin-macros
+
+  next@15.2.0(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      '@next/env': 15.2.0
+      '@swc/counter': 0.1.3
+      '@swc/helpers': 0.5.15
+      busboy: 1.6.0
+      caniuse-lite: 1.0.30001696
+      postcss: 8.4.31
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      styled-jsx: 5.1.6(@babel/core@7.24.5)(react@19.0.0)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.2.0
       '@next/swc-darwin-x64': 15.2.0
@@ -23588,19 +23525,7 @@ snapshots:
 
   vlq@1.0.1: {}
 
-  vscode-json-languageservice@4.2.1:
-    dependencies:
-      jsonc-parser: 3.3.1
-      vscode-languageserver-textdocument: 1.0.12
-      vscode-languageserver-types: 3.17.5
-      vscode-nls: 5.2.0
-      vscode-uri: 3.1.0
-
   vscode-languageserver-textdocument@1.0.12: {}
-
-  vscode-languageserver-types@3.17.5: {}
-
-  vscode-nls@5.2.0: {}
 
   vscode-uri@3.1.0: {}
 

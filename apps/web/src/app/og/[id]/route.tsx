@@ -134,7 +134,7 @@ export const GET = async (_: Request, props: OGRouteProps) => {
                 fontSize: 30
               }}
             >
-              yuricunha.com
+              honghong.me
             </div>
           </div>
         </div>
