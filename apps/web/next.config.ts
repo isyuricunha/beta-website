@@ -26,7 +26,7 @@ const config: NextConfig = {
     ignoreBuildErrors: !!process.env.CI
   },
 
-  transpilePackages: ['@tszhong0411/*'],
+  transpilePackages: ['@isyuricunha/*'],
 
   images: {
     remotePatterns: [

@@ -37,7 +37,7 @@ const Metrics = () => {
   const data: Card[] = [
     {
       title: t('dashboard.metric.coding-hours'),
-      link: 'https://wakatime.com/@tszhong0411',
+      link: 'https://wakatime.com/@isyuricunha',
       value: wakatimeQuery.data?.seconds
         ? Math.round(wakatimeQuery.data.seconds / 60 / 60)
         : undefined,
@@ -51,7 +51,7 @@ const Metrics = () => {
     },
     {
       title: t('dashboard.metric.youtube-subscribers'),
-      link: 'https://youtube.com/@tszhong0411',
+      link: 'https://youtube.com/@isyuricunha',
       value: youtubeQuery.data?.subscribers,
       icon: <SiYoutube className='text-[#ff0000]' />,
       linkText: 'YouTube',
@@ -62,7 +62,7 @@ const Metrics = () => {
     },
     {
       title: t('dashboard.metric.youtube-views'),
-      link: 'https://youtube.com/@tszhong0411',
+      link: 'https://youtube.com/@isyuricunha',
       value: youtubeQuery.data?.views,
       icon: <SiYoutube className='text-[#ff0000]' />,
       linkText: 'YouTube',
@@ -73,7 +73,7 @@ const Metrics = () => {
     },
     {
       title: t('dashboard.metric.github-followers'),
-      link: 'https://github.com/tszhong0411',
+      link: 'https://github.com/isyuricunha',
       value: githubQuery.data?.followers,
       icon: <SiGithub className='text-[#fee000]' />,
       linkText: 'GitHub',
@@ -84,7 +84,7 @@ const Metrics = () => {
     },
     {
       title: t('dashboard.metric.github-stars'),
-      link: 'https://github.com/tszhong0411',
+      link: 'https://github.com/isyuricunha',
       value: githubQuery.data?.stars,
       icon: <StarIcon className='size-6 text-[#fee000]' />,
       linkText: 'GitHub',
@@ -95,7 +95,7 @@ const Metrics = () => {
     },
     {
       title: t('dashboard.metric.blog-total-views'),
-      link: 'https://honghong.me',
+      link: 'https://yuricunha.com',
       value: viewsQuery.data?.views,
       icon: <PencilIcon className='size-6 text-[#ff0f7b]' />,
       linkText: 'Blog',
@@ -106,7 +106,7 @@ const Metrics = () => {
     },
     {
       title: t('dashboard.metric.blog-total-likes'),
-      link: 'https://honghong.me',
+      link: 'https://yuricunha.com',
       value: likesQuery.data?.likes,
       icon: <PencilIcon className='size-6 text-[#ff0f7b]' />,
       linkText: 'Blog',

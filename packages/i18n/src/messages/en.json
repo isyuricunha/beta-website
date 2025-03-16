@@ -1,6 +1,6 @@
 {
   "about": {
-    "description": "👋 Hi there! I am Nelson Lai, a student who loves web development.",
+    "description": "👋 Hi there! I am Yuri Cunha, a student who loves web development.",
     "title": "About"
   },
   "admin": {
@@ -71,7 +71,7 @@
       "toggle-italic": "Toggle italic",
       "toggle-strikethrough": "Toggle strikethrough"
     },
-    "description": "My personal website and blog where I share my thoughts on various topics including tutorials, notes, and personal experiences. As a full-stack engineer from Hong Kong, I started learning web development as a hobby in December 2020. I use Next.js for building websites, GitHub for code hosting, and Vercel for deployment. Explore my site to learn more about my Journey and discover some of the web development resources that have inspired me.",
+    "description": "My personal website and blog where I share my thoughts on various topics including tutorials, notes, and personal experiences. As a full-stack engineer from Brazil, I started learning web development as a hobby in December 2020. I use Next.js for building websites, GitHub for code hosting, and Vercel for deployment. Explore my site to learn more about my Journey and discover some of the web development resources that have inspired me.",
     "footer": {
       "edit-on-github": "Edit on GitHub",
       "last-updated": "Last updated: {date}"
@@ -173,7 +173,7 @@
       "coding-hours": "Coding hours",
       "connect": "Connect",
       "fav-framework": "Fav. framework",
-      "location": "Hong Kong",
+      "location": "Brazil",
       "more": "Know more about me",
       "stacks": "Stacks",
       "title": "About Me"
@@ -187,12 +187,12 @@
       "amazing": "Amazing",
       "attractive": "Attractive",
       "fantastic": "Fantastic",
-      "location-timezone": "Hong Kong • UTC/GMT +8",
+      "location-timezone": "Brazil • UTC/GMT -3",
       "stunning": "Stunning",
       "title-bottom": "React",
       "title-middle-left": "building",
       "title-middle-right": "websites using",
-      "title-top": "I'm Nelson, a Full Stack Engineer"
+      "title-top": "I'm Yuri, a Full Stack Engineer"
     },
     "latest-articles": {
       "card": "Article",
@@ -237,8 +237,8 @@
     "link-to-section": "Link to section"
   },
   "metadata": {
-    "site-description": "Nelson Lai • 18 y/o • Student • Full Stack Engineer",
-    "site-title": "Nelson Lai - A Full Stack Engineer"
+    "site-description": "Yuri Cunha • 18 y/o • Student • Full Stack Engineer",
+    "site-title": "Yuri Cunha - A Full Stack Engineer"
   },
   "not-found": "Page Not Found!",
   "projects": {

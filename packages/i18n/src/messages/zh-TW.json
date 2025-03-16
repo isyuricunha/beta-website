@@ -1,6 +1,6 @@
 {
   "about": {
-    "description": "👋 嗨！我是 Nelson Lai，一個熱愛網頁開發的學生。",
+    "description": "👋 嗨！我是 Yuri Cunha，一個熱愛網頁開發的學生。",
     "title": "關於"
   },
   "admin": {
@@ -192,7 +192,7 @@
       "title-bottom": "並使用 React 開發",
       "title-middle-left": "製作",
       "title-middle-right": "的網站",
-      "title-top": "我是 Nelson，一位全端工程師"
+      "title-top": "我是 Yuri，一位全端工程師"
     },
     "latest-articles": {
       "card": "文章",
@@ -237,8 +237,8 @@
     "link-to-section": "連結至章節"
   },
   "metadata": {
-    "site-description": "Nelson Lai • 18 y/o • 學生 • 全端工程師",
-    "site-title": "Nelson Lai - 一名全端工程師"
+    "site-description": "Yuri Cunha • 18 y/o • 學生 • 全端工程師",
+    "site-title": "Yuri Cunha - 一名全端工程師"
   },
   "not-found": "找不到頁面！",
   "projects": {
