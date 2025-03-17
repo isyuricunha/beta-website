@@ -110,7 +110,7 @@ const GetInTouch = () => {
                 />
               </svg>
               <span className='relative left-4 rounded-3xl bg-red-500 px-2 py-0.5 text-xs text-white'>
-                Yuri
+                Nelson
               </span>
             </div>
           </div>
@@ -124,10 +124,10 @@ const GetInTouch = () => {
             </p>
             <div className='my-8'>
               <a
-                href='mailto:me@yuricunha.com'
+                href='mailto:me@honghong.me'
                 className='bg-email-button rounded-full px-4 py-2 text-sm text-white'
               >
-                me@yuricunha.com
+                me@honghong.me
               </a>
             </div>
           </div>

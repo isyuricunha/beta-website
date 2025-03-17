@@ -18,7 +18,7 @@
 
 - [ ] Changes are limited to a single feature, bugfix or chore (split larger changes into separate PRs)
 - [ ] `pnpm check` without any issues
-- [ ] I have reviewed [contributor guidelines](https://github.com/isyuricunha/beta-website/blob/main/apps/web/src/content/blog/blob/main/CONTRIBUTING.md)
+- [ ] I have reviewed [contributor guidelines](https://github.com/tszhong0411/honghong.me/blob/main/CONTRIBUTING.md)
 
 ### Screenshots
 

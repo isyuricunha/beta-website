@@ -10,7 +10,7 @@
     "url": "git+https://github.com/tszhong0411/honghong.me.git"
   },
   "bugs": {
-    "url": "https://github.com/isyuricunha/beta-website/blob/main/apps/web/src/content/blog/issues"
+    "url": "https://github.com/tszhong0411/honghong.me/issues"
   },
   "type": "module",
   "main": "./dist/index.js",
