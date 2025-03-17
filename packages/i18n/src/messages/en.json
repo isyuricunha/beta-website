@@ -1,6 +1,6 @@
 {
   "about": {
-    "description": "Hi there! I'm Yuri, a Senior Cloud and Infrastructure Specialist passionate about building resilient systems and ensuring seamless performance. My expertise spans server optimization, database management, and deploying scalable cloud solutions.",
+    "description": "Hi there! I'm Yuri, a Senior Cloud & Infrastructure Architect with 7+ years of experience in building mission-critical systems. My expertise spans hybrid cloud architectures, Kubernetes orchestration, and large-scale database optimization across financial and enterprise sectors.",
     "title": "About"
   },
   "admin": {
@@ -71,7 +71,7 @@
       "toggle-italic": "Toggle italic",
       "toggle-strikethrough": "Toggle strikethrough"
     },
-    "description": "Explore a collection of my blog posts on technology and infrastructure.",
+    "description": "Technical deep dives on cloud-native architectures, infrastructure automation, database scaling strategies or my daily-life.",
     "footer": {
       "edit-on-github": "Edit on GitHub",
       "last-updated": "Last updated: {date}"
@@ -173,7 +173,7 @@
       "coding-hours": "Coding hours",
       "connect": "Connect",
       "fav-framework": "Fav. framework",
-      "location": "Lorem Ipsum",
+      "location": "São Paulo, BR",
       "more": "Know more about me",
       "stacks": "Stacks",
       "title": "About Me"
@@ -181,17 +181,17 @@
     "get-in-touch": {
       "description": "Feel free to reach out to me!",
       "image-alt": "Me sit in front of my desk and coding",
-      "title": "Any questions about Next.js?"
+      "title": "Any questions or only some talk?"
     },
     "hero": {
-      "amazing": "Amazing",
-      "attractive": "Attractive",
-      "fantastic": "Fantastic",
-      "location-timezone": "Lorem Ipsum",
-      "stunning": "Stunning",
-      "title-bottom": "React",
-      "title-middle-left": "building",
-      "title-middle-right": "websites using",
+      "amazing": "scalable",
+      "attractive": "secure",
+      "fantastic": "high-availability",
+      "location-timezone": "Brazil • UTC-3",
+      "stunning": "stunning",
+      "title-bottom": "infrastructure",
+      "title-middle-left": "Architecting",
+      "title-middle-right": "cloud systems using",
       "title-top": "Hi, I'm Yuri!"
     },
     "latest-articles": {
