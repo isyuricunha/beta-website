@@ -1,261 +1,261 @@
 {
   "about": {
-    "description": "👋 Hi there! I am Nelson Lai, a student who loves web development.",
-    "title": "About"
+    "description": "Hi there! I'm Yuri, a Senior Cloud and Infrastructure Specialist passionate about building resilient systems and ensuring seamless performance. My expertise spans server optimization, database management, and deploying scalable cloud solutions. Currently, I'm exploring new opportunities to apply my skills in designing efficient infrastructures and optimizing IT operations. In my previous roles, I mastered fine-tuning databases and creating reliable architectures at companies like Divinobit (now Bairon). What drives me? Solving complex challenges in infrastructure, creating streamlined processes, and transforming raw data into actionable insights. For me, it's like engineering for the digital age — crafting solutions that stand the test of time. While based in Brazil, I often find inspiration in solo travel, discovering diverse landscapes, and immersing myself in new cultures. These adventures keep me refreshed and ready to tackle the next big project. Whether it's managing servers, fine-tuning databases, or scaling cloud platforms, I'm all about delivering excellence and finding harmony in technology. Let's build something remarkable together!",
+    "title": "About me"
   },
   "admin": {
     "nav": {
-      "comments": "Comments",
-      "dashboard": "Dashboard",
-      "general": "General",
-      "users": "Users"
+      "comments": "Lorem Ipsum",
+      "dashboard": "Lorem Ipsum",
+      "general": "Lorem Ipsum",
+      "users": "Lorem Ipsum"
     },
     "page-header": {
       "comments": {
-        "description": "Manage comments from users",
-        "title": "Comments"
+        "description": "Lorem Ipsum",
+        "title": "Lorem Ipsum"
       },
       "users": {
-        "description": "Manage users of the system",
-        "title": "Users"
+        "description": "Lorem Ipsum",
+        "title": "Lorem Ipsum"
       }
     },
     "table": {
       "comments": {
-        "body": "Body",
-        "createdAt": "Created At",
-        "failed-to-fetch-comments-data": "Failed to fetch comments data. Please refresh the page.",
-        "filter-body": "Filter body...",
-        "filter-userId": "Filter user ID...",
-        "type": "Type",
-        "userId": "User ID"
+        "body": "Lorem Ipsum",
+        "createdAt": "Lorem Ipsum",
+        "failed-to-fetch-comments-data": "Lorem Ipsum",
+        "filter-body": "Lorem Ipsum",
+        "filter-userId": "Lorem Ipsum",
+        "type": "Lorem Ipsum",
+        "userId": "Lorem Ipsum"
       },
       "users": {
-        "email": "Email",
-        "failed-to-fetch-users-data": "Failed to fetch users data. Please refresh the page.",
-        "filter-names": "Filter names...",
-        "name": "Name",
-        "role": "Role"
+        "email": "Lorem Ipsum",
+        "failed-to-fetch-users-data": "Lorem Ipsum",
+        "filter-names": "Lorem Ipsum",
+        "name": "A list of all of the public repositories on my GitHub.",
+        "role": "View My Profile"
       }
     }
   },
   "blog": {
     "comments": {
-      "author": "Author",
-      "comment-cannot-be-empty": "Comment cannot be empty",
-      "comment-posted": "Comment posted",
-      "comments": "{count, plural, =1 {comment} other {comments}}",
-      "confirm-delete-comment": "Are you sure you want to delete this comment? This action cannot be undone.",
-      "copy-link": "Copy Link",
-      "delete-a-comment": "Delete a comment",
-      "deleted-a-comment": "Deleted a comment",
-      "dislike": "Dislike",
-      "failed-to-load-comments": "Failed to load comments. Please refresh the page.",
-      "failed-to-load-replies": "Failed to load replies. Please refresh the page.",
-      "like": "Like",
-      "link-copied": "Link copied to clipboard",
-      "need-logged-in-to-rate": "You need to be logged in to rate comments",
-      "newest": "Newest",
-      "no-comments": "No comments",
-      "oldest": "Oldest",
-      "open-menu": "Open menu",
-      "placeholder": "Leave a comment",
-      "replies": "{count, plural, =1 {reply} other {replies}}",
-      "reply": "Reply",
-      "reply-cannot-be-empty": "Reply cannot be empty",
-      "reply-to-comment": "Reply to comment",
-      "send-comment": "Send comment",
-      "sort-by": "Sort by",
-      "this-comment-has-been-deleted": "[This comment has been deleted]",
-      "toggle-bold": "Toggle bold",
-      "toggle-italic": "Toggle italic",
-      "toggle-strikethrough": "Toggle strikethrough"
+      "author": "Lorem Ipsum",
+      "comment-cannot-be-empty": "Lorem Ipsum",
+      "comment-posted": "Lorem Ipsum",
+      "comments": "Lorem Ipsum",
+      "confirm-delete-comment": "Lorem Ipsum",
+      "copy-link": "Lorem Ipsum",
+      "delete-a-comment": "Lorem Ipsum",
+      "deleted-a-comment": "Lorem Ipsum",
+      "dislike": "Lorem Ipsum",
+      "failed-to-load-comments": "Lorem Ipsum",
+      "failed-to-load-replies": "Lorem Ipsum",
+      "like": "Lorem Ipsum",
+      "link-copied": "Lorem Ipsum",
+      "need-logged-in-to-rate": "Lorem Ipsum",
+      "newest": "Recent",
+      "no-comments": "No Results :(",
+      "oldest": "Old",
+      "open-menu": "Lorem Ipsum",
+      "placeholder": "Lorem Ipsum",
+      "replies": "Lorem Ipsum",
+      "reply": "Lorem Ipsum",
+      "reply-cannot-be-empty": "Lorem Ipsum",
+      "reply-to-comment": "Lorem Ipsum",
+      "send-comment": "Lorem Ipsum",
+      "sort-by": "Sort by...",
+      "this-comment-has-been-deleted": "Lorem Ipsum",
+      "toggle-bold": "Lorem Ipsum",
+      "toggle-italic": "Lorem Ipsum",
+      "toggle-strikethrough": "Lorem Ipsum"
     },
-    "description": "My personal website and blog where I share my thoughts on various topics including tutorials, notes, and personal experiences. As a full-stack engineer from Hong Kong, I started learning web development as a hobby in December 2020. I use Next.js for building websites, GitHub for code hosting, and Vercel for deployment. Explore my site to learn more about my Journey and discover some of the web development resources that have inspired me.",
+    "description": "Explore a collection of my blog posts on technology and infrastructure.",
     "footer": {
-      "edit-on-github": "Edit on GitHub",
-      "last-updated": "Last updated: {date}"
+      "edit-on-github": "Lorem Ipsum",
+      "last-updated": "Lorem Ipsum"
     },
     "header": {
-      "comments": "Comments",
-      "published-on": "Published on",
-      "views": "Views",
-      "written-by": "Written by"
+      "comments": "Lorem Ipsum",
+      "published-on": "Lorem Ipsum",
+      "views": "Lorem Ipsum",
+      "written-by": "View Paper"
     },
-    "like": "Like",
-    "like-limit-reached": "You can only like 3 times per post",
-    "like-this-post": "Like this post",
-    "on-this-page": "On this page",
-    "title": "Blog"
+    "like": "Lorem Ipsum",
+    "like-limit-reached": "Lorem Ipsum",
+    "like-this-post": "Lorem Ipsum",
+    "on-this-page": "Lorem Ipsum",
+    "title": "Blog Posts"
   },
   "command-menu": {
     "actions": {
-      "copy-link": "Copy link",
-      "source-code": "Source code"
+      "copy-link": "Lorem Ipsum",
+      "source-code": "Lorem Ipsum"
     },
     "groups": {
-      "account": "Account",
-      "general": "General",
-      "social": "Social"
+      "account": "Lorem Ipsum",
+      "general": "Tools",
+      "social": "websites"
     },
-    "no-results": "No results found.",
-    "open-menu": "Open command menu",
-    "placeholder": "Type a command or search",
+    "no-results": "Lorem Ipsum",
+    "open-menu": "Lorem Ipsum",
+    "placeholder": "Lorem Ipsum",
     "trigger": {
-      "open-command": "Open Command",
-      "open-link": "Open Link"
+      "open-command": "Lorem Ipsum",
+      "open-link": "Lorem Ipsum"
     }
   },
   "common": {
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "error": "Error",
-    "likes": "{count, plural, =1 {# like} other {# likes}}",
-    "sign-in": "Sign in",
-    "sign-in-error": "Failed to sign in. Please try again.",
-    "sign-out": "Sign out",
-    "views": "{count, plural, =1 {# view} other {# views}}"
+    "cancel": "Lorem Ipsum",
+    "delete": "self.education",
+    "error": "self.skills",
+    "likes": "Recently Played Songs",
+    "sign-in": "Lorem Ipsum",
+    "sign-in-error": "Lorem Ipsum",
+    "sign-out": "Lorem Ipsum",
+    "views": "Listening now"
   },
   "component": {
     "filtered-posts": {
-      "no-posts-found": "No posts found",
-      "placeholder": "Search articles"
+      "no-posts-found": "Lorem Ipsum",
+      "placeholder": "Search"
     },
-    "go-to-homepage": "Go to homepage"
+    "go-to-homepage": "introduceSelf.tsx"
   },
   "dashboard": {
-    "description": "This is my personal dashboard, built with Next.js API routes deployed as serverless functions. I use this dashboard to track various metrics across platforms like YouTube, GitHub, and more.",
+    "description": "Loaded data...",
     "metric": {
-      "blog-total-likes": "Blog Total Likes",
-      "blog-total-views": "Blog Total Views",
-      "coding-hours": "Coding Hours",
-      "github-followers": "GitHub Followers",
-      "github-stars": "GitHub Stars",
-      "youtube-subscribers": "YouTube Subscribers",
-      "youtube-views": "YouTube Views"
+      "blog-total-likes": "Lorem Ipsum",
+      "blog-total-views": "Lorem Ipsum",
+      "coding-hours": "Lorem Ipsum",
+      "github-followers": "Executing",
+      "github-stars": "Executed",
+      "youtube-subscribers": "Lorem Ipsum",
+      "youtube-views": "Lorem Ipsum"
     },
-    "title": "Dashboard"
+    "title": "Lorem Ipsum"
   },
   "dialog": {
     "sign-in": {
-      "continue-with": "Continue with {provider}",
-      "description": "to continue to honghong.me"
+      "continue-with": "Lorem Ipsum",
+      "description": "Lorem Ipsum"
     }
   },
   "error": {
-    "something-went-wrong": "Something went wrong!",
-    "try-again": "Try again"
+    "something-went-wrong": "Lorem Ipsum",
+    "try-again": "Lorem Ipsum"
   },
   "guestbook": {
-    "create-message-successfully": "Create message successfully",
+    "create-message-successfully": "Lorem Ipsum",
     "delete-dialog": {
-      "description": "Are you sure you want to delete this comment? This action cannot be undone.",
-      "title": "Delete a comment"
+      "description": "Lorem Ipsum",
+      "title": "Lorem Ipsum"
     },
-    "delete-message-successfully": "Delete message successfully",
-    "description": "Sign my guestbook and share your idea. You can tell me anything here!",
-    "failed-to-load-messages": "Failed to load messages. Please refresh the page.",
-    "message-cannot-be-empty": "Message cannot be empty",
-    "no-messages": "No messages. Be the first to leave a message!",
+    "delete-message-successfully": "Lorem Ipsum",
+    "description": "Lorem Ipsum",
+    "failed-to-load-messages": "Lorem Ipsum",
+    "message-cannot-be-empty": "Lorem Ipsum",
+    "no-messages": "Lorem Ipsum",
     "pinned": {
-      "description": "Thanks for visiting my website. If you have a moment, I'd love to hear your thoughts on my work. Please log in with your account to leave a comment. Thanks!",
-      "greeting": "Hey there! 👋"
+      "description": "Lorem Ipsum",
+      "greeting": "Lorem Ipsum"
     },
-    "placeholder": "Leave a message",
+    "placeholder": "Lorem Ipsum",
     "signin": {
-      "description": "to leave a message"
+      "description": "Lorem Ipsum"
     },
-    "submit": "Submit",
-    "title": "Guestbook"
+    "submit": "Lorem Ipsum",
+    "title": "Lorem Ipsum"
   },
   "homepage": {
     "about-me": {
-      "coding-hours": "Coding hours",
-      "connect": "Connect",
-      "fav-framework": "Fav. framework",
-      "location": "Hong Kong",
-      "more": "Know more about me",
-      "stacks": "Stacks",
-      "title": "About Me"
+      "coding-hours": "Lorem Ipsum",
+      "connect": "self.learnAboutMe()",
+      "fav-framework": "Lorem Ipsum",
+      "location": "self.currentLocation",
+      "more": "Press enter to see what I am about",
+      "stacks": "self.interests",
+      "title": "Lorem Ipsum"
     },
     "get-in-touch": {
-      "description": "Feel free to reach out to me!",
-      "image-alt": "Me sit in front of my desk and coding",
-      "title": "Any questions about Next.js?"
+      "description": "Welcome to my website",
+      "image-alt": "Lorem Ipsum",
+      "title": "self.contactMe"
     },
     "hero": {
-      "amazing": "Amazing",
-      "attractive": "Attractive",
-      "fantastic": "Fantastic",
-      "location-timezone": "Hong Kong • UTC/GMT +8",
-      "stunning": "Stunning",
-      "title-bottom": "React",
-      "title-middle-left": "building",
-      "title-middle-right": "websites using",
-      "title-top": "I'm Nelson, a Full Stack Engineer"
+      "amazing": "Lorem Ipsum",
+      "attractive": "Lorem Ipsum",
+      "fantastic": "Lorem Ipsum",
+      "location-timezone": "Lorem Ipsum",
+      "stunning": "Lorem Ipsum",
+      "title-bottom": "Lorem Ipsum",
+      "title-middle-left": "Lorem Ipsum",
+      "title-middle-right": "Lorem Ipsum",
+      "title-top": "Hi, I'm Yuri!"
     },
     "latest-articles": {
-      "card": "Article",
-      "more": "See all articles",
-      "title": "Latest Articles"
+      "card": "Lorem Ipsum",
+      "more": "Lorem Ipsum",
+      "title": "Lorem Ipsum"
     },
     "selectedProjects": {
-      "card": "Project",
-      "more": "See all project",
-      "title": "Selected Projects"
+      "card": "Lorem Ipsum",
+      "more": "Lorem Ipsum",
+      "title": "My Projects"
     }
   },
   "hook": {
     "copy-to-clipboard": {
-      "copied": "Copied to clipboard!",
-      "error": "Unable to copy to clipboard. Please try again!"
+      "copied": "Top Songs",
+      "error": "Top Artists"
     }
   },
   "layout": {
-    "about": "About",
-    "blog": "Blog",
-    "change-language": "Change language",
-    "dashboard": "Dashboard",
-    "facebook": "Facebook",
-    "github": "GitHub",
-    "guestbook": "Guestbook",
+    "about": "Welcome to my website! Here, I showcase my expertise in related to cloud infrastructure and database management. You can explore the and technologies I enjoy, and discover useful. Additionally, check out my for insights into server optimization, cloud strategies, and database performance. I am a Senior Cloud and Infrastructure Specialist with over years of experience. You can find all my social media links and contact information in the my website links schedule a meeting with me listen to my podcast on Spotify explore my privacy-first social media or check the footer.",
+    "blog": "blog",
+    "change-language": "privacy-first social media",
+    "dashboard": "Tools",
+    "facebook": "podcast on Spotify",
+    "github": "Lorem Ipsum",
+    "guestbook": "Lorem Ipsum",
     "home": "Home",
-    "instagram": "Instagram",
-    "links": "Links",
+    "instagram": "my website links",
+    "links": "Links - My favourite parts of the web.",
     "now-playing": {
-      "error": "Failed to fetch Spotify data",
-      "loading": "Loading ...",
-      "not-listening": "Not Listening - Spotify"
+      "error": "Lorem Ipsum",
+      "loading": "Here's what I'm listening to at the moment",
+      "not-listening": "*Top Songs and Artists over the past 6 months"
     },
     "projects": "Projects",
-    "skip-to-main-content": "Skip to main content",
-    "toggle-menu": "Toggle menu",
-    "uses": "Uses",
-    "youtube": "YouTube"
+    "skip-to-main-content": "Lorem Ipsum",
+    "toggle-menu": "Others",
+    "uses": "tools",
+    "youtube": "View My Profile on Spotify"
   },
   "mdx": {
-    "link-to-section": "Link to section"
+    "link-to-section": "Research"
   },
   "metadata": {
-    "site-description": "Nelson Lai • 18 y/o • Student • Full Stack Engineer",
-    "site-title": "Nelson Lai - A Full Stack Engineer"
+    "site-description": "A curated selection of my deep dives into server optimization, database management, and cloud solutions. Always exploring and refining.",
+    "site-title": "Lorem Ipsum"
   },
-  "not-found": "Page Not Found!",
+  "not-found": "Lorem Ipsum",
   "projects": {
-    "description": "The list of my projects. Everything was made with ❤️.",
+    "description": "A quick collection of my projects. related to cloud infrastructure and database management. You can explore the",
     "title": "Projects",
-    "visit-website": "Visit Website"
+    "visit-website": "Repositories"
   },
   "theme-toggle": {
     "options": {
-      "dark": "Dark",
-      "light": "Light",
-      "system": "System"
+      "dark": "Lorem Ipsum",
+      "light": "Lorem Ipsum",
+      "system": "Lorem Ipsum"
     },
-    "toggle-theme": "Toggle theme"
+    "toggle-theme": "Lorem Ipsum"
   },
   "uses": {
-    "description": "This is the equipment I currently use for gaming, programming, making videos, and every day.",
-    "title": "Uses"
+    "description": "Lorem Ipsum",
+    "title": "Lorem Ipsum"
   }
 }
