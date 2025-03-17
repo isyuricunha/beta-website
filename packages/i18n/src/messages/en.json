@@ -1,41 +1,41 @@
 {
   "about": {
-    "description": "Hi there! I'm Yuri, a Senior Cloud and Infrastructure Specialist passionate about building resilient systems and ensuring seamless performance. My expertise spans server optimization, database management, and deploying scalable cloud solutions. Currently, I'm exploring new opportunities to apply my skills in designing efficient infrastructures and optimizing IT operations. In my previous roles, I mastered fine-tuning databases and creating reliable architectures at companies like Divinobit (now Bairon). What drives me? Solving complex challenges in infrastructure, creating streamlined processes, and transforming raw data into actionable insights. For me, it's like engineering for the digital age — crafting solutions that stand the test of time. While based in Brazil, I often find inspiration in solo travel, discovering diverse landscapes, and immersing myself in new cultures. These adventures keep me refreshed and ready to tackle the next big project. Whether it's managing servers, fine-tuning databases, or scaling cloud platforms, I'm all about delivering excellence and finding harmony in technology. Let's build something remarkable together!",
-    "title": "About me"
+    "description": "Hi there! I'm Yuri, a Senior Cloud and Infrastructure Specialist passionate about building resilient systems and ensuring seamless performance. My expertise spans server optimization, database management, and deploying scalable cloud solutions.",
+    "title": "About"
   },
   "admin": {
     "nav": {
       "comments": "Lorem Ipsum",
-      "dashboard": "Lorem Ipsum",
-      "general": "Lorem Ipsum",
-      "users": "Lorem Ipsum"
+      "dashboard": "Dashboard",
+      "general": "General",
+      "users": "Users"
     },
     "page-header": {
       "comments": {
         "description": "Lorem Ipsum",
-        "title": "Lorem Ipsum"
+        "title": "Comments"
       },
       "users": {
         "description": "Lorem Ipsum",
-        "title": "Lorem Ipsum"
+        "title": "Users"
       }
     },
     "table": {
       "comments": {
         "body": "Lorem Ipsum",
-        "createdAt": "Lorem Ipsum",
+        "createdAt": "Created At",
         "failed-to-fetch-comments-data": "Lorem Ipsum",
         "filter-body": "Lorem Ipsum",
         "filter-userId": "Lorem Ipsum",
         "type": "Lorem Ipsum",
-        "userId": "Lorem Ipsum"
+        "userId": "User ID"
       },
       "users": {
-        "email": "Lorem Ipsum",
+        "email": "Email",
         "failed-to-fetch-users-data": "Lorem Ipsum",
-        "filter-names": "Lorem Ipsum",
-        "name": "A list of all of the public repositories on my GitHub.",
-        "role": "View My Profile"
+        "filter-names": "Filter names...",
+        "name": "Name",
+        "role": "Role"
       }
     }
   },
@@ -44,218 +44,218 @@
       "author": "Lorem Ipsum",
       "comment-cannot-be-empty": "Lorem Ipsum",
       "comment-posted": "Lorem Ipsum",
-      "comments": "Lorem Ipsum",
+      "comments": "{count, plural, =1 {comment} other {comments}}",
       "confirm-delete-comment": "Lorem Ipsum",
-      "copy-link": "Lorem Ipsum",
+      "copy-link": "Copy Link",
       "delete-a-comment": "Lorem Ipsum",
       "deleted-a-comment": "Lorem Ipsum",
       "dislike": "Lorem Ipsum",
       "failed-to-load-comments": "Lorem Ipsum",
       "failed-to-load-replies": "Lorem Ipsum",
-      "like": "Lorem Ipsum",
-      "link-copied": "Lorem Ipsum",
+      "like": "Like",
+      "link-copied": "Link copied to clipboard",
       "need-logged-in-to-rate": "Lorem Ipsum",
       "newest": "Recent",
-      "no-comments": "No Results :(",
+      "no-comments": "No comments",
       "oldest": "Old",
-      "open-menu": "Lorem Ipsum",
-      "placeholder": "Lorem Ipsum",
-      "replies": "Lorem Ipsum",
-      "reply": "Lorem Ipsum",
-      "reply-cannot-be-empty": "Lorem Ipsum",
-      "reply-to-comment": "Lorem Ipsum",
-      "send-comment": "Lorem Ipsum",
+      "open-menu": "Open menu",
+      "placeholder": "Leave a comment",
+      "replies": "{count, plural, =1 {reply} other {replies}}",
+      "reply": "Reply",
+      "reply-cannot-be-empty": "Reply cannot be empty",
+      "reply-to-comment": "Reply to comment",
+      "send-comment": "Send comment",
       "sort-by": "Sort by...",
-      "this-comment-has-been-deleted": "Lorem Ipsum",
-      "toggle-bold": "Lorem Ipsum",
-      "toggle-italic": "Lorem Ipsum",
-      "toggle-strikethrough": "Lorem Ipsum"
+      "this-comment-has-been-deleted": "[This comment has been deleted]",
+      "toggle-bold": "Toggle bold",
+      "toggle-italic": "Toggle italic",
+      "toggle-strikethrough": "Toggle strikethrough"
     },
     "description": "Explore a collection of my blog posts on technology and infrastructure.",
     "footer": {
-      "edit-on-github": "Lorem Ipsum",
-      "last-updated": "Lorem Ipsum"
+      "edit-on-github": "Edit on GitHub",
+      "last-updated": "Last updated: {date}"
     },
     "header": {
-      "comments": "Lorem Ipsum",
-      "published-on": "Lorem Ipsum",
-      "views": "Lorem Ipsum",
-      "written-by": "View Paper"
+      "comments": "Comments",
+      "published-on": "Published on",
+      "views": "Views",
+      "written-by": "Written by"
     },
-    "like": "Lorem Ipsum",
-    "like-limit-reached": "Lorem Ipsum",
-    "like-this-post": "Lorem Ipsum",
-    "on-this-page": "Lorem Ipsum",
-    "title": "Blog Posts"
+    "like": "Like",
+    "like-limit-reached": "You can only like 3 times per post",
+    "like-this-post": "Like this post",
+    "on-this-page": "On this page",
+    "title": "Blog"
   },
   "command-menu": {
     "actions": {
-      "copy-link": "Lorem Ipsum",
-      "source-code": "Lorem Ipsum"
+      "copy-link": "Copy link",
+      "source-code": "Source code"
     },
     "groups": {
-      "account": "Lorem Ipsum",
-      "general": "Tools",
-      "social": "websites"
+      "account": "Account",
+      "general": "General",
+      "social": "Social"
     },
-    "no-results": "Lorem Ipsum",
-    "open-menu": "Lorem Ipsum",
-    "placeholder": "Lorem Ipsum",
+    "no-results": "No results found.",
+    "open-menu": "Open command menu",
+    "placeholder": "Type a command or search",
     "trigger": {
-      "open-command": "Lorem Ipsum",
-      "open-link": "Lorem Ipsum"
+      "open-command": "Open Command",
+      "open-link": "Open Link"
     }
   },
   "common": {
-    "cancel": "Lorem Ipsum",
-    "delete": "self.education",
-    "error": "self.skills",
-    "likes": "Recently Played Songs",
-    "sign-in": "Lorem Ipsum",
-    "sign-in-error": "Lorem Ipsum",
-    "sign-out": "Lorem Ipsum",
-    "views": "Listening now"
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "error": "Error",
+    "likes": "{count, plural, =1 {# like} other {# likes}}",
+    "sign-in": "Sign in",
+    "sign-in-error": "Failed to sign in. Please try again.",
+    "sign-out": "Sign out",
+    "views": "{count, plural, =1 {# view} other {# views}}"
   },
   "component": {
     "filtered-posts": {
-      "no-posts-found": "Lorem Ipsum",
+      "no-posts-found": "No Results :(",
       "placeholder": "Search"
     },
-    "go-to-homepage": "introduceSelf.tsx"
+    "go-to-homepage": "Go to homepage"
   },
   "dashboard": {
-    "description": "Loaded data...",
+    "description": "Lorem Ipsum",
     "metric": {
-      "blog-total-likes": "Lorem Ipsum",
-      "blog-total-views": "Lorem Ipsum",
-      "coding-hours": "Lorem Ipsum",
-      "github-followers": "Executing",
-      "github-stars": "Executed",
-      "youtube-subscribers": "Lorem Ipsum",
-      "youtube-views": "Lorem Ipsum"
+      "blog-total-likes": "Blog Total Likes",
+      "blog-total-views": "Blog Total Views",
+      "coding-hours": "Coding Hours",
+      "github-followers": "GitHub Followers",
+      "github-stars": "GitHub Stars",
+      "youtube-subscribers": "YouTube Subscribers",
+      "youtube-views": "YouTube Views"
     },
-    "title": "Lorem Ipsum"
+    "title": "Dashboard"
   },
   "dialog": {
     "sign-in": {
-      "continue-with": "Lorem Ipsum",
-      "description": "Lorem Ipsum"
+      "continue-with": "Continue with {provider}",
+      "description": "to continue to honghong.me"
     }
   },
   "error": {
-    "something-went-wrong": "Lorem Ipsum",
-    "try-again": "Lorem Ipsum"
+    "something-went-wrong": "Something went wrong!",
+    "try-again": "Try again"
   },
   "guestbook": {
-    "create-message-successfully": "Lorem Ipsum",
+    "create-message-successfully": "Create message successfully",
     "delete-dialog": {
-      "description": "Lorem Ipsum",
-      "title": "Lorem Ipsum"
+      "description": "Are you sure you want to delete this comment? This action cannot be undone.",
+      "title": "Delete a comment"
     },
-    "delete-message-successfully": "Lorem Ipsum",
+    "delete-message-successfully": "Delete message successfully",
     "description": "Lorem Ipsum",
-    "failed-to-load-messages": "Lorem Ipsum",
-    "message-cannot-be-empty": "Lorem Ipsum",
-    "no-messages": "Lorem Ipsum",
+    "failed-to-load-messages": "Failed to load messages. Please refresh the page.",
+    "message-cannot-be-empty": "Message cannot be empty",
+    "no-messages": "No messages. Be the first to leave a message!",
     "pinned": {
-      "description": "Lorem Ipsum",
-      "greeting": "Lorem Ipsum"
+      "description": "Thanks for visiting my website. If you have a moment, I'd love to hear your thoughts on my work. Please log in with your account to leave a comment. Thanks!",
+      "greeting": "Hey there! 👋"
     },
-    "placeholder": "Lorem Ipsum",
+    "placeholder": "Leave a message",
     "signin": {
-      "description": "Lorem Ipsum"
+      "description": "to leave a message"
     },
-    "submit": "Lorem Ipsum",
-    "title": "Lorem Ipsum"
+    "submit": "Submit",
+    "title": "Guestbook"
   },
   "homepage": {
     "about-me": {
-      "coding-hours": "Lorem Ipsum",
-      "connect": "self.learnAboutMe()",
-      "fav-framework": "Lorem Ipsum",
-      "location": "self.currentLocation",
-      "more": "Press enter to see what I am about",
-      "stacks": "self.interests",
-      "title": "Lorem Ipsum"
+      "coding-hours": "Coding hours",
+      "connect": "Connect",
+      "fav-framework": "Fav. framework",
+      "location": "Lorem Ipsum",
+      "more": "Know more about me",
+      "stacks": "Stacks",
+      "title": "About Me"
     },
     "get-in-touch": {
-      "description": "Welcome to my website",
-      "image-alt": "Lorem Ipsum",
-      "title": "self.contactMe"
+      "description": "Feel free to reach out to me!",
+      "image-alt": "Me sit in front of my desk and coding",
+      "title": "Any questions about Next.js?"
     },
     "hero": {
-      "amazing": "Lorem Ipsum",
-      "attractive": "Lorem Ipsum",
-      "fantastic": "Lorem Ipsum",
+      "amazing": "Amazing",
+      "attractive": "Attractive",
+      "fantastic": "Fantastic",
       "location-timezone": "Lorem Ipsum",
-      "stunning": "Lorem Ipsum",
-      "title-bottom": "Lorem Ipsum",
-      "title-middle-left": "Lorem Ipsum",
-      "title-middle-right": "Lorem Ipsum",
+      "stunning": "Stunning",
+      "title-bottom": "React",
+      "title-middle-left": "building",
+      "title-middle-right": "websites using",
       "title-top": "Hi, I'm Yuri!"
     },
     "latest-articles": {
-      "card": "Lorem Ipsum",
-      "more": "Lorem Ipsum",
-      "title": "Lorem Ipsum"
+      "card": "Article",
+      "more": "See all articles",
+      "title": "Latest Articles"
     },
     "selectedProjects": {
-      "card": "Lorem Ipsum",
-      "more": "Lorem Ipsum",
-      "title": "My Projects"
+      "card": "Project",
+      "more": "See all project",
+      "title": "Projects"
     }
   },
   "hook": {
     "copy-to-clipboard": {
-      "copied": "Top Songs",
-      "error": "Top Artists"
+      "copied": "Copied to clipboard!",
+      "error": "Unable to copy to clipboard. Please try again!"
     }
   },
   "layout": {
-    "about": "Welcome to my website! Here, I showcase my expertise in related to cloud infrastructure and database management. You can explore the and technologies I enjoy, and discover useful. Additionally, check out my for insights into server optimization, cloud strategies, and database performance. I am a Senior Cloud and Infrastructure Specialist with over years of experience. You can find all my social media links and contact information in the my website links schedule a meeting with me listen to my podcast on Spotify explore my privacy-first social media or check the footer.",
-    "blog": "blog",
-    "change-language": "privacy-first social media",
-    "dashboard": "Tools",
-    "facebook": "podcast on Spotify",
-    "github": "Lorem Ipsum",
-    "guestbook": "Lorem Ipsum",
+    "about": "About",
+    "blog": "Blog",
+    "change-language": "Change language",
+    "dashboard": "Dashboard",
+    "facebook": "Facebook",
+    "github": "GitHub",
+    "guestbook": "Guestbook",
     "home": "Home",
-    "instagram": "my website links",
-    "links": "Links - My favourite parts of the web.",
+    "instagram": "Instagram",
+    "links": "Links",
     "now-playing": {
-      "error": "Lorem Ipsum",
-      "loading": "Here's what I'm listening to at the moment",
-      "not-listening": "*Top Songs and Artists over the past 6 months"
+      "error": "Failed to fetch Spotify data",
+      "loading": "Loading ...",
+      "not-listening": "Listening now"
     },
     "projects": "Projects",
-    "skip-to-main-content": "Lorem Ipsum",
-    "toggle-menu": "Others",
-    "uses": "tools",
-    "youtube": "View My Profile on Spotify"
+    "skip-to-main-content": "Skip to main content",
+    "toggle-menu": "Toggle menu",
+    "uses": "Uses",
+    "youtube": "YouTube"
   },
   "mdx": {
-    "link-to-section": "Research"
+    "link-to-section": "Link to section"
   },
   "metadata": {
-    "site-description": "A curated selection of my deep dives into server optimization, database management, and cloud solutions. Always exploring and refining.",
-    "site-title": "Lorem Ipsum"
+    "site-description": "Yuri Cunha • 18 y/o • Student • Full Stack Engineer",
+    "site-title": "Yuri Cunha - A Full Stack Engineer"
   },
-  "not-found": "Lorem Ipsum",
+  "not-found": "Page Not Found!",
   "projects": {
-    "description": "A quick collection of my projects. related to cloud infrastructure and database management. You can explore the",
+    "description": "A quick collection of my projects.",
     "title": "Projects",
-    "visit-website": "Repositories"
+    "visit-website": "Visit Website"
   },
   "theme-toggle": {
     "options": {
-      "dark": "Lorem Ipsum",
-      "light": "Lorem Ipsum",
-      "system": "Lorem Ipsum"
+      "dark": "Dark",
+      "light": "Light",
+      "system": "System"
     },
-    "toggle-theme": "Lorem Ipsum"
+    "toggle-theme": "Toggle theme"
   },
   "uses": {
-    "description": "Lorem Ipsum",
-    "title": "Lorem Ipsum"
+    "description": "This is the equipment I currently use for gaming, programming, making videos, and every day.",
+    "title": "Uses"
   }
 }

@@ -34,10 +34,10 @@ export const metadata: Metadata = {
   },
   manifest: '/favicon/site.webmanifest',
   twitter: {
-    title: 'Nelson Lai',
+    title: 'Yuri Cunha',
     card: 'summary_large_image',
-    site: '@tszhong0411',
-    creator: '@tszhong0411',
+    site: '@isyuricunha',
+    creator: '@isyuricunha',
     images: [
       {
         url: 'https://docs.honghong.me/images/og.png',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     canonical: SITE_URL
   },
   keywords: SITE_KEYWORDS,
-  creator: 'tszhong0411',
+  creator: 'isyuricunha',
   openGraph: {
     url: SITE_URL,
     type: 'website',

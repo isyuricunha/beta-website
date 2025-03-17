@@ -147,7 +147,7 @@ const Hero = () => {
             className='rounded-full'
             width={112}
             height={112}
-            alt='Nelson Lai'
+            alt='Yuri Cunha'
             lazy={false}
           />
           <div className='bg-linear-to-tl absolute inset-0 -z-10 from-purple-700 to-orange-700 opacity-50 blur-2xl' />
