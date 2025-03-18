@@ -1,4 +1,4 @@
-import { SiNextdotjs } from '@icons-pack/react-simple-icons'
+import { SiLinuxserver } from '@icons-pack/react-simple-icons'
 import { useTranslations } from '@tszhong0411/i18n/client'
 import { HeartIcon } from 'lucide-react'
 
@@ -12,7 +12,7 @@ const FavoriteFramework = () => {
         <h2 className='text-sm'>{t('homepage.about-me.fav-framework')}</h2>
       </div>
       <div className='flex items-center justify-center'>
-        <SiNextdotjs size={80} className='text-zinc-800 dark:text-zinc-200' />
+        <SiLinuxserver size={80} className='text-zinc-800 dark:text-zinc-200' />
       </div>
     </div>
   )

@@ -172,8 +172,8 @@
     "about-me": {
       "coding-hours": "Coding hours",
       "connect": "Connect",
-      "fav-framework": "Fav. framework",
-      "location": "Hong Kong",
+      "fav-framework": "Fav. Server",
+      "location": "São Paulo",
       "more": "Know more about me",
       "stacks": "Stacks",
       "title": "About Me"
@@ -181,18 +181,18 @@
     "get-in-touch": {
       "description": "Feel free to reach out to me!",
       "image-alt": "Me sit in front of my desk and coding",
-      "title": "Any questions about Next.js?"
+      "title": "Have questions about server?"
     },
     "hero": {
-      "amazing": "scalable",
-      "attractive": "secure",
-      "fantastic": "high-availability",
+      "amazing": "cloud-native",
+      "attractive": "zero-trust",
+      "fantastic": "encrypted",
       "location-timezone": "Brazil • UTC/GMT -3",
-      "stunning": "resilient",
-      "title-bottom": "infrastructure",
-      "title-middle-left": "architecting",
-      "title-middle-right": "cloud systems using",
-      "title-top": "I'm Yuri, a cloud/server infrastructure specialist"
+      "stunning": "immutable",
+      "title-bottom": "distributed systems",
+      "title-middle-left": "designing",
+      "title-middle-right": "solutions",
+      "title-top": "I'm Yuri, server specialist"
     },
     "latest-articles": {
       "card": "Article",

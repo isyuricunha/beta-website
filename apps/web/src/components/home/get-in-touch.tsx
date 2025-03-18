@@ -69,28 +69,28 @@ const GetInTouch = () => {
               alt={t('homepage.get-in-touch.image-alt')}
             />
             <div
-              id='next-js'
+              id='postgresql'
               className='bg-linear-to-b absolute bottom-12 left-14 rounded-3xl border from-zinc-50 to-zinc-100 px-2 py-1.5 text-xs opacity-40 dark:from-zinc-800 dark:to-zinc-900'
             >
-              Next.js
+              PostgreSQL
             </div>
             <div
-              id='react-js'
+              id='docker'
               className='bg-linear-to-b absolute left-2 top-20 rounded-3xl border from-zinc-50 to-zinc-100 px-2 py-1.5 text-xs opacity-40 dark:from-zinc-800 dark:to-zinc-900'
             >
-              React.js
+              Docker
             </div>
             <div
-              id='typescript'
+              id='cloudflare-workers'
               className='bg-linear-to-b absolute bottom-20 right-1 rounded-3xl border from-zinc-50 to-zinc-100 px-2 py-1.5 text-xs opacity-40 dark:from-zinc-800 dark:to-zinc-900'
             >
-              TypeScript
+              Cloudflare
             </div>
             <div
-              id='javascript'
+              id='terraform'
               className='bg-linear-to-b absolute right-8 top-10 rounded-3xl border from-zinc-50 to-zinc-100 px-2 py-1.5 text-xs opacity-40 dark:from-zinc-800 dark:to-zinc-900'
             >
-              JavaScript
+              Terraform
             </div>
 
             <div id='pointer' className='absolute'>
@@ -110,7 +110,7 @@ const GetInTouch = () => {
                 />
               </svg>
               <span className='relative left-4 rounded-3xl bg-red-500 px-2 py-0.5 text-xs text-white'>
-                Nelson
+                Yuri
               </span>
             </div>
           </div>
@@ -124,10 +124,10 @@ const GetInTouch = () => {
             </p>
             <div className='my-8'>
               <a
-                href='mailto:me@honghong.me'
+                href='mailto:me@yuricunha.com'
                 className='bg-email-button rounded-full px-4 py-2 text-sm text-white'
               >
-                me@honghong.me
+                me@yuricunha.com
               </a>
             </div>
           </div>
