@@ -3,8 +3,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@tszhong0411/ui'
 const AvatarDemo = () => {
   return (
     <Avatar>
-      <AvatarImage src='https://github.com/tszhong0411.png' alt='@tszhong0411' />
-      <AvatarFallback>TH</AvatarFallback>
+      <AvatarImage src='https://github.com/isyuricunha.png' alt='@isyuricunha' />
+      <AvatarFallback>YC</AvatarFallback>
     </Avatar>
   )
 }
