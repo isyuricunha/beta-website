@@ -118,12 +118,26 @@ jobs:
           permission-issues: write
           permission-pull-requests: write
 
-      - name: Test AI endpoint
+      - name: Comment start as Ella Mizuki
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --body "Comecei o teste da IA agora. Vou validar as configs e tentar chamar o endpoint."
+
+      - name: Validate AI config
         env:
           ELLA_AI_BASE_URL: ${{ vars.ELLA_AI_BASE_URL }}
           ELLA_AI_MODEL: ${{ vars.ELLA_AI_MODEL }}
           ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
         run: |
+          set -e
+
+          echo "Checking AI config..."
+
           if [ -z "$ELLA_AI_BASE_URL" ]; then
             echo "Missing variable: ELLA_AI_BASE_URL"
             exit 1
@@ -139,6 +153,18 @@ jobs:
             exit 1
           fi
 
+          echo "ELLA_AI_BASE_URL is set"
+          echo "ELLA_AI_MODEL is set to: $ELLA_AI_MODEL"
+          echo "ELLA_AI_API_KEY is set"
+
+      - name: Test AI endpoint
+        env:
+          ELLA_AI_BASE_URL: ${{ vars.ELLA_AI_BASE_URL }}
+          ELLA_AI_MODEL: ${{ vars.ELLA_AI_MODEL }}
+          ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
+        run: |
+          set -e
+
           REQUEST_BODY="$(jq -n \
             --arg model "$ELLA_AI_MODEL" \
             --arg system "You are Ella Mizuki, Yuri's GitHub repository assistant. Keep answers short." \
@@ -152,10 +178,16 @@ jobs:
               temperature: 0.2
             }')"
 
+          TARGET_URL="${ELLA_AI_BASE_URL%/}/chat/completions"
+
+          echo "Calling AI endpoint..."
+          echo "Target path: /chat/completions"
+          echo "Model: $ELLA_AI_MODEL"
+
           HTTP_STATUS="$(curl -sS \
             -o response.json \
             -w "%{http_code}" \
-            -X POST "${ELLA_AI_BASE_URL%/}/chat/completions" \
+            -X POST "$TARGET_URL" \
             -H "Authorization: Bearer ${ELLA_AI_API_KEY}" \
             -H "Content-Type: application/json" \
             --data "$REQUEST_BODY")"
