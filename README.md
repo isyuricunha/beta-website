@@ -145,3 +145,7 @@ If you find this project helpful, consider supporting me by [sponsoring the proj
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+This sentence have a small grammar problem.
