@@ -1,5 +1,7 @@
 # Ella Mizuki
 
+This repository uses Ella through GitHub Actions.
+
 Files:
 
 ```txt
