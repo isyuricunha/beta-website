@@ -274,8 +274,8 @@ jobs:
           set -e
 
           if [ "$ELLA_MODE" = "fix" ]; then
-            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer only with a valid unified diff patch. Do not use Markdown fences. Do not explain. Make the smallest safe code change possible."
-            MAX_TOKENS=2500
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Do not reason step by step. Do not explain. Do not use Markdown fences. Start your response with 'diff --git'. Return only a valid unified diff patch. Make the smallest safe code change possible."
+            MAX_TOKENS=5000
           elif [ "$ELLA_MODE" = "pr" ]; then
             SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical. Analyze only the PR context provided. Do not modify code."
             MAX_TOKENS=1200
@@ -301,7 +301,7 @@ jobs:
                   content: $context
                 }
               ],
-              temperature: 0.1,
+              temperature: 0,
               max_tokens: $max_tokens,
               stream: true
             }')"
@@ -347,21 +347,33 @@ jobs:
               sys.exit(1)
 
           content_parts = []
+          reasoning_parts = []
+
+          def collect_from_choice(choice):
+              delta = choice.get("delta") or {}
+              message = choice.get("message") or {}
+
+              content = delta.get("content") or message.get("content") or choice.get("text")
+              if content:
+                  content_parts.append(content)
+
+              reasoning = delta.get("reasoning") or message.get("reasoning") or choice.get("reasoning")
+              if reasoning:
+                  reasoning_parts.append(reasoning)
+
+              for item in delta.get("reasoning_details") or []:
+                  if isinstance(item, dict) and item.get("text"):
+                      reasoning_parts.append(item["text"])
+
+              for item in message.get("reasoning_details") or []:
+                  if isinstance(item, dict) and item.get("text"):
+                      reasoning_parts.append(item["text"])
 
           if stripped.startswith("{"):
               try:
                   data = json.loads(stripped)
-                  choices = data.get("choices") or []
-                  if choices:
-                      choice = choices[0]
-                      message = choice.get("message") or {}
-                      delta = choice.get("delta") or {}
-                      if message.get("content"):
-                          content_parts.append(message["content"])
-                      elif delta.get("content"):
-                          content_parts.append(delta["content"])
-                      elif choice.get("text"):
-                          content_parts.append(choice["text"])
+                  for choice in data.get("choices") or []:
+                      collect_from_choice(choice)
               except Exception as exc:
                   print(f"Failed to parse JSON response: {exc}", file=sys.stderr)
                   print(stripped[:4000], file=sys.stderr)
@@ -389,20 +401,13 @@ jobs:
                   except json.JSONDecodeError:
                       continue
 
-                  choices = data.get("choices") or []
-
-                  for choice in choices:
-                      delta = choice.get("delta") or {}
-                      message = choice.get("message") or {}
-
-                      if delta.get("content"):
-                          content_parts.append(delta["content"])
-                      elif message.get("content"):
-                          content_parts.append(message["content"])
-                      elif choice.get("text"):
-                          content_parts.append(choice["text"])
+                  for choice in data.get("choices") or []:
+                      collect_from_choice(choice)
 
           content = "".join(content_parts).strip()
+
+          if not content:
+              content = "".join(reasoning_parts).strip()
 
           if not content:
               print("Could not extract content from AI stream response", file=sys.stderr)
@@ -443,6 +448,10 @@ jobs:
           match = re.search(r"```(?:diff|patch)?\s*\n(.*?)```", text, re.S)
           patch = match.group(1) if match else text
           patch = patch.strip() + "\n"
+
+          diff_match = re.search(r"(diff --git .*)", patch, re.S)
+          if diff_match:
+              patch = diff_match.group(1).strip() + "\n"
 
           if not patch.startswith(("diff --git", "--- ")):
               print("AI did not return a valid unified diff patch.", file=sys.stderr)
