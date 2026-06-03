@@ -22,8 +22,8 @@ jobs:
       cancel-in-progress: false
 
     env:
-      ELLA_MAX_ATTEMPTS: 15
-      ELLA_TIME_LIMIT_SECONDS: 3600
+      ELLA_MAX_ATTEMPTS: ${{ secrets.ELLA_MAX_ATTEMPTS }}
+      ELLA_TIME_LIMIT_SECONDS: ${{ secrets.ELLA_TIME_LIMIT_SECONDS }}
 
     steps:
       - name: Create Ella Mizuki token
@@ -69,9 +69,21 @@ jobs:
           elif [[ "$COMMENT_BODY" == "/ella pr"* ]]; then
             MODE="pr"
             PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella pr[[:space:]]*##')"
+          elif [[ "$COMMENT_BODY" == "/ella review"* ]]; then
+            MODE="review"
+            PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella review[[:space:]]*##')"
+          elif [[ "$COMMENT_BODY" == "/ella plan"* ]]; then
+            MODE="plan"
+            PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella plan[[:space:]]*##')"
+          elif [[ "$COMMENT_BODY" == "/ella label"* ]]; then
+            MODE="label"
+            PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella label[[:space:]]*##')"
           elif [[ "$COMMENT_BODY" == "/ella fix"* ]]; then
             MODE="fix"
             PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella fix[[:space:]]*##')"
+          elif [[ "$COMMENT_BODY" == "/ella continue"* ]]; then
+            MODE="continue"
+            PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella continue[[:space:]]*##')"
           elif [[ "$COMMENT_BODY" == "/ella solve"* ]]; then
             MODE="solve"
             PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella solve[[:space:]]*##')"
@@ -85,8 +97,24 @@ jobs:
             PROMPT="Analise este PR de forma curta e prática. Mostre o que mudou, riscos e se parece seguro fazer merge."
           fi
 
+          if [ "$MODE" = "review" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
+            PROMPT="Faça um code review sério deste PR. Procure bugs, regressões, riscos de segurança, problemas de tipagem e testes faltando."
+          fi
+
+          if [ "$MODE" = "plan" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
+            PROMPT="Crie um plano curto e prático. Não edite nada."
+          fi
+
+          if [ "$MODE" = "label" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
+            PROMPT="Classifique esta issue ou PR usando labels comuns e relevantes."
+          fi
+
           if [ "$MODE" = "fix" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
             PROMPT="Corrija o problema descrito no PR ou no comentário. Faça a menor mudança possível."
+          fi
+
+          if [ "$MODE" = "continue" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
+            PROMPT="Continue tentando corrigir este PR com a menor mudança segura possível."
           fi
 
           if [ "$MODE" = "solve" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
@@ -111,10 +139,22 @@ jobs:
           Responde usando o modelo configurado.
 
           \`/ella pr pedido\`
-          Analisa o PR atual usando título, descrição e diff.
+          Analisa o PR atual de forma curta.
+
+          \`/ella review pedido\`
+          Faz code review mais sério do PR.
+
+          \`/ella plan pedido\`
+          Cria um plano sem editar arquivos.
+
+          \`/ella label\`
+          Aplica labels comuns na issue/PR.
 
           \`/ella fix pedido\`
           Corrige o PR atual em loop controlado, roda checks e commita como Yuri Cunha.
+
+          \`/ella continue pedido\`
+          Continua tentando corrigir o PR atual com mais tentativas.
 
           \`/ella solve pedido\`
           Em uma issue, cria uma branch, tenta resolver, roda checks e abre PR."
@@ -135,7 +175,11 @@ jobs:
           ${{
             steps.parse.outputs.mode == 'ask' ||
             steps.parse.outputs.mode == 'pr' ||
+            steps.parse.outputs.mode == 'review' ||
+            steps.parse.outputs.mode == 'plan' ||
+            steps.parse.outputs.mode == 'label' ||
             steps.parse.outputs.mode == 'fix' ||
+            steps.parse.outputs.mode == 'continue' ||
             steps.parse.outputs.mode == 'solve'
           }}
         env:
@@ -164,8 +208,17 @@ jobs:
             exit 1
           fi
 
-      - name: Stop PR commands outside PR
-        if: ${{ !github.event.issue.pull_request && (steps.parse.outputs.mode == 'pr' || steps.parse.outputs.mode == 'fix') }}
+      - name: Stop PR-only commands outside PR
+        if: >
+          ${{
+            !github.event.issue.pull_request &&
+            (
+              steps.parse.outputs.mode == 'pr' ||
+              steps.parse.outputs.mode == 'review' ||
+              steps.parse.outputs.mode == 'fix' ||
+              steps.parse.outputs.mode == 'continue'
+            )
+          }}
         env:
           GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -196,13 +249,27 @@ jobs:
 
       - name: Read PR metadata
         id: pr
-        if: ${{ github.event.issue.pull_request && (steps.parse.outputs.mode == 'pr' || steps.parse.outputs.mode == 'fix') }}
+        if: >
+          ${{
+            github.event.issue.pull_request &&
+            (
+              steps.parse.outputs.mode == 'pr' ||
+              steps.parse.outputs.mode == 'review' ||
+              steps.parse.outputs.mode == 'plan' ||
+              steps.parse.outputs.mode == 'label' ||
+              steps.parse.outputs.mode == 'fix' ||
+              steps.parse.outputs.mode == 'continue'
+            )
+          }}
         env:
           GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.issue.number }}
+          ELLA_MAX_CONTEXT_PR_DIFF_BYTES: ${{ secrets.ELLA_MAX_CONTEXT_PR_DIFF_BYTES }}
         run: |
           set -e
+
+          PR_DIFF_LIMIT="${ELLA_MAX_CONTEXT_PR_DIFF_BYTES:-500000}"
 
           gh pr view "$PR_NUMBER" \
             --repo "$REPO" \
@@ -213,11 +280,7 @@ jobs:
             --repo "$REPO" \
             > "$RUNNER_TEMP/pr-diff.txt"
 
-          if [ "${{ steps.parse.outputs.mode }}" = "fix" ]; then
-            head -c 30000 "$RUNNER_TEMP/pr-diff.txt" > "$RUNNER_TEMP/pr-diff-limited.txt"
-          else
-            head -c 80000 "$RUNNER_TEMP/pr-diff.txt" > "$RUNNER_TEMP/pr-diff-limited.txt"
-          fi
+          head -c "$PR_DIFF_LIMIT" "$RUNNER_TEMP/pr-diff.txt" > "$RUNNER_TEMP/pr-diff-limited.txt"
 
           HEAD_REF="$(jq -r '.headRefName' "$RUNNER_TEMP/pr-info.json")"
           BASE_REF="$(jq -r '.baseRefName' "$RUNNER_TEMP/pr-info.json")"
@@ -229,7 +292,15 @@ jobs:
 
       - name: Read issue metadata
         id: issue
-        if: ${{ !github.event.issue.pull_request && steps.parse.outputs.mode == 'solve' }}
+        if: >
+          ${{
+            !github.event.issue.pull_request &&
+            (
+              steps.parse.outputs.mode == 'plan' ||
+              steps.parse.outputs.mode == 'label' ||
+              steps.parse.outputs.mode == 'solve'
+            )
+          }}
         env:
           GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -243,71 +314,91 @@ jobs:
             --json title,body,author,url,number,state \
             > "$RUNNER_TEMP/issue-info.json"
 
-          ISSUE_TITLE="$(jq -r '.title' "$RUNNER_TEMP/issue-info.json")"
-          SAFE_TITLE="$(printf "%s" "$ISSUE_TITLE" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | cut -c1-50)"
+          if [ "${{ steps.parse.outputs.mode }}" = "solve" ]; then
+            ISSUE_TITLE="$(jq -r '.title' "$RUNNER_TEMP/issue-info.json")"
+            SAFE_TITLE="$(printf "%s" "$ISSUE_TITLE" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | cut -c1-50)"
 
-          if [ -z "$SAFE_TITLE" ]; then
-            SAFE_TITLE="issue"
+            if [ -z "$SAFE_TITLE" ]; then
+              SAFE_TITLE="issue"
+            fi
+
+            BRANCH_NAME="ella/issue-${ISSUE_NUMBER}-${SAFE_TITLE}-${GITHUB_RUN_ID}"
+
+            echo "base_ref=$DEFAULT_BRANCH" >> "$GITHUB_OUTPUT"
+            echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
           fi
 
-          BRANCH_NAME="ella/issue-${ISSUE_NUMBER}-${SAFE_TITLE}-${GITHUB_RUN_ID}"
-
-          echo "base_ref=$DEFAULT_BRANCH" >> "$GITHUB_OUTPUT"
-          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
-
-      - name: Create progress comment
-        id: progress_comment
+      - name: Prepare read-only context
         if: >
           ${{
-            (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false') ||
-            (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
+            steps.parse.outputs.mode == 'pr' ||
+            steps.parse.outputs.mode == 'review' ||
+            steps.parse.outputs.mode == 'plan' ||
+            steps.parse.outputs.mode == 'label'
           }}
-        env:
-          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
-          REPO: ${{ github.repository }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          MODE: ${{ steps.parse.outputs.mode }}
         run: |
           set -e
 
-          if [ "$MODE" = "solve" ]; then
-            BODY="👀 Ella Mizuki começou a trabalhar nesta issue.
-
-          Status: preparando branch e contexto.
-          Limite: 15 tentativas / 60 minutos."
-          else
-            BODY="👀 Ella Mizuki começou a trabalhar neste PR.
-
-          Status: preparando contexto.
-          Limite: 15 tentativas / 60 minutos."
-          fi
-
-          COMMENT_ID="$(gh api \
-            --method POST \
-            "repos/${REPO}/issues/${ISSUE_NUMBER}/comments" \
-            -f body="$BODY" \
-            --jq '.id')"
-
-          echo "comment_id=$COMMENT_ID" >> "$GITHUB_OUTPUT"
-
-      - name: Prepare PR analysis context
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'pr' }}
-        run: |
           {
             echo "User request:"
             cat "$RUNNER_TEMP/ella-user-prompt.txt"
 
             echo ""
-            echo "PR info:"
-            cat "$RUNNER_TEMP/pr-info.json"
-
-            echo ""
-            echo "PR diff, possibly truncated:"
-            cat "$RUNNER_TEMP/pr-diff-limited.txt"
+            echo "Mode: ${{ steps.parse.outputs.mode }}"
           } > "$RUNNER_TEMP/ella-context.txt"
 
+          if [ "${{ steps.parse.outputs.mode }}" = "label" ]; then
+            {
+              echo ""
+              echo "Allowed labels:"
+              echo "- bug"
+              echo "- enhancement"
+              echo "- documentation"
+              echo "- dependencies"
+              echo "- security"
+              echo "- performance"
+              echo "- refactor"
+              echo "- tests"
+              echo "- ui"
+              echo "- frontend"
+              echo "- backend"
+              echo "- i18n"
+              echo "- ci"
+              echo "- chore"
+              echo "- question"
+              echo "- good first issue"
+              echo "- help wanted"
+              echo ""
+              echo "Return ONLY valid JSON with this schema:"
+              echo "{"
+              echo "  \"summary\": \"short reason\","
+              echo "  \"labels\": [\"bug\", \"frontend\"]"
+              echo "}"
+            } >> "$RUNNER_TEMP/ella-context.txt"
+          fi
+
+          if [ -f "$RUNNER_TEMP/pr-info.json" ]; then
+            {
+              echo ""
+              echo "PR info:"
+              cat "$RUNNER_TEMP/pr-info.json"
+
+              echo ""
+              echo "PR diff, possibly truncated:"
+              cat "$RUNNER_TEMP/pr-diff-limited.txt"
+            } >> "$RUNNER_TEMP/ella-context.txt"
+          fi
+
+          if [ -f "$RUNNER_TEMP/issue-info.json" ]; then
+            {
+              echo ""
+              echo "Issue info:"
+              cat "$RUNNER_TEMP/issue-info.json"
+            } >> "$RUNNER_TEMP/ella-context.txt"
+          fi
+
       - name: Stop fix on fork PR
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'true' }}
+        if: ${{ github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') && steps.pr.outputs.is_cross_repository == 'true' }}
         env:
           GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -318,14 +409,14 @@ jobs:
             --body "Não vou aplicar fix automático em PR vindo de fork. Por segurança, só faço commit automático em branch do próprio repo."
 
       - name: Checkout repository for fix
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false' }}
+        if: ${{ github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') && steps.pr.outputs.is_cross_repository == 'false' }}
         uses: actions/checkout@v4
         with:
           token: ${{ steps.ella_token.outputs.token }}
           fetch-depth: 0
 
       - name: Checkout PR branch
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false' }}
+        if: ${{ github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') && steps.pr.outputs.is_cross_repository == 'false' }}
         env:
           HEAD_REF: ${{ steps.pr.outputs.head_ref }}
         run: |
@@ -353,7 +444,7 @@ jobs:
       - name: Load repository instructions
         if: >
           ${{
-            (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false') ||
+            (github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') && steps.pr.outputs.is_cross_repository == 'false') ||
             (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
           }}
         run: |
@@ -373,8 +464,52 @@ jobs:
             fi
           done
 
+      - name: Create progress comment
+        id: progress_comment
+        if: >
+          ${{
+            (github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') && steps.pr.outputs.is_cross_repository == 'false') ||
+            (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
+          }}
+        env:
+          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          MODE: ${{ steps.parse.outputs.mode }}
+        run: |
+          set -e
+
+          MAX_ATTEMPTS="${ELLA_MAX_ATTEMPTS:-15}"
+          TIME_LIMIT_SECONDS="${ELLA_TIME_LIMIT_SECONDS:-3600}"
+          TIME_LIMIT_MINUTES=$((TIME_LIMIT_SECONDS / 60))
+
+          if [ "$MODE" = "solve" ]; then
+            BODY="👀 Ella Mizuki começou a trabalhar nesta issue.
+
+          Status: preparando branch e contexto.
+          Limite: ${MAX_ATTEMPTS} tentativas / ${TIME_LIMIT_MINUTES} minutos."
+          elif [ "$MODE" = "continue" ]; then
+            BODY="👀 Ella Mizuki vai continuar tentando corrigir este PR.
+
+          Status: preparando contexto.
+          Limite: ${MAX_ATTEMPTS} tentativas / ${TIME_LIMIT_MINUTES} minutos."
+          else
+            BODY="👀 Ella Mizuki começou a trabalhar neste PR.
+
+          Status: preparando contexto.
+          Limite: ${MAX_ATTEMPTS} tentativas / ${TIME_LIMIT_MINUTES} minutos."
+          fi
+
+          COMMENT_ID="$(gh api \
+            --method POST \
+            "repos/${REPO}/issues/${ISSUE_NUMBER}/comments" \
+            -f body="$BODY" \
+            --jq '.id')"
+
+          echo "comment_id=$COMMENT_ID" >> "$GITHUB_OUTPUT"
+
       - name: Prepare fix files list
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false' }}
+        if: ${{ github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') && steps.pr.outputs.is_cross_repository == 'false' }}
         env:
           GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -389,8 +524,12 @@ jobs:
 
       - name: Prepare solve files list
         if: ${{ !github.event.issue.pull_request && steps.parse.outputs.mode == 'solve' }}
+        env:
+          ELLA_MAX_CONTEXT_REPO_FILES_BYTES: ${{ secrets.ELLA_MAX_CONTEXT_REPO_FILES_BYTES }}
         run: |
           set -e
+
+          REPO_FILES_LIMIT="${ELLA_MAX_CONTEXT_REPO_FILES_BYTES:-200000}"
 
           git ls-files \
             ':!:**/.env' \
@@ -403,15 +542,27 @@ jobs:
             ':!:**/coverage/**' \
             > "$RUNNER_TEMP/ella-allowed-files.txt"
 
-          head -c 60000 "$RUNNER_TEMP/ella-allowed-files.txt" > "$RUNNER_TEMP/ella-repo-files-limited.txt"
+          head -c "$REPO_FILES_LIMIT" "$RUNNER_TEMP/ella-allowed-files.txt" > "$RUNNER_TEMP/ella-repo-files-limited.txt"
 
-      - name: Call AI endpoint for ask or PR analysis
-        if: ${{ steps.parse.outputs.mode == 'ask' || (github.event.issue.pull_request && steps.parse.outputs.mode == 'pr') }}
+      - name: Call AI endpoint for read-only command
+        if: >
+          ${{
+            steps.parse.outputs.mode == 'ask' ||
+            steps.parse.outputs.mode == 'pr' ||
+            steps.parse.outputs.mode == 'review' ||
+            steps.parse.outputs.mode == 'plan' ||
+            steps.parse.outputs.mode == 'label'
+          }}
         env:
           ELLA_AI_BASE_URL: ${{ secrets.ELLA_AI_BASE_URL }}
           ELLA_AI_MODEL: ${{ secrets.ELLA_AI_MODEL }}
           ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
           ELLA_MODE: ${{ steps.parse.outputs.mode }}
+          ELLA_MAX_TOKENS_ASK: ${{ secrets.ELLA_MAX_TOKENS_ASK }}
+          ELLA_MAX_TOKENS_PR: ${{ secrets.ELLA_MAX_TOKENS_PR }}
+          ELLA_MAX_TOKENS_REVIEW: ${{ secrets.ELLA_MAX_TOKENS_REVIEW }}
+          ELLA_MAX_TOKENS_PLAN: ${{ secrets.ELLA_MAX_TOKENS_PLAN }}
+          ELLA_MAX_TOKENS_LABEL: ${{ secrets.ELLA_MAX_TOKENS_LABEL }}
         run: |
           set -e
 
@@ -419,12 +570,21 @@ jobs:
           echo "::add-mask::$ELLA_AI_MODEL"
           echo "::add-mask::$ELLA_AI_API_KEY"
 
-          if [ "$ELLA_MODE" = "pr" ]; then
+          if [ "$ELLA_MODE" = "review" ]; then
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Do a serious code review in Brazilian Portuguese. Be direct. Focus on bugs, security risks, regressions, type issues, missing tests, breaking changes, and suspicious code. Do not modify code."
+            MAX_TOKENS="${ELLA_MAX_TOKENS_REVIEW:-4096}"
+          elif [ "$ELLA_MODE" = "plan" ]; then
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Create a practical implementation plan in Brazilian Portuguese. Do not modify code. Include likely files, steps, risks, and checks."
+            MAX_TOKENS="${ELLA_MAX_TOKENS_PLAN:-4096}"
+          elif [ "$ELLA_MODE" = "label" ]; then
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Classify the issue or PR with common GitHub labels. Return only valid JSON. No Markdown. No code fences."
+            MAX_TOKENS="${ELLA_MAX_TOKENS_LABEL:-1200}"
+          elif [ "$ELLA_MODE" = "pr" ]; then
             SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical. Analyze only the PR context provided. Do not modify code."
-            MAX_TOKENS=1200
+            MAX_TOKENS="${ELLA_MAX_TOKENS_PR:-4096}"
           else
             SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical."
-            MAX_TOKENS=600
+            MAX_TOKENS="${ELLA_MAX_TOKENS_ASK:-2048}"
           fi
 
           REQUEST_BODY="$(jq -n \
@@ -545,8 +705,14 @@ jobs:
           output_path.write_text(content, encoding="utf-8")
           PY
 
-      - name: Comment AI response
-        if: ${{ steps.parse.outputs.mode == 'ask' || steps.parse.outputs.mode == 'pr' }}
+      - name: Comment read-only response
+        if: >
+          ${{
+            steps.parse.outputs.mode == 'ask' ||
+            steps.parse.outputs.mode == 'pr' ||
+            steps.parse.outputs.mode == 'review' ||
+            steps.parse.outputs.mode == 'plan'
+          }}
         env:
           GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -558,8 +724,122 @@ jobs:
             --repo "$REPO" \
             --body "$AI_RESPONSE"
 
-      - name: React ask or PR success
-        if: ${{ steps.parse.outputs.mode == 'ask' || steps.parse.outputs.mode == 'pr' }}
+      - name: Apply labels
+        if: ${{ steps.parse.outputs.mode == 'label' }}
+        env:
+          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -e
+
+          gh label create "bug" --repo "$REPO" --color "d73a4a" --description "Something is not working" || true
+          gh label create "enhancement" --repo "$REPO" --color "a2eeef" --description "New feature or request" || true
+          gh label create "documentation" --repo "$REPO" --color "0075ca" --description "Improvements or additions to documentation" || true
+          gh label create "dependencies" --repo "$REPO" --color "0366d6" --description "Dependency updates or package changes" || true
+          gh label create "security" --repo "$REPO" --color "b60205" --description "Security related changes" || true
+          gh label create "performance" --repo "$REPO" --color "fbca04" --description "Performance related changes" || true
+          gh label create "refactor" --repo "$REPO" --color "cfd3d7" --description "Code refactoring without behavior changes" || true
+          gh label create "tests" --repo "$REPO" --color "0e8a16" --description "Testing related changes" || true
+          gh label create "ui" --repo "$REPO" --color "c2e0c6" --description "User interface related changes" || true
+          gh label create "frontend" --repo "$REPO" --color "1d76db" --description "Frontend related changes" || true
+          gh label create "backend" --repo "$REPO" --color "5319e7" --description "Backend related changes" || true
+          gh label create "i18n" --repo "$REPO" --color "bfd4f2" --description "Internationalization or localization" || true
+          gh label create "ci" --repo "$REPO" --color "fef2c0" --description "CI/CD or workflow changes" || true
+          gh label create "chore" --repo "$REPO" --color "ededed" --description "Maintenance or cleanup" || true
+          gh label create "question" --repo "$REPO" --color "d876e3" --description "Further information is requested" || true
+          gh label create "good first issue" --repo "$REPO" --color "7057ff" --description "Good for newcomers" || true
+          gh label create "help wanted" --repo "$REPO" --color "008672" --description "Extra attention is needed" || true
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          import re
+          import sys
+
+          raw = Path("/tmp/nonexistent").read_text() if False else Path(__import__("os").environ["RUNNER_TEMP"]) / "ai-response.txt"
+          text = raw.read_text(encoding="utf-8", errors="replace").strip()
+
+          allowed = {
+              "bug",
+              "enhancement",
+              "documentation",
+              "dependencies",
+              "security",
+              "performance",
+              "refactor",
+              "tests",
+              "ui",
+              "frontend",
+              "backend",
+              "i18n",
+              "ci",
+              "chore",
+              "question",
+              "good first issue",
+              "help wanted",
+          }
+
+          if text.startswith("```"):
+              text = re.sub(r"^```(?:json)?\s*", "", text)
+              text = re.sub(r"\s*```$", "", text).strip()
+
+          try:
+              data = json.loads(text)
+          except json.JSONDecodeError:
+              start = text.find("{")
+              end = text.rfind("}")
+              if start == -1 or end == -1 or end <= start:
+                  print("Could not parse label JSON", file=sys.stderr)
+                  print(text[:2000], file=sys.stderr)
+                  sys.exit(1)
+              data = json.loads(text[start:end + 1])
+
+          labels = data.get("labels") or []
+          summary = data.get("summary") or "Labels aplicadas pela Ella Mizuki."
+
+          picked = []
+          for label in labels:
+              if isinstance(label, str):
+                  clean = label.strip().lower()
+                  if clean in allowed and clean not in picked:
+                      picked.append(clean)
+
+          if not picked:
+              print("No valid labels selected", file=sys.stderr)
+              sys.exit(1)
+
+          runner_temp = Path(__import__("os").environ["RUNNER_TEMP"])
+          (runner_temp / "ella-labels.txt").write_text("\n".join(picked) + "\n", encoding="utf-8")
+          (runner_temp / "ella-label-summary.txt").write_text(str(summary).strip() + "\n", encoding="utf-8")
+          PY
+
+          while IFS= read -r label; do
+            if [ -n "$label" ]; then
+              gh issue edit "$ISSUE_NUMBER" \
+                --repo "$REPO" \
+                --add-label "$label"
+            fi
+          done < "$RUNNER_TEMP/ella-labels.txt"
+
+          LABELS="$(paste -sd ', ' "$RUNNER_TEMP/ella-labels.txt")"
+          SUMMARY="$(cat "$RUNNER_TEMP/ella-label-summary.txt")"
+
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --body "Labels aplicadas: ${LABELS}
+
+          ${SUMMARY}"
+
+      - name: React read-only success
+        if: >
+          ${{
+            steps.parse.outputs.mode == 'ask' ||
+            steps.parse.outputs.mode == 'pr' ||
+            steps.parse.outputs.mode == 'review' ||
+            steps.parse.outputs.mode == 'plan' ||
+            steps.parse.outputs.mode == 'label'
+          }}
         env:
           GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -576,7 +856,7 @@ jobs:
         id: ella_loop
         if: >
           ${{
-            (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false') ||
+            (github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') && steps.pr.outputs.is_cross_repository == 'false') ||
             (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
           }}
         env:
@@ -585,6 +865,10 @@ jobs:
           ELLA_AI_MODEL: ${{ secrets.ELLA_AI_MODEL }}
           ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
           ELLA_MODE: ${{ steps.parse.outputs.mode }}
+          ELLA_MAX_TOKENS_FIX: ${{ secrets.ELLA_MAX_TOKENS_FIX }}
+          ELLA_MAX_TOKENS_SOLVE: ${{ secrets.ELLA_MAX_TOKENS_SOLVE }}
+          ELLA_MAX_CONTEXT_FILE_BYTES: ${{ secrets.ELLA_MAX_CONTEXT_FILE_BYTES }}
+          ELLA_MAX_CONTEXT_REQUESTED_FILE_BYTES: ${{ secrets.ELLA_MAX_CONTEXT_REQUESTED_FILE_BYTES }}
           REPO: ${{ github.repository }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           PROGRESS_COMMENT_ID: ${{ steps.progress_comment.outputs.comment_id }}
@@ -594,6 +878,11 @@ jobs:
           echo "::add-mask::$ELLA_AI_BASE_URL"
           echo "::add-mask::$ELLA_AI_MODEL"
           echo "::add-mask::$ELLA_AI_API_KEY"
+
+          ELLA_MAX_ATTEMPTS="${ELLA_MAX_ATTEMPTS:-15}"
+          ELLA_TIME_LIMIT_SECONDS="${ELLA_TIME_LIMIT_SECONDS:-3600}"
+          ELLA_MAX_CONTEXT_FILE_BYTES="${ELLA_MAX_CONTEXT_FILE_BYTES:-120000}"
+          ELLA_MAX_CONTEXT_REQUESTED_FILE_BYTES="${ELLA_MAX_CONTEXT_REQUESTED_FILE_BYTES:-250000}"
 
           START_TS="$(date +%s)"
           ATTEMPT=1
@@ -668,13 +957,11 @@ jobs:
               return 0
             fi
 
-            echo "Running install once..."
-
             update_progress "👀 Ella Mizuki está preparando o ambiente.
 
           Status: instalando dependências.
           Tentativas: 0/${ELLA_MAX_ATTEMPTS}
-          Limite: 60 minutos."
+          Limite: ${ELLA_TIME_LIMIT_SECONDS}s."
 
             if $INSTALL_COMMAND > "$RUNNER_TEMP/ella-install.log" 2>&1; then
               echo "- ✅ install" > "$RUNNER_TEMP/ella-install-summary.md"
@@ -730,7 +1017,7 @@ jobs:
               echo "- If previous feedback exists, fix that feedback only."
 
               echo ""
-              echo "Previous feedback:"
+              echo "Previous failure type and feedback:"
               cat "$RUNNER_TEMP/ella-feedback.txt"
 
               echo ""
@@ -742,7 +1029,7 @@ jobs:
               cat "$RUNNER_TEMP/ella-allowed-files.txt"
             } > "$RUNNER_TEMP/ella-context.txt"
 
-            if [ "$ELLA_MODE" = "fix" ]; then
+            if [ "$ELLA_MODE" = "fix" ] || [ "$ELLA_MODE" = "continue" ]; then
               {
                 echo ""
                 echo "PR info:"
@@ -761,7 +1048,7 @@ jobs:
                   {
                     echo ""
                     echo "----- FILE: $file -----"
-                    head -c 18000 "$file"
+                    head -c "$ELLA_MAX_CONTEXT_FILE_BYTES" "$file"
                     echo ""
                     echo "----- END FILE: $file -----"
                   } >> "$RUNNER_TEMP/ella-context.txt"
@@ -788,7 +1075,7 @@ jobs:
                   {
                     echo ""
                     echo "----- FILE: $file -----"
-                    head -c 12000 "$file"
+                    head -c "$ELLA_MAX_CONTEXT_FILE_BYTES" "$file"
                     echo ""
                     echo "----- END FILE: $file -----"
                   } >> "$RUNNER_TEMP/ella-context.txt"
@@ -800,10 +1087,10 @@ jobs:
           call_ai() {
             if [ "$ELLA_MODE" = "solve" ]; then
               SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. You are solving a GitHub issue by editing a branch and opening a PR. Return only valid JSON. No Markdown. No code fences. You may ask for file contents using needs_files. When editing, return a files array with complete final file contents."
-              MAX_TOKENS=9000
+              MAX_TOKENS="${ELLA_MAX_TOKENS_SOLVE:-16384}"
             else
               SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. You are fixing an existing PR. Return only valid JSON. No Markdown. No code fences. You may ask for file contents using needs_files. When editing, return a files array with complete final file contents."
-              MAX_TOKENS=9000
+              MAX_TOKENS="${ELLA_MAX_TOKENS_FIX:-16384}"
             fi
 
             REQUEST_BODY="$(jq -n \
@@ -843,6 +1130,8 @@ jobs:
 
             if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
               {
+                echo "Failure type: ai_endpoint"
+                echo ""
                 echo "AI endpoint failed with HTTP status $HTTP_STATUS."
                 echo ""
                 cat "$RUNNER_TEMP/response.stream"
@@ -963,14 +1252,14 @@ jobs:
               start = raw.find("{")
               end = raw.rfind("}")
               if start == -1 or end == -1 or end <= start:
-                  fail("AI response is not valid JSON.")
+                  fail("Failure type: invalid_json\nAI response is not valid JSON.")
               try:
                   data = json.loads(raw[start:end + 1])
               except json.JSONDecodeError as exc:
-                  fail(f"AI response JSON parse failed: {exc}")
+                  fail(f"Failure type: invalid_json\nAI response JSON parse failed: {exc}")
 
           if not isinstance(data, dict):
-              fail("AI response JSON must be an object.")
+              fail("Failure type: invalid_json\nAI response JSON must be an object.")
 
           summary = data.get("summary") or "Fix aplicado pela Ella Mizuki."
           summary_path.write_text(str(summary).strip() + "\n", encoding="utf-8")
@@ -983,7 +1272,7 @@ jobs:
                       allowed_files.add(line)
 
           if not allowed_files:
-              fail("Allowed files list is empty.")
+              fail("Failure type: no_allowed_files\nAllowed files list is empty.")
 
           needs_files = data.get("needs_files")
 
@@ -1011,7 +1300,7 @@ jobs:
           files = data.get("files")
 
           if not isinstance(files, list):
-              fail("AI response JSON must contain either needs_files or files array.")
+              fail("Failure type: invalid_json\nAI response JSON must contain either needs_files or files array.")
 
           changed_count = 0
 
@@ -1024,27 +1313,27 @@ jobs:
 
           for item in files:
               if not isinstance(item, dict):
-                  fail("Each files item must be an object.")
+                  fail("Failure type: invalid_json\nEach files item must be an object.")
 
               path = item.get("path")
               content = item.get("content")
 
               if not isinstance(path, str) or not path.strip():
-                  fail("Each files item must contain a path string.")
+                  fail("Failure type: invalid_json\nEach files item must contain a path string.")
 
               if not isinstance(content, str):
-                  fail(f"File {path} must contain a content string.")
+                  fail(f"Failure type: invalid_json\nFile {path} must contain a content string.")
 
               path = path.strip()
 
               if path.startswith("/") or ".." in Path(path).parts or path.startswith(".git/"):
-                  fail(f"Unsafe file path rejected: {path}")
+                  fail(f"Failure type: unsafe_file\nUnsafe file path rejected: {path}")
 
               if Path(path).name in blocked_suffixes or Path(path).name.startswith(".env"):
-                  fail(f"Refusing to edit env file: {path}")
+                  fail(f"Failure type: unsafe_file\nRefusing to edit env file: {path}")
 
               if path not in allowed_files:
-                  fail(f"File path is not in allowed files list: {path}")
+                  fail(f"Failure type: file_not_allowed\nFile path is not in allowed files list: {path}")
 
               target = repo / path
               target.parent.mkdir(parents=True, exist_ok=True)
@@ -1052,13 +1341,14 @@ jobs:
               changed_count += 1
 
           if changed_count == 0:
-              fail("AI returned zero files to change.")
+              fail("Failure type: no_changes\nAI returned zero files to change.")
           PY
           }
 
           append_needed_files_context() {
             if [ ! -s "$RUNNER_TEMP/ella-needed-files.txt" ]; then
               {
+                echo "Failure type: invalid_needs_files"
                 echo "AI requested file contents, but no valid allowed files were requested."
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
@@ -1075,7 +1365,7 @@ jobs:
                 {
                   echo ""
                   echo "----- REQUESTED FILE: $file -----"
-                  head -c 25000 "$file"
+                  head -c "$ELLA_MAX_CONTEXT_REQUESTED_FILE_BYTES" "$file"
                   echo ""
                   echo "----- END REQUESTED FILE: $file -----"
                 } >> "$RUNNER_TEMP/ella-extra-context.txt"
@@ -1126,6 +1416,8 @@ jobs:
 
           if ! prepare_install_once; then
             {
+              echo "Failure type: install_failed"
+              echo ""
               echo "Install failed before Ella could safely edit."
               echo ""
               cat "$RUNNER_TEMP/ella-install-summary.md"
@@ -1146,6 +1438,8 @@ jobs:
 
             if [ "$ELAPSED" -ge "$ELLA_TIME_LIMIT_SECONDS" ]; then
               {
+                echo "Failure type: time_limit"
+                echo ""
                 echo "Tempo limite atingido antes de passar nos checks."
                 echo ""
                 echo "Tentativas usadas: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}"
@@ -1191,6 +1485,8 @@ jobs:
             if [ "$APPLY_STATUS" = "20" ]; then
               append_needed_files_context || true
               {
+                echo "Failure type: needs_more_files"
+                echo ""
                 echo "A tentativa ${ATTEMPT} pediu mais arquivos. Forneci os arquivos válidos solicitados."
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
@@ -1213,7 +1509,7 @@ jobs:
               update_progress "⚠️ Ella Mizuki recebeu uma resposta não aplicável da IA.
 
           Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Próximo passo: pedir correção do formato."
+          Próximo passo: pedir correção do formato/arquivo."
 
               ATTEMPT=$((ATTEMPT + 1))
               continue
@@ -1226,6 +1522,8 @@ jobs:
 
             if [ "$DIFF_CHECK_STATUS" != "0" ]; then
               {
+                echo "Failure type: diff_check_failed"
+                echo ""
                 echo "A tentativa ${ATTEMPT} falhou em git diff --check."
                 echo ""
                 cat "$RUNNER_TEMP/ella-diff-check.txt"
@@ -1244,6 +1542,8 @@ jobs:
 
             if [ ! -s "$RUNNER_TEMP/ella-changed-files.txt" ]; then
               {
+                echo "Failure type: no_changes"
+                echo ""
                 echo "A tentativa ${ATTEMPT} não gerou mudanças reais nos arquivos."
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
@@ -1289,6 +1589,8 @@ jobs:
             fi
 
             {
+              echo "Failure type: project_checks_failed"
+              echo ""
               echo "A tentativa ${ATTEMPT} aplicou mudanças, mas os checks falharam."
               echo ""
               cat "$RUNNER_TEMP/ella-checks-summary.md"
@@ -1307,6 +1609,8 @@ jobs:
           if [ "$SUCCESS" != "true" ]; then
             if [ ! -s "$RUNNER_TEMP/ella-final-summary.md" ]; then
               {
+                echo "Failure type: max_attempts"
+                echo ""
                 echo "Ella Mizuki não conseguiu chegar em um fix válido dentro dos limites."
                 echo ""
                 echo "Tentativas usadas: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}"
@@ -1332,7 +1636,7 @@ jobs:
           ${{
             always() &&
             (
-              (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix') ||
+              (github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue')) ||
               (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
             )
           }}
@@ -1360,6 +1664,8 @@ jobs:
             ${{ runner.temp }}/ella-check-*.log
             ${{ runner.temp }}/ella-install.log
             ${{ runner.temp }}/ella-install-summary.md
+            ${{ runner.temp }}/ella-labels.txt
+            ${{ runner.temp }}/ella-label-summary.txt
           if-no-files-found: ignore
           retention-days: 7
 
@@ -1368,7 +1674,7 @@ jobs:
           ${{
             steps.ella_loop.outputs.success == 'false' &&
             (
-              (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix') ||
+              (github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue')) ||
               (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
             )
           }}
@@ -1390,7 +1696,7 @@ jobs:
           ${{
             steps.ella_loop.outputs.success == 'false' &&
             (
-              (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix') ||
+              (github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue')) ||
               (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
             )
           }}
@@ -1408,7 +1714,7 @@ jobs:
 
       - name: Commit and push fix as Yuri
         id: commit_fix
-        if: ${{ steps.ella_loop.outputs.success == 'true' && steps.parse.outputs.mode == 'fix' }}
+        if: ${{ steps.ella_loop.outputs.success == 'true' && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') }}
         env:
           YURI_COMMIT_NAME: ${{ secrets.YURI_COMMIT_NAME }}
           YURI_COMMIT_EMAIL: ${{ secrets.YURI_COMMIT_EMAIL }}
@@ -1435,14 +1741,14 @@ jobs:
           git ls-files --modified --others --exclude-standard > "$RUNNER_TEMP/ella-changed-files.txt"
           xargs -a "$RUNNER_TEMP/ella-changed-files.txt" git add --
 
-          git commit -m "Ella Mizuki: apply requested fix"
+          git commit -m "Apply requested fix"
           git push origin "HEAD:${HEAD_REF}"
 
           COMMIT_SHA="$(git rev-parse --short HEAD)"
           echo "commit_sha=$COMMIT_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Comment fix success
-        if: ${{ steps.ella_loop.outputs.success == 'true' && steps.parse.outputs.mode == 'fix' }}
+        if: ${{ steps.ella_loop.outputs.success == 'true' && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') }}
         env:
           GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -1460,7 +1766,7 @@ jobs:
           ${SUMMARY}"
 
       - name: React fix success
-        if: ${{ steps.ella_loop.outputs.success == 'true' && steps.parse.outputs.mode == 'fix' }}
+        if: ${{ steps.ella_loop.outputs.success == 'true' && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') }}
         env:
           GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -1502,7 +1808,7 @@ jobs:
           git ls-files --modified --others --exclude-standard > "$RUNNER_TEMP/ella-changed-files.txt"
           xargs -a "$RUNNER_TEMP/ella-changed-files.txt" git add --
 
-          git commit -m "Ella Mizuki: solve issue #${{ github.event.issue.number }}"
+          git commit -m "Solve issue #${{ github.event.issue.number }}"
           git push origin "HEAD:${BRANCH_NAME}"
 
           COMMIT_SHA="$(git rev-parse --short HEAD)"
