@@ -11,7 +11,9 @@ permissions:
 
 jobs:
   test-ella:
-    if: contains(github.event.comment.body, '/ella test')
+    if: >
+      contains(github.event.comment.body, '/ella test') &&
+      github.event.comment.user.login == 'isyuricunha'
     runs-on: ubuntu-latest
 
     steps:
