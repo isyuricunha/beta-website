@@ -26,7 +26,7 @@ jobs:
       ELLA_TIME_LIMIT_SECONDS: ${{ secrets.ELLA_TIME_LIMIT_SECONDS }}
 
     steps:
-      - name: Create Ella Mizuki token
+      - name: Create app token
         id: ella_token
         uses: actions/create-github-app-token@v3
         with:
@@ -90,35 +90,35 @@ jobs:
           fi
 
           if [ "$MODE" = "ask" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
-            PROMPT="Responda com uma frase curta dizendo que a Ella Mizuki está funcionando."
+            PROMPT="Reply with one short sentence saying everything is working."
           fi
 
           if [ "$MODE" = "pr" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
-            PROMPT="Analise este PR de forma curta e prática. Mostre o que mudou, riscos e se parece seguro fazer merge."
+            PROMPT="Analyze this PR briefly. Explain what changed, possible risks, and whether it looks safe to merge."
           fi
 
           if [ "$MODE" = "review" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
-            PROMPT="Faça um code review sério deste PR. Procure bugs, regressões, riscos de segurança, problemas de tipagem e testes faltando."
+            PROMPT="Do a serious code review for this PR. Look for bugs, regressions, security risks, type issues, and missing tests."
           fi
 
           if [ "$MODE" = "plan" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
-            PROMPT="Crie um plano curto e prático. Não edite nada."
+            PROMPT="Create a short, practical plan. Do not edit anything."
           fi
 
           if [ "$MODE" = "label" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
-            PROMPT="Classifique esta issue ou PR usando labels comuns e relevantes."
+            PROMPT="Classify this issue or PR using common relevant labels."
           fi
 
           if [ "$MODE" = "fix" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
-            PROMPT="Corrija o problema descrito no PR ou no comentário. Faça a menor mudança possível."
+            PROMPT="Fix the problem described in the PR or comment. Make the smallest safe change possible."
           fi
 
           if [ "$MODE" = "continue" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
-            PROMPT="Continue tentando corrigir este PR com a menor mudança segura possível."
+            PROMPT="Continue trying to fix this PR with the smallest safe change possible."
           fi
 
           if [ "$MODE" = "solve" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
-            PROMPT="Resolva esta issue com a menor mudança segura possível."
+            PROMPT="Solve this issue with the smallest safe change possible."
           fi
 
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
@@ -133,31 +133,31 @@ jobs:
         run: |
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$REPO" \
-            --body "Comandos disponíveis:
+            --body "Available commands:
 
-          \`/ella ask sua pergunta\`
-          Responde usando o modelo configurado.
+          \`/ella ask your question\`
+          I answer using the configured model.
 
-          \`/ella pr pedido\`
-          Analisa o PR atual de forma curta.
+          \`/ella pr request\`
+          I give a short PR analysis.
 
-          \`/ella review pedido\`
-          Faz code review mais sério do PR.
+          \`/ella review request\`
+          I do a stricter PR code review.
 
-          \`/ella plan pedido\`
-          Cria um plano sem editar arquivos.
+          \`/ella plan request\`
+          I write a plan without editing files.
 
           \`/ella label\`
-          Aplica labels comuns na issue/PR.
+          I apply common labels to the issue or PR.
 
-          \`/ella fix pedido\`
-          Corrige o PR atual em loop controlado, roda checks e commita como Yuri Cunha.
+          \`/ella fix request\`
+          I try to fix the current PR, run checks, and commit as Yuri Cunha.
 
-          \`/ella continue pedido\`
-          Continua tentando corrigir o PR atual com mais tentativas.
+          \`/ella continue request\`
+          I continue trying to fix the current PR with more attempts.
 
-          \`/ella solve pedido\`
-          Em uma issue, cria uma branch, tenta resolver, roda checks e abre PR."
+          \`/ella solve request\`
+          On an issue, I create a branch, try to solve it, run checks, and open a PR."
 
       - name: Comment unknown command
         if: ${{ steps.parse.outputs.mode == 'unknown' }}
@@ -168,7 +168,7 @@ jobs:
         run: |
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$REPO" \
-            --body "Comando não reconhecido. Use \`/ella help\`."
+            --body "I do not recognize that command. Use \`/ella help\`."
 
       - name: Validate AI config
         if: >
@@ -226,7 +226,7 @@ jobs:
         run: |
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$REPO" \
-            --body "Esse comando precisa ser usado dentro de um PR."
+            --body "That command needs to be used inside a PR."
 
       - name: Stop solve inside PR
         if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'solve' }}
@@ -237,7 +237,7 @@ jobs:
         run: |
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$REPO" \
-            --body "Use \`/ella fix\` dentro de PR. Use \`/ella solve\` em issue."
+            --body "Use \`/ella fix\` inside a PR. Use \`/ella solve\` on an issue."
 
       - name: Prepare ask context
         if: ${{ steps.parse.outputs.mode == 'ask' }}
@@ -406,7 +406,7 @@ jobs:
         run: |
           gh pr comment "$PR_NUMBER" \
             --repo "$REPO" \
-            --body "Não vou aplicar fix automático em PR vindo de fork. Por segurança, só faço commit automático em branch do próprio repo."
+            --body "I will not apply automatic fixes to PRs coming from forks. For safety, I only commit to branches from this repository."
 
       - name: Checkout repository for fix
         if: ${{ github.event.issue.pull_request && (steps.parse.outputs.mode == 'fix' || steps.parse.outputs.mode == 'continue') && steps.pr.outputs.is_cross_repository == 'false' }}
@@ -484,20 +484,20 @@ jobs:
           TIME_LIMIT_MINUTES=$((TIME_LIMIT_SECONDS / 60))
 
           if [ "$MODE" = "solve" ]; then
-            BODY="👀 Ella Mizuki começou a trabalhar nesta issue.
+            BODY="👀 I started working on this issue.
 
-          Status: preparando branch e contexto.
-          Limite: ${MAX_ATTEMPTS} tentativas / ${TIME_LIMIT_MINUTES} minutos."
+          Status: preparing branch and context.
+          Limit: ${MAX_ATTEMPTS} attempts / ${TIME_LIMIT_MINUTES} minutes."
           elif [ "$MODE" = "continue" ]; then
-            BODY="👀 Ella Mizuki vai continuar tentando corrigir este PR.
+            BODY="👀 I will continue trying to fix this PR.
 
-          Status: preparando contexto.
-          Limite: ${MAX_ATTEMPTS} tentativas / ${TIME_LIMIT_MINUTES} minutos."
+          Status: preparing context.
+          Limit: ${MAX_ATTEMPTS} attempts / ${TIME_LIMIT_MINUTES} minutes."
           else
-            BODY="👀 Ella Mizuki começou a trabalhar neste PR.
+            BODY="👀 I started working on this PR.
 
-          Status: preparando contexto.
-          Limite: ${MAX_ATTEMPTS} tentativas / ${TIME_LIMIT_MINUTES} minutos."
+          Status: preparing context.
+          Limit: ${MAX_ATTEMPTS} attempts / ${TIME_LIMIT_MINUTES} minutes."
           fi
 
           COMMENT_ID="$(gh api \
@@ -571,19 +571,19 @@ jobs:
           echo "::add-mask::$ELLA_AI_API_KEY"
 
           if [ "$ELLA_MODE" = "review" ]; then
-            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Do a serious code review in Brazilian Portuguese. Be direct. Focus on bugs, security risks, regressions, type issues, missing tests, breaking changes, and suspicious code. Do not modify code."
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Write in English. Use first person when referring to yourself. Do not refer to yourself in the third person. Do a serious code review. Be direct. Focus on bugs, security risks, regressions, type issues, missing tests, breaking changes, and suspicious code. Do not modify code."
             MAX_TOKENS="${ELLA_MAX_TOKENS_REVIEW:-4096}"
           elif [ "$ELLA_MODE" = "plan" ]; then
-            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Create a practical implementation plan in Brazilian Portuguese. Do not modify code. Include likely files, steps, risks, and checks."
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Write in English. Use first person when referring to yourself. Do not refer to yourself in the third person. Create a practical implementation plan. Do not modify code. Include likely files, steps, risks, and checks."
             MAX_TOKENS="${ELLA_MAX_TOKENS_PLAN:-4096}"
           elif [ "$ELLA_MODE" = "label" ]; then
-            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Classify the issue or PR with common GitHub labels. Return only valid JSON. No Markdown. No code fences."
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Write in English. Classify the issue or PR with common GitHub labels. Return only valid JSON. No Markdown. No code fences."
             MAX_TOKENS="${ELLA_MAX_TOKENS_LABEL:-1200}"
           elif [ "$ELLA_MODE" = "pr" ]; then
-            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical. Analyze only the PR context provided. Do not modify code."
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Write in English. Use first person when referring to yourself. Do not refer to yourself in the third person. Be short, direct, and practical. Analyze only the PR context provided. Do not modify code."
             MAX_TOKENS="${ELLA_MAX_TOKENS_PR:-4096}"
           else
-            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical."
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Write in English. Use first person when referring to yourself. Do not refer to yourself in the third person. Be short, direct, and practical."
             MAX_TOKENS="${ELLA_MAX_TOKENS_ASK:-2048}"
           fi
 
@@ -754,11 +754,12 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import json
+          import os
           import re
           import sys
 
-          raw = Path("/tmp/nonexistent").read_text() if False else Path(__import__("os").environ["RUNNER_TEMP"]) / "ai-response.txt"
-          text = raw.read_text(encoding="utf-8", errors="replace").strip()
+          response_path = Path(os.environ["RUNNER_TEMP"]) / "ai-response.txt"
+          text = response_path.read_text(encoding="utf-8", errors="replace").strip()
 
           allowed = {
               "bug",
@@ -796,7 +797,7 @@ jobs:
               data = json.loads(text[start:end + 1])
 
           labels = data.get("labels") or []
-          summary = data.get("summary") or "Labels aplicadas pela Ella Mizuki."
+          summary = data.get("summary") or "I applied the most relevant labels."
 
           picked = []
           for label in labels:
@@ -809,7 +810,7 @@ jobs:
               print("No valid labels selected", file=sys.stderr)
               sys.exit(1)
 
-          runner_temp = Path(__import__("os").environ["RUNNER_TEMP"])
+          runner_temp = Path(os.environ["RUNNER_TEMP"])
           (runner_temp / "ella-labels.txt").write_text("\n".join(picked) + "\n", encoding="utf-8")
           (runner_temp / "ella-label-summary.txt").write_text(str(summary).strip() + "\n", encoding="utf-8")
           PY
@@ -827,7 +828,7 @@ jobs:
 
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$REPO" \
-            --body "Labels aplicadas: ${LABELS}
+            --body "I applied these labels: ${LABELS}
 
           ${SUMMARY}"
 
@@ -852,7 +853,7 @@ jobs:
             -f content="+1" \
             >/dev/null || true
 
-      - name: Run Ella fix loop
+      - name: Run fix loop
         id: ella_loop
         if: >
           ${{
@@ -921,7 +922,7 @@ jobs:
 
             echo "- ❌ $NAME" >> "$RUNNER_TEMP/ella-checks-summary.md"
             echo "" >> "$RUNNER_TEMP/ella-checks-summary.md"
-            echo "Últimas linhas de $NAME:" >> "$RUNNER_TEMP/ella-checks-summary.md"
+            echo "Last lines from $NAME:" >> "$RUNNER_TEMP/ella-checks-summary.md"
             echo '```txt' >> "$RUNNER_TEMP/ella-checks-summary.md"
             tail -n 100 "$LOG_FILE" >> "$RUNNER_TEMP/ella-checks-summary.md"
             echo '```' >> "$RUNNER_TEMP/ella-checks-summary.md"
@@ -930,7 +931,7 @@ jobs:
 
           prepare_install_once() {
             if [ ! -f package.json ]; then
-              echo "- ⚪ package.json não encontrado, sem install automático" > "$RUNNER_TEMP/ella-install-summary.md"
+              echo "- ⚪ package.json not found, skipping automatic install" > "$RUNNER_TEMP/ella-install-summary.md"
               return 0
             fi
 
@@ -953,15 +954,15 @@ jobs:
             echo "$PACKAGE_RUNNER" > "$RUNNER_TEMP/ella-package-runner.txt"
 
             if [ -z "$INSTALL_COMMAND" ]; then
-              echo "- ⚠️ install: nenhum lockfile encontrado, pulando install automático" > "$RUNNER_TEMP/ella-install-summary.md"
+              echo "- ⚠️ install: no lockfile found, skipping automatic install" > "$RUNNER_TEMP/ella-install-summary.md"
               return 0
             fi
 
-            update_progress "👀 Ella Mizuki está preparando o ambiente.
+            update_progress "👀 I am preparing the environment.
 
-          Status: instalando dependências.
-          Tentativas: 0/${ELLA_MAX_ATTEMPTS}
-          Limite: ${ELLA_TIME_LIMIT_SECONDS}s."
+          Status: installing dependencies.
+          Attempts: 0/${ELLA_MAX_ATTEMPTS}
+          Limit: ${ELLA_TIME_LIMIT_SECONDS}s."
 
             if $INSTALL_COMMAND > "$RUNNER_TEMP/ella-install.log" 2>&1; then
               echo "- ✅ install" > "$RUNNER_TEMP/ella-install-summary.md"
@@ -971,7 +972,7 @@ jobs:
             {
               echo "- ❌ install"
               echo ""
-              echo "Últimas linhas de install:"
+              echo "Last lines from install:"
               echo '```txt'
               tail -n 100 "$RUNNER_TEMP/ella-install.log"
               echo '```'
@@ -1010,6 +1011,9 @@ jobs:
               echo "}"
               echo ""
               echo "Rules:"
+              echo "- Write in English."
+              echo "- Use first person when referring to yourself."
+              echo "- Do not refer to yourself in the third person."
               echo "- Return complete final file content for every edited file."
               echo "- Keep the smallest safe change possible."
               echo "- Do not include explanations outside JSON."
@@ -1086,10 +1090,10 @@ jobs:
 
           call_ai() {
             if [ "$ELLA_MODE" = "solve" ]; then
-              SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. You are solving a GitHub issue by editing a branch and opening a PR. Return only valid JSON. No Markdown. No code fences. You may ask for file contents using needs_files. When editing, return a files array with complete final file contents."
+              SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Write in English. Use first person when referring to yourself. Do not refer to yourself in the third person. You are solving a GitHub issue by editing a branch and opening a PR. Return only valid JSON. No Markdown. No code fences. You may ask for file contents using needs_files. When editing, return a files array with complete final file contents."
               MAX_TOKENS="${ELLA_MAX_TOKENS_SOLVE:-16384}"
             else
-              SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. You are fixing an existing PR. Return only valid JSON. No Markdown. No code fences. You may ask for file contents using needs_files. When editing, return a files array with complete final file contents."
+              SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Write in English. Use first person when referring to yourself. Do not refer to yourself in the third person. You are fixing an existing PR. Return only valid JSON. No Markdown. No code fences. You may ask for file contents using needs_files. When editing, return a files array with complete final file contents."
               MAX_TOKENS="${ELLA_MAX_TOKENS_FIX:-16384}"
             fi
 
@@ -1261,7 +1265,7 @@ jobs:
           if not isinstance(data, dict):
               fail("Failure type: invalid_json\nAI response JSON must be an object.")
 
-          summary = data.get("summary") or "Fix aplicado pela Ella Mizuki."
+          summary = data.get("summary") or "I applied the requested fix."
           summary_path.write_text(str(summary).strip() + "\n", encoding="utf-8")
 
           allowed_files = set()
@@ -1349,7 +1353,7 @@ jobs:
             if [ ! -s "$RUNNER_TEMP/ella-needed-files.txt" ]; then
               {
                 echo "Failure type: invalid_needs_files"
-                echo "AI requested file contents, but no valid allowed files were requested."
+                echo "The model requested file contents, but no valid allowed files were requested."
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
               return 1
@@ -1357,7 +1361,7 @@ jobs:
 
             {
               echo ""
-              echo "Files requested by AI:"
+              echo "Files requested by the model:"
             } >> "$RUNNER_TEMP/ella-extra-context.txt"
 
             while IFS= read -r file; do
@@ -1380,7 +1384,7 @@ jobs:
 
           run_project_checks() {
             {
-              echo "Checks executados:"
+              echo "Checks executed:"
               echo ""
               cat "$RUNNER_TEMP/ella-install-summary.md"
             } > "$RUNNER_TEMP/ella-checks-summary.md"
@@ -1393,22 +1397,22 @@ jobs:
               if node -e "process.exit(require('./package.json').scripts && require('./package.json').scripts.lint ? 0 : 1)"; then
                 run_check "lint" $PACKAGE_RUNNER lint || FAILED=1
               else
-                echo "- ⚪ lint: script não encontrado" >> "$RUNNER_TEMP/ella-checks-summary.md"
+                echo "- ⚪ lint: script not found" >> "$RUNNER_TEMP/ella-checks-summary.md"
               fi
 
               if node -e "process.exit(require('./package.json').scripts && require('./package.json').scripts.test ? 0 : 1)"; then
                 run_check "test" $PACKAGE_RUNNER test || FAILED=1
               else
-                echo "- ⚪ test: script não encontrado" >> "$RUNNER_TEMP/ella-checks-summary.md"
+                echo "- ⚪ test: script not found" >> "$RUNNER_TEMP/ella-checks-summary.md"
               fi
 
               if node -e "process.exit(require('./package.json').scripts && require('./package.json').scripts.build ? 0 : 1)"; then
                 run_check "build" $PACKAGE_RUNNER build || FAILED=1
               else
-                echo "- ⚪ build: script não encontrado" >> "$RUNNER_TEMP/ella-checks-summary.md"
+                echo "- ⚪ build: script not found" >> "$RUNNER_TEMP/ella-checks-summary.md"
               fi
             else
-              echo "- ⚪ package.json não encontrado, sem checks automáticos" >> "$RUNNER_TEMP/ella-checks-summary.md"
+              echo "- ⚪ package.json not found, no automatic checks" >> "$RUNNER_TEMP/ella-checks-summary.md"
             fi
 
             return "$FAILED"
@@ -1418,15 +1422,15 @@ jobs:
             {
               echo "Failure type: install_failed"
               echo ""
-              echo "Install failed before Ella could safely edit."
+              echo "Install failed before I could safely edit."
               echo ""
               cat "$RUNNER_TEMP/ella-install-summary.md"
             } > "$RUNNER_TEMP/ella-final-summary.md"
 
-            update_progress "❌ Ella Mizuki parou antes de editar.
+            update_progress "❌ I stopped before editing.
 
-          Motivo: install falhou.
-          Artifact de debug será gerado se disponível."
+          Reason: install failed.
+          A debug artifact will be uploaded if available."
 
             echo "success=false" >> "$GITHUB_OUTPUT"
             exit 0
@@ -1440,38 +1444,38 @@ jobs:
               {
                 echo "Failure type: time_limit"
                 echo ""
-                echo "Tempo limite atingido antes de passar nos checks."
+                echo "Time limit reached before checks passed."
                 echo ""
-                echo "Tentativas usadas: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}"
-                echo "Tempo usado: ${ELAPSED}s/${ELLA_TIME_LIMIT_SECONDS}s"
+                echo "Attempts used: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}"
+                echo "Time used: ${ELAPSED}s/${ELLA_TIME_LIMIT_SECONDS}s"
                 echo ""
-                echo "Último feedback:"
+                echo "Last feedback:"
                 cat "$RUNNER_TEMP/ella-feedback.txt"
               } > "$RUNNER_TEMP/ella-final-summary.md"
 
-              update_progress "⏱️ Ella Mizuki atingiu o limite de tempo.
+              update_progress "⏱️ I reached the time limit.
 
-          Tentativas: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}
-          Tempo usado: ${ELAPSED}s/${ELLA_TIME_LIMIT_SECONDS}s"
+          Attempts: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}
+          Time used: ${ELAPSED}s/${ELLA_TIME_LIMIT_SECONDS}s"
 
               break
             fi
 
-            echo "Ella attempt ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}"
+            echo "Attempt ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}"
 
-            update_progress "👀 Ella Mizuki está trabalhando.
+            update_progress "👀 I am working on it.
 
-          Status: tentativa ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Etapa: preparando contexto e chamando IA.
-          Tempo usado: ${ELAPSED}s/${ELLA_TIME_LIMIT_SECONDS}s"
+          Status: attempt ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Step: preparing context and calling the model.
+          Time used: ${ELAPSED}s/${ELLA_TIME_LIMIT_SECONDS}s"
 
             build_context
 
             if ! call_ai; then
-              update_progress "⚠️ Ella Mizuki encontrou erro ao chamar a IA.
+              update_progress "⚠️ I hit an error while calling the model.
 
-          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Próximo passo: tentar novamente, se houver tempo."
+          Attempt: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Next step: retry if there is enough time."
 
               ATTEMPT=$((ATTEMPT + 1))
               continue
@@ -1487,13 +1491,13 @@ jobs:
               {
                 echo "Failure type: needs_more_files"
                 echo ""
-                echo "A tentativa ${ATTEMPT} pediu mais arquivos. Forneci os arquivos válidos solicitados."
+                echo "Attempt ${ATTEMPT} requested more files. I provided the valid requested files."
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
-              update_progress "📖 Ella Mizuki pediu mais contexto.
+              update_progress "📖 I need more context.
 
-          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Status: forneci arquivos extras permitidos."
+          Attempt: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Status: I provided the extra allowed files."
 
               ATTEMPT=$((ATTEMPT + 1))
               continue
@@ -1501,15 +1505,15 @@ jobs:
 
             if [ "$APPLY_STATUS" != "0" ]; then
               {
-                echo "A tentativa ${ATTEMPT} retornou JSON inválido ou não aplicável."
+                echo "Attempt ${ATTEMPT} returned invalid or non-applicable JSON."
                 echo ""
                 cat "$RUNNER_TEMP/ella-apply-error.txt"
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
-              update_progress "⚠️ Ella Mizuki recebeu uma resposta não aplicável da IA.
+              update_progress "⚠️ The model returned a response I could not apply.
 
-          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Próximo passo: pedir correção do formato/arquivo."
+          Attempt: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Next step: ask for a corrected format or allowed file."
 
               ATTEMPT=$((ATTEMPT + 1))
               continue
@@ -1524,15 +1528,15 @@ jobs:
               {
                 echo "Failure type: diff_check_failed"
                 echo ""
-                echo "A tentativa ${ATTEMPT} falhou em git diff --check."
+                echo "Attempt ${ATTEMPT} failed git diff --check."
                 echo ""
                 cat "$RUNNER_TEMP/ella-diff-check.txt"
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
-              update_progress "⚠️ Ella Mizuki aplicou mudanças, mas elas falharam em git diff --check.
+              update_progress "⚠️ I applied changes, but they failed git diff --check.
 
-          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Próximo passo: corrigir formatação/whitespace."
+          Attempt: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Next step: fix formatting or whitespace."
 
               ATTEMPT=$((ATTEMPT + 1))
               continue
@@ -1544,22 +1548,22 @@ jobs:
               {
                 echo "Failure type: no_changes"
                 echo ""
-                echo "A tentativa ${ATTEMPT} não gerou mudanças reais nos arquivos."
+                echo "Attempt ${ATTEMPT} did not produce real file changes."
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
-              update_progress "⚠️ Ella Mizuki não gerou mudanças reais.
+              update_progress "⚠️ I did not produce any real file changes.
 
-          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Próximo passo: tentar novamente com feedback mais direto."
+          Attempt: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Next step: retry with clearer feedback."
 
               ATTEMPT=$((ATTEMPT + 1))
               continue
             fi
 
-            update_progress "🧪 Ella Mizuki aplicou mudanças e está rodando checks.
+            update_progress "🧪 I applied changes and I am running checks.
 
-          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Etapa: lint/test/build."
+          Attempt: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Step: lint/test/build."
 
             set +e
             run_project_checks
@@ -1570,20 +1574,20 @@ jobs:
               SUCCESS="true"
 
               {
-                echo "Ella Mizuki conseguiu aplicar o fix."
+                echo "I applied the fix successfully."
                 echo ""
-                echo "Tentativas usadas: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}"
+                echo "Attempts used: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}"
                 echo ""
-                echo "Resumo da IA:"
+                echo "Summary:"
                 cat "$RUNNER_TEMP/ella-fix-summary.txt"
                 echo ""
                 cat "$RUNNER_TEMP/ella-checks-summary.md"
               } > "$RUNNER_TEMP/ella-final-summary.md"
 
-              update_progress "✅ Ella Mizuki passou nos checks.
+              update_progress "✅ Checks passed.
 
-          Tentativas usadas: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Próximo passo: commit/PR."
+          Attempts used: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Next step: commit/PR."
 
               break
             fi
@@ -1591,17 +1595,17 @@ jobs:
             {
               echo "Failure type: project_checks_failed"
               echo ""
-              echo "A tentativa ${ATTEMPT} aplicou mudanças, mas os checks falharam."
+              echo "Attempt ${ATTEMPT} applied changes, but checks failed."
               echo ""
               cat "$RUNNER_TEMP/ella-checks-summary.md"
               echo ""
-              echo "Corrija apenas os erros acima, preservando o comportamento atual."
+              echo "Fix only the errors above while preserving the current behavior."
             } > "$RUNNER_TEMP/ella-feedback.txt"
 
-            update_progress "🔁 Ella Mizuki aplicou mudanças, mas os checks falharam.
+            update_progress "🔁 I applied changes, but checks failed.
 
-          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
-          Próximo passo: corrigir os erros dos checks e tentar novamente."
+          Attempt: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Next step: fix the check errors and try again."
 
             ATTEMPT=$((ATTEMPT + 1))
           done
@@ -1611,19 +1615,19 @@ jobs:
               {
                 echo "Failure type: max_attempts"
                 echo ""
-                echo "Ella Mizuki não conseguiu chegar em um fix válido dentro dos limites."
+                echo "I could not reach a valid fix within the limits."
                 echo ""
-                echo "Tentativas usadas: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}"
+                echo "Attempts used: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}"
                 echo ""
-                echo "Último feedback:"
+                echo "Last feedback:"
                 cat "$RUNNER_TEMP/ella-feedback.txt"
               } > "$RUNNER_TEMP/ella-final-summary.md"
             fi
 
-            update_progress "❌ Ella Mizuki não conseguiu passar nos checks dentro dos limites.
+            update_progress "❌ I could not get the checks to pass within the limits.
 
-          Tentativas usadas: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}
-          Status: parei sem commit."
+          Attempts used: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}
+          Status: stopped without committing."
 
             echo "success=false" >> "$GITHUB_OUTPUT"
             exit 0
@@ -1631,7 +1635,7 @@ jobs:
 
           echo "success=true" >> "$GITHUB_OUTPUT"
 
-      - name: Upload Ella debug artifacts
+      - name: Upload debug artifacts
         if: >
           ${{
             always() &&
@@ -1687,7 +1691,7 @@ jobs:
 
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$REPO" \
-            --body "Tentei resolver em loop, mas não consegui passar nos checks dentro dos limites.
+            --body "I tried to solve this in a loop, but I could not get the checks to pass within the limits.
 
           ${SUMMARY}"
 
@@ -1759,7 +1763,7 @@ jobs:
 
           gh pr comment "$PR_NUMBER" \
             --repo "$REPO" \
-            --body "Fix aplicado e commitado.
+            --body "I applied the fix and committed it.
 
           Commit: \`${COMMIT_SHA}\`
 
@@ -1851,7 +1855,7 @@ jobs:
         run: |
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$REPO" \
-            --body "Criei um PR para resolver esta issue.
+            --body "I created a PR for this issue.
 
           PR: ${PR_URL}
           Commit: \`${COMMIT_SHA}\`"
