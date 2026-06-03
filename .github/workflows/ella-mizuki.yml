@@ -1,0 +1,531 @@
+name: Ella Mizuki
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  ella-mizuki:
+    if: >
+      startsWith(github.event.comment.body, '/ella') &&
+      github.event.comment.user.login == 'isyuricunha'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Ella Mizuki token
+        id: ella-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.YUE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.YUE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+          permission-actions: read
+
+      - name: Parse command
+        id: parse
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+        run: |
+          set -e
+
+          MODE="unknown"
+          PROMPT=""
+
+          if [[ "$COMMENT_BODY" == "/ella help"* ]]; then
+            MODE="help"
+            PROMPT=""
+          elif [[ "$COMMENT_BODY" == "/ella ask"* ]]; then
+            MODE="ask"
+            PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella ask[[:space:]]*##')"
+          elif [[ "$COMMENT_BODY" == "/ella pr"* ]]; then
+            MODE="pr"
+            PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella pr[[:space:]]*##')"
+          elif [[ "$COMMENT_BODY" == "/ella fix"* ]]; then
+            MODE="fix"
+            PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella fix[[:space:]]*##')"
+          fi
+
+          if [ "$MODE" = "ask" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
+            PROMPT="Responda com uma frase curta dizendo que a Ella Mizuki está funcionando."
+          fi
+
+          if [ "$MODE" = "pr" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
+            PROMPT="Analise este PR de forma curta e prática. Mostre o que mudou, riscos e se parece seguro fazer merge."
+          fi
+
+          if [ "$MODE" = "fix" ] && [ -z "$(printf "%s" "$PROMPT" | tr -d '[:space:]')" ]; then
+            PROMPT="Corrija o problema descrito no PR ou no comentário. Faça a menor mudança possível."
+          fi
+
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          printf "%s" "$PROMPT" > "$RUNNER_TEMP/ella-user-prompt.txt"
+
+      - name: Comment help
+        if: ${{ steps.parse.outputs.mode == 'help' }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --body "Comandos disponíveis:
+
+          \`/ella ask sua pergunta\`
+          Responde usando o modelo configurado.
+
+          \`/ella pr pedido\`
+          Analisa o PR atual usando título, descrição e diff.
+
+          \`/ella fix pedido\`
+          Tenta editar o PR atual, rodar checks e commitar como Yuri Cunha."
+
+      - name: Comment unknown command
+        if: ${{ steps.parse.outputs.mode == 'unknown' }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --body "Comando não reconhecido. Use \`/ella help\`."
+
+      - name: Validate AI config
+        if: ${{ steps.parse.outputs.mode == 'ask' || steps.parse.outputs.mode == 'pr' || steps.parse.outputs.mode == 'fix' }}
+        env:
+          ELLA_AI_BASE_URL: ${{ vars.ELLA_AI_BASE_URL }}
+          ELLA_AI_MODEL: ${{ vars.ELLA_AI_MODEL }}
+          ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
+        run: |
+          set -e
+
+          if [ -z "$ELLA_AI_BASE_URL" ]; then
+            echo "Missing variable: ELLA_AI_BASE_URL"
+            exit 1
+          fi
+
+          if [ -z "$ELLA_AI_MODEL" ]; then
+            echo "Missing variable: ELLA_AI_MODEL"
+            exit 1
+          fi
+
+          if [ -z "$ELLA_AI_API_KEY" ]; then
+            echo "Missing secret: ELLA_AI_API_KEY"
+            exit 1
+          fi
+
+      - name: Stop if PR command is used outside a PR
+        if: ${{ !github.event.issue.pull_request && (steps.parse.outputs.mode == 'pr' || steps.parse.outputs.mode == 'fix') }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --body "Esse comando precisa ser usado dentro de um PR."
+
+      - name: Prepare ask context
+        if: ${{ steps.parse.outputs.mode == 'ask' }}
+        run: |
+          {
+            echo "User request:"
+            cat "$RUNNER_TEMP/ella-user-prompt.txt"
+          } > "$RUNNER_TEMP/ella-context.txt"
+
+      - name: Read PR metadata
+        id: pr
+        if: ${{ github.event.issue.pull_request && (steps.parse.outputs.mode == 'pr' || steps.parse.outputs.mode == 'fix') }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -e
+
+          gh pr view "$PR_NUMBER" \
+            --repo "$REPO" \
+            --json title,body,author,baseRefName,headRefName,headRepository,headRepositoryOwner,isCrossRepository,isDraft,state,url \
+            > "$RUNNER_TEMP/pr-info.json"
+
+          gh pr diff "$PR_NUMBER" \
+            --repo "$REPO" \
+            > "$RUNNER_TEMP/pr-diff.txt"
+
+          head -c 100000 "$RUNNER_TEMP/pr-diff.txt" > "$RUNNER_TEMP/pr-diff-limited.txt"
+
+          HEAD_REF="$(jq -r '.headRefName' "$RUNNER_TEMP/pr-info.json")"
+          IS_CROSS_REPOSITORY="$(jq -r '.isCrossRepository' "$RUNNER_TEMP/pr-info.json")"
+
+          echo "head_ref=$HEAD_REF" >> "$GITHUB_OUTPUT"
+          echo "is_cross_repository=$IS_CROSS_REPOSITORY" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare PR analysis context
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'pr' }}
+        run: |
+          {
+            echo "User request:"
+            cat "$RUNNER_TEMP/ella-user-prompt.txt"
+
+            echo ""
+            echo "PR info:"
+            cat "$RUNNER_TEMP/pr-info.json"
+
+            echo ""
+            echo "PR diff, possibly truncated:"
+            cat "$RUNNER_TEMP/pr-diff-limited.txt"
+          } > "$RUNNER_TEMP/ella-context.txt"
+
+      - name: Stop fix on fork PR
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'true' }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh pr comment "$PR_NUMBER" \
+            --repo "$REPO" \
+            --body "Não vou aplicar fix automático em PR vindo de fork. Por segurança, só faço commit automático em branch do próprio repo."
+
+      - name: Checkout repository for fix
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false' }}
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.ella-token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Checkout PR branch
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false' }}
+        env:
+          HEAD_REF: ${{ steps.pr.outputs.head_ref }}
+        run: |
+          set -e
+
+          git fetch origin "refs/heads/${HEAD_REF}:refs/remotes/origin/${HEAD_REF}"
+          git checkout -B "$HEAD_REF" "origin/$HEAD_REF"
+
+      - name: Prepare fix context
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false' }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -e
+
+          gh pr diff "$PR_NUMBER" \
+            --repo "$REPO" \
+            --name-only \
+            > "$RUNNER_TEMP/pr-files.txt"
+
+          {
+            echo "User request:"
+            cat "$RUNNER_TEMP/ella-user-prompt.txt"
+
+            echo ""
+            echo "PR info:"
+            cat "$RUNNER_TEMP/pr-info.json"
+
+            echo ""
+            echo "PR diff, possibly truncated:"
+            cat "$RUNNER_TEMP/pr-diff-limited.txt"
+
+            echo ""
+            echo "Changed files content, possibly truncated:"
+          } > "$RUNNER_TEMP/ella-context.txt"
+
+          while IFS= read -r file; do
+            if [ -f "$file" ]; then
+              {
+                echo ""
+                echo "----- FILE: $file -----"
+                head -c 30000 "$file"
+                echo ""
+                echo "----- END FILE: $file -----"
+              } >> "$RUNNER_TEMP/ella-context.txt"
+            fi
+          done < "$RUNNER_TEMP/pr-files.txt"
+
+      - name: Call AI endpoint
+        if: >
+          ${{
+            steps.parse.outputs.mode == 'ask' ||
+            (github.event.issue.pull_request && steps.parse.outputs.mode == 'pr') ||
+            (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false')
+          }}
+        env:
+          ELLA_AI_BASE_URL: ${{ vars.ELLA_AI_BASE_URL }}
+          ELLA_AI_MODEL: ${{ vars.ELLA_AI_MODEL }}
+          ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
+          ELLA_MODE: ${{ steps.parse.outputs.mode }}
+        run: |
+          set -e
+
+          if [ "$ELLA_MODE" = "fix" ]; then
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer only with a valid unified diff patch. Do not use Markdown fences. Do not explain. Make the smallest safe code change possible."
+          elif [ "$ELLA_MODE" = "pr" ]; then
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical. Analyze only the PR context provided. Do not modify code."
+          else
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical."
+          fi
+
+          REQUEST_BODY="$(jq -n \
+            --arg model "$ELLA_AI_MODEL" \
+            --arg system "$SYSTEM_PROMPT" \
+            --rawfile context "$RUNNER_TEMP/ella-context.txt" \
+            '{
+              model: $model,
+              messages: [
+                {
+                  role: "system",
+                  content: $system
+                },
+                {
+                  role: "user",
+                  content: $context
+                }
+              ],
+              temperature: 0.2
+            }')"
+
+          HTTP_STATUS="$(curl -sS \
+            -o "$RUNNER_TEMP/response.json" \
+            -w "%{http_code}" \
+            -X POST "${ELLA_AI_BASE_URL%/}/chat/completions" \
+            -H "Authorization: Bearer ${ELLA_AI_API_KEY}" \
+            -H "Content-Type: application/json" \
+            --data "$REQUEST_BODY")"
+
+          echo "HTTP status: $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
+            echo "AI endpoint failed"
+            cat "$RUNNER_TEMP/response.json"
+            exit 1
+          fi
+
+          AI_RESPONSE="$(jq -r '.choices[0].message.content // empty' "$RUNNER_TEMP/response.json")"
+
+          if [ -z "$AI_RESPONSE" ]; then
+            echo "Could not read AI response"
+            cat "$RUNNER_TEMP/response.json"
+            exit 1
+          fi
+
+          printf "%s" "$AI_RESPONSE" > "$RUNNER_TEMP/ai-response.txt"
+
+      - name: Comment AI response
+        if: ${{ steps.parse.outputs.mode == 'ask' || steps.parse.outputs.mode == 'pr' }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          AI_RESPONSE="$(cat "$RUNNER_TEMP/ai-response.txt")"
+
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --body "$AI_RESPONSE"
+
+      - name: Extract and apply patch
+        id: apply_patch
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false' }}
+        run: |
+          set -e
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          import re
+          import sys
+
+          runner_temp = Path(os.environ["RUNNER_TEMP"])
+          text = (runner_temp / "ai-response.txt").read_text(encoding="utf-8")
+
+          match = re.search(r"```(?:diff|patch)?\s*\n(.*?)```", text, re.S)
+          patch = match.group(1) if match else text
+          patch = patch.strip() + "\n"
+
+          if not patch.startswith(("diff --git", "--- ")):
+              print("AI did not return a valid unified diff patch.", file=sys.stderr)
+              print(text[:4000], file=sys.stderr)
+              sys.exit(1)
+
+          (runner_temp / "ella.patch").write_text(patch, encoding="utf-8")
+          PY
+
+          git apply --check "$RUNNER_TEMP/ella.patch"
+          git apply "$RUNNER_TEMP/ella.patch"
+
+          git ls-files --modified --others --exclude-standard > "$RUNNER_TEMP/ella-changed-files.txt"
+
+          if [ ! -s "$RUNNER_TEMP/ella-changed-files.txt" ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          git status --short
+
+      - name: Comment no changes
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'false' }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh pr comment "$PR_NUMBER" \
+            --repo "$REPO" \
+            --body "A IA não gerou nenhuma mudança aplicável."
+
+      - name: Run project checks
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'true' }}
+        run: |
+          FAILED=0
+          SUMMARY="$RUNNER_TEMP/ella-checks-summary.md"
+          LOG_DIR="$RUNNER_TEMP/ella-check-logs"
+
+          mkdir -p "$LOG_DIR"
+
+          {
+            echo "Checks executados:"
+            echo ""
+          } > "$SUMMARY"
+
+          run_check() {
+            NAME="$1"
+            shift
+
+            LOG_FILE="$LOG_DIR/${NAME}.log"
+
+            echo "Running $NAME..."
+
+            if "$@" > "$LOG_FILE" 2>&1; then
+              echo "- ✅ $NAME" >> "$SUMMARY"
+            else
+              echo "- ❌ $NAME" >> "$SUMMARY"
+              echo "" >> "$SUMMARY"
+              echo "Últimas linhas de $NAME:" >> "$SUMMARY"
+              echo '```txt' >> "$SUMMARY"
+              tail -n 80 "$LOG_FILE" >> "$SUMMARY"
+              echo '```' >> "$SUMMARY"
+              FAILED=1
+            fi
+          }
+
+          if [ -f package.json ]; then
+            corepack enable || true
+
+            if [ -f pnpm-lock.yaml ]; then
+              run_check "install" pnpm install --frozen-lockfile
+              PACKAGE_RUNNER="pnpm run"
+            elif [ -f package-lock.json ]; then
+              run_check "install" npm ci
+              PACKAGE_RUNNER="npm run"
+            elif [ -f yarn.lock ]; then
+              run_check "install" yarn install --frozen-lockfile
+              PACKAGE_RUNNER="yarn"
+            else
+              echo "- ⚠️ install: nenhum lockfile encontrado, pulando install automático" >> "$SUMMARY"
+              PACKAGE_RUNNER="npm run"
+            fi
+
+            if node -e "process.exit(require('./package.json').scripts && require('./package.json').scripts.lint ? 0 : 1)"; then
+              run_check "lint" $PACKAGE_RUNNER lint
+            else
+              echo "- ⚪ lint: script não encontrado" >> "$SUMMARY"
+            fi
+
+            if node -e "process.exit(require('./package.json').scripts && require('./package.json').scripts.test ? 0 : 1)"; then
+              run_check "test" $PACKAGE_RUNNER test
+            else
+              echo "- ⚪ test: script não encontrado" >> "$SUMMARY"
+            fi
+
+            if node -e "process.exit(require('./package.json').scripts && require('./package.json').scripts.build ? 0 : 1)"; then
+              run_check "build" $PACKAGE_RUNNER build
+            else
+              echo "- ⚪ build: script não encontrado" >> "$SUMMARY"
+            fi
+          else
+            echo "- ⚪ package.json não encontrado, sem checks automáticos" >> "$SUMMARY"
+          fi
+
+          echo "$FAILED" > "$RUNNER_TEMP/ella-checks-failed.txt"
+
+      - name: Stop if checks failed
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'true' }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          if [ "$(cat "$RUNNER_TEMP/ella-checks-failed.txt")" != "0" ]; then
+            SUMMARY="$(cat "$RUNNER_TEMP/ella-checks-summary.md")"
+
+            gh pr comment "$PR_NUMBER" \
+              --repo "$REPO" \
+              --body "Tentei aplicar o fix, mas os checks falharam. Não fiz commit.
+
+          ${SUMMARY}"
+
+            exit 1
+          fi
+
+      - name: Commit and push fix as Yuri
+        id: commit_fix
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'true' }}
+        env:
+          YURI_COMMIT_NAME: ${{ vars.YURI_COMMIT_NAME }}
+          YURI_COMMIT_EMAIL: ${{ vars.YURI_COMMIT_EMAIL }}
+          HEAD_REF: ${{ steps.pr.outputs.head_ref }}
+        run: |
+          set -e
+
+          if [ -z "$YURI_COMMIT_NAME" ]; then
+            echo "Missing variable: YURI_COMMIT_NAME"
+            exit 1
+          fi
+
+          if [ -z "$YURI_COMMIT_EMAIL" ]; then
+            echo "Missing variable: YURI_COMMIT_EMAIL"
+            exit 1
+          fi
+
+          git config user.name "$YURI_COMMIT_NAME"
+          git config user.email "$YURI_COMMIT_EMAIL"
+
+          git ls-files --modified --others --exclude-standard > "$RUNNER_TEMP/ella-changed-files.txt"
+          xargs -a "$RUNNER_TEMP/ella-changed-files.txt" git add --
+
+          git commit -m "Ella Mizuki: apply requested fix"
+          git push origin "HEAD:${HEAD_REF}"
+
+          COMMIT_SHA="$(git rev-parse --short HEAD)"
+          echo "commit_sha=$COMMIT_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Comment fix result
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'true' }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+          COMMIT_SHA: ${{ steps.commit_fix.outputs.commit_sha }}
+        run: |
+          SUMMARY="$(cat "$RUNNER_TEMP/ella-checks-summary.md")"
+
+          gh pr comment "$PR_NUMBER" \
+            --repo "$REPO" \
+            --body "Fix aplicado e commitado.
+
+          Commit: \`${COMMIT_SHA}\`
+
+          ${SUMMARY}"
