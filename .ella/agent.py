@@ -23,22 +23,33 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 SAFE_LABELS_DEFAULT = [
     {"name": "bug", "color": "d73a4a", "description": "Something is not working"},
-    {"name": "enhancement", "color": "a2eeef", "description": "New feature or request"},
-    {"name": "documentation", "color": "0075ca", "description": "Improvements or additions to documentation"},
-    {"name": "dependencies", "color": "0366d6", "description": "Dependency updates or package changes"},
-    {"name": "security", "color": "b60205", "description": "Security related changes"},
-    {"name": "performance", "color": "fbca04", "description": "Performance related changes"},
-    {"name": "refactor", "color": "cfd3d7", "description": "Code refactoring without behavior changes"},
+    {"name": "enhancement", "color": "a2eeef",
+        "description": "New feature or request"},
+    {"name": "documentation", "color": "0075ca",
+        "description": "Improvements or additions to documentation"},
+    {"name": "dependencies", "color": "0366d6",
+        "description": "Dependency updates or package changes"},
+    {"name": "security", "color": "b60205",
+        "description": "Security related changes"},
+    {"name": "performance", "color": "fbca04",
+        "description": "Performance related changes"},
+    {"name": "refactor", "color": "cfd3d7",
+        "description": "Code refactoring without behavior changes"},
     {"name": "tests", "color": "0e8a16", "description": "Testing related changes"},
     {"name": "ui", "color": "c2e0c6", "description": "User interface related changes"},
-    {"name": "frontend", "color": "1d76db", "description": "Frontend related changes"},
+    {"name": "frontend", "color": "1d76db",
+        "description": "Frontend related changes"},
     {"name": "backend", "color": "5319e7", "description": "Backend related changes"},
-    {"name": "i18n", "color": "bfd4f2", "description": "Internationalization or localization"},
+    {"name": "i18n", "color": "bfd4f2",
+        "description": "Internationalization or localization"},
     {"name": "ci", "color": "fef2c0", "description": "CI/CD or workflow changes"},
     {"name": "chore", "color": "ededed", "description": "Maintenance or cleanup"},
-    {"name": "question", "color": "d876e3", "description": "Further information is requested"},
-    {"name": "good first issue", "color": "7057ff", "description": "Good for newcomers"},
-    {"name": "help wanted", "color": "008672", "description": "Extra attention is needed"},
+    {"name": "question", "color": "d876e3",
+        "description": "Further information is requested"},
+    {"name": "good first issue", "color": "7057ff",
+        "description": "Good for newcomers"},
+    {"name": "help wanted", "color": "008672",
+        "description": "Extra attention is needed"},
 ]
 
 DEFAULT_IGNORE = [
@@ -88,8 +99,10 @@ TIME_LIMIT_SECONDS = env_int("ELLA_TIME_LIMIT_SECONDS", 3600)
 
 MAX_CONTEXT_PR_DIFF_BYTES = env_int("ELLA_MAX_CONTEXT_PR_DIFF_BYTES", 500_000)
 MAX_CONTEXT_FILE_BYTES = env_int("ELLA_MAX_CONTEXT_FILE_BYTES", 120_000)
-MAX_CONTEXT_REQUESTED_FILE_BYTES = env_int("ELLA_MAX_CONTEXT_REQUESTED_FILE_BYTES", 250_000)
-MAX_CONTEXT_REPO_FILES_BYTES = env_int("ELLA_MAX_CONTEXT_REPO_FILES_BYTES", 200_000)
+MAX_CONTEXT_REQUESTED_FILE_BYTES = env_int(
+    "ELLA_MAX_CONTEXT_REQUESTED_FILE_BYTES", 250_000)
+MAX_CONTEXT_REPO_FILES_BYTES = env_int(
+    "ELLA_MAX_CONTEXT_REPO_FILES_BYTES", 200_000)
 
 MAX_TOKENS = {
     "ask": env_int("ELLA_MAX_TOKENS_ASK", 2048),
@@ -143,7 +156,8 @@ def run_cmd(
             env=env,
         )
     else:
-        result = subprocess.run(args, cwd=cwd, text=True, timeout=timeout, env=env)
+        result = subprocess.run(args, cwd=cwd, text=True,
+                                timeout=timeout, env=env)
 
     if check and result.returncode != 0:
         output = result.stdout if capture else ""
@@ -257,7 +271,7 @@ def parse_jsonish(text: str) -> Any:
         end = raw.rfind("}")
         if start == -1 or end == -1 or end <= start:
             raise
-        return json.loads(raw[start : end + 1])
+        return json.loads(raw[start: end + 1])
 
 
 def tail_text(path: Path, lines: int = 100) -> str:
@@ -326,7 +340,8 @@ class Ella:
             return
 
         if self.is_pr and self.mode == "solve":
-            self.comment("Use `/ella fix` inside a PR. Use `/ella solve` on an issue.")
+            self.comment(
+                "Use `/ella fix` inside a PR. Use `/ella solve` on an issue.")
             self.react("confused")
             return
 
@@ -349,7 +364,8 @@ class Ella:
 
         if self.mode in {"fix", "continue"}:
             if self.pr_info and self.pr_info.get("isCrossRepository") is True:
-                self.comment("I will not apply automatic fixes to PRs coming from forks. For safety, I only commit to branches from this repository.")
+                self.comment(
+                    "I will not apply automatic fixes to PRs coming from forks. For safety, I only commit to branches from this repository.")
                 self.react("confused")
                 return
             self.checkout_pr_branch()
@@ -368,10 +384,12 @@ class Ella:
             success = self.fix_loop()
             if success:
                 commit_sha = self.commit_and_push_fix()
-                self.comment(f"I applied the fix and committed it.\n\nCommit: `{commit_sha}`\n\n{self.final_summary}")
+                self.comment(
+                    f"I applied the fix and committed it.\n\nCommit: `{commit_sha}`\n\n{self.final_summary}")
                 self.react("rocket")
             else:
-                self.comment(f"I tried to solve this in a loop, but I could not get the checks to pass within the limits.\n\n{self.final_summary}")
+                self.comment(
+                    f"I tried to solve this in a loop, but I could not get the checks to pass within the limits.\n\n{self.final_summary}")
                 self.react("confused")
             return
 
@@ -388,10 +406,12 @@ class Ella:
             if success:
                 commit_sha = self.commit_and_push_solve()
                 pr_url = self.create_solve_pr()
-                self.comment(f"I created a PR for this issue.\n\nPR: {pr_url}\nCommit: `{commit_sha}`")
+                self.comment(
+                    f"I created a PR for this issue.\n\nPR: {pr_url}\nCommit: `{commit_sha}`")
                 self.react("rocket")
             else:
-                self.comment(f"I tried to solve this in a loop, but I could not get the checks to pass within the limits.\n\n{self.final_summary}")
+                self.comment(
+                    f"I tried to solve this in a loop, but I could not get the checks to pass within the limits.\n\n{self.final_summary}")
                 self.react("confused")
             return
 
@@ -443,7 +463,8 @@ class Ella:
         if self.mode in defaults and not self.prompt:
             self.prompt = defaults[self.mode]
 
-        write_debug("command.json", json.dumps({"mode": self.mode, "prompt": self.prompt}, indent=2))
+        write_debug("command.json", json.dumps(
+            {"mode": self.mode, "prompt": self.prompt}, indent=2))
 
     def validate_ai_config(self) -> None:
         missing = []
@@ -454,7 +475,8 @@ class Ella:
         if not self.ai_api_key:
             missing.append("ELLA_AI_API_KEY")
         if missing:
-            raise RuntimeError("Missing required secrets: " + ", ".join(missing))
+            raise RuntimeError(
+                "Missing required secrets: " + ", ".join(missing))
 
     def help_text(self) -> str:
         return """Available commands:
@@ -499,7 +521,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             pass
 
     def comment(self, body: str) -> None:
-        gh(["issue", "comment", str(self.issue_number), "--repo", self.repo, "--body", body])
+        gh(["issue", "comment", str(self.issue_number),
+           "--repo", self.repo, "--body", body])
 
     def create_progress_comment(self, body: str) -> None:
         out = gh([
@@ -561,7 +584,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             raise RuntimeError("PR info not loaded")
 
         head_ref = self.pr_info["headRefName"]
-        git(["fetch", "origin", f"refs/heads/{head_ref}:refs/remotes/origin/{head_ref}"])
+        git(["fetch", "origin",
+            f"refs/heads/{head_ref}:refs/remotes/origin/{head_ref}"])
         git(["checkout", "-B", head_ref, f"origin/{head_ref}"])
 
     def checkout_solve_branch(self) -> None:
@@ -569,24 +593,29 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             raise RuntimeError("Issue info not loaded")
 
         title = str(self.issue_info.get("title", "issue"))
-        safe_title = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")[:50] or "issue"
+        safe_title = re.sub(r"[^a-z0-9]+", "-",
+                            title.lower()).strip("-")[:50] or "issue"
         branch = f"ella/issue-{self.issue_number}-{safe_title}-{self.run_id}"
         self.solve_branch = branch
         git(["checkout", "-B", branch])
 
     def get_pr_changed_files(self) -> list[str]:
-        raw = gh(["pr", "diff", str(self.issue_number), "--repo", self.repo, "--name-only"])
+        raw = gh(["pr", "diff", str(self.issue_number),
+                 "--repo", self.repo, "--name-only"])
         files = [line.strip() for line in raw.splitlines() if line.strip()]
-        files = [f for f in files if safe_rel_path(f) and not is_ignored(f, self.ignore_patterns)]
+        files = [f for f in files if safe_rel_path(
+            f) and not is_ignored(f, self.ignore_patterns)]
         write_debug("allowed-files.txt", "\n".join(files) + "\n")
         return files
 
     def get_repo_files(self) -> list[str]:
         raw = git(["ls-files"])
         files = [line.strip() for line in raw.splitlines() if line.strip()]
-        files = [f for f in files if safe_rel_path(f) and not is_ignored(f, self.ignore_patterns)]
+        files = [f for f in files if safe_rel_path(
+            f) and not is_ignored(f, self.ignore_patterns)]
         write_debug("allowed-files.txt", "\n".join(files) + "\n")
-        write_debug("repo-files-limited.txt", ("\n".join(files) + "\n")[:MAX_CONTEXT_REPO_FILES_BYTES])
+        write_debug("repo-files-limited.txt", ("\n".join(files) +
+                    "\n")[:MAX_CONTEXT_REPO_FILES_BYTES])
         return files
 
     def load_repo_instructions(self) -> None:
@@ -600,7 +629,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
         ]:
             path = ROOT / rel
             if path.exists():
-                chunks.append(f"\n----- INSTRUCTIONS: {rel} -----\n{read_text_limited(path, 40_000)}\n----- END INSTRUCTIONS: {rel} -----\n")
+                chunks.append(
+                    f"\n----- INSTRUCTIONS: {rel} -----\n{read_text_limited(path, 40_000)}\n----- END INSTRUCTIONS: {rel} -----\n")
         text = "\n".join(chunks)
         write_debug("repo-instructions.txt", text)
         self.repo_instructions = text
@@ -638,7 +668,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                 json.dumps(self.pr_info, indent=2),
                 "",
                 "PR diff, possibly truncated:",
-                (OUT / "pr-diff-limited.txt").read_text(encoding="utf-8", errors="replace") if (OUT / "pr-diff-limited.txt").exists() else "",
+                (OUT / "pr-diff-limited.txt").read_text(encoding="utf-8",
+                                                        errors="replace") if (OUT / "pr-diff-limited.txt").exists() else "",
             ])
 
         if self.issue_info:
@@ -703,12 +734,15 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             ], check=False)
 
         for name in picked:
-            gh(["issue", "edit", str(self.issue_number), "--repo", self.repo, "--add-label", labels_by_name[name]["name"]])
+            gh(["issue", "edit", str(self.issue_number), "--repo",
+               self.repo, "--add-label", labels_by_name[name]["name"]])
 
-        summary = str(data.get("summary") or "I applied the most relevant labels.").strip()
+        summary = str(data.get("summary")
+                      or "I applied the most relevant labels.").strip()
         write_debug("labels.txt", "\n".join(picked) + "\n")
         write_debug("label-summary.txt", summary + "\n")
-        self.comment(f"I applied these labels: {', '.join(labels_by_name[name]['name'] for name in picked)}\n\n{summary}")
+        self.comment(
+            f"I applied these labels: {', '.join(labels_by_name[name]['name'] for name in picked)}\n\n{summary}")
 
     def ai_call(self, context: str, system_prompt: str, max_tokens: int) -> str:
         body = {
@@ -732,6 +766,9 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             headers={
                 "Authorization": f"Bearer {self.ai_api_key}",
                 "Content-Type": "application/json",
+                "Accept": "application/json, text/event-stream",
+                "Cache-Control": "no-cache",
+                "User-Agent": "curl/8.7.1",
             },
         )
 
@@ -760,18 +797,21 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                             obj = json.loads(payload)
                         except json.JSONDecodeError:
                             continue
-                        self.collect_ai_choices(obj, content_parts, reasoning_parts)
+                        self.collect_ai_choices(
+                            obj, content_parts, reasoning_parts)
                     else:
                         try:
                             obj = json.loads(stripped)
                         except json.JSONDecodeError:
                             continue
-                        self.collect_ai_choices(obj, content_parts, reasoning_parts)
+                        self.collect_ai_choices(
+                            obj, content_parts, reasoning_parts)
 
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
             write_debug("response.stream", detail)
-            raise CommandError(f"AI endpoint failed with HTTP status {exc.code}.")
+            raise CommandError(
+                f"AI endpoint failed with HTTP status {exc.code}.")
         except urllib.error.URLError as exc:
             raise CommandError(f"AI endpoint request failed: {exc.reason}")
 
@@ -783,7 +823,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             content = "".join(reasoning_parts).strip()
 
         if not content:
-            raise CommandError("Could not extract content from AI stream response.")
+            raise CommandError(
+                "Could not extract content from AI stream response.")
 
         return content
 
@@ -798,11 +839,13 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             delta = choice.get("delta") or {}
             message = choice.get("message") or {}
 
-            content = delta.get("content") or message.get("content") or choice.get("text")
+            content = delta.get("content") or message.get(
+                "content") or choice.get("text")
             if content:
                 content_parts.append(str(content))
 
-            reasoning = delta.get("reasoning") or message.get("reasoning") or choice.get("reasoning")
+            reasoning = delta.get("reasoning") or message.get(
+                "reasoning") or choice.get("reasoning")
             if reasoning:
                 reasoning_parts.append(str(reasoning))
 
@@ -819,10 +862,12 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             self.final_summary = (
                 "Failure type: install_failed\n\n"
                 "Install failed before I could safely edit.\n\n"
-                + (OUT / "install-summary.md").read_text(encoding="utf-8", errors="replace")
+                + (OUT / "install-summary.md").read_text(encoding="utf-8",
+                                                         errors="replace")
             )
             write_debug("final-summary.md", self.final_summary)
-            self.update_progress("❌ I stopped before editing.\n\nReason: install failed.\nA debug artifact will be uploaded if available.")
+            self.update_progress(
+                "❌ I stopped before editing.\n\nReason: install failed.\nA debug artifact will be uploaded if available.")
             return False
 
         while attempt <= MAX_ATTEMPTS:
@@ -836,7 +881,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                     f"Last feedback:\n{self.feedback}"
                 )
                 write_debug("final-summary.md", self.final_summary)
-                self.update_progress(f"⏱️ I reached the time limit.\n\nAttempts: {attempt - 1}/{MAX_ATTEMPTS}\nTime used: {elapsed}s/{TIME_LIMIT_SECONDS}s")
+                self.update_progress(
+                    f"⏱️ I reached the time limit.\n\nAttempts: {attempt - 1}/{MAX_ATTEMPTS}\nTime used: {elapsed}s/{TIME_LIMIT_SECONDS}s")
                 return False
 
             print(f"Attempt {attempt}/{MAX_ATTEMPTS}")
@@ -864,36 +910,44 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                 self.append_needed_files_context()
                 self.feedback = f"Failure type: needs_more_files\n\nAttempt {attempt} requested more files. I provided the valid requested files."
                 write_debug("feedback.txt", self.feedback)
-                self.update_progress(f"📖 I need more context.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nStatus: I provided the extra allowed files.")
+                self.update_progress(
+                    f"📖 I need more context.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nStatus: I provided the extra allowed files.")
                 attempt += 1
                 continue
 
             if status != "ok":
-                self.feedback = f"Attempt {attempt} returned invalid or non-applicable JSON.\n\n" + (OUT / "apply-error.txt").read_text(encoding="utf-8", errors="replace")
+                self.feedback = f"Attempt {attempt} returned invalid or non-applicable JSON.\n\n" + (
+                    OUT / "apply-error.txt").read_text(encoding="utf-8", errors="replace")
                 write_debug("feedback.txt", self.feedback)
-                self.update_progress(f"⚠️ The model returned a response I could not apply.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nNext step: ask for a corrected format or allowed file.")
+                self.update_progress(
+                    f"⚠️ The model returned a response I could not apply.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nNext step: ask for a corrected format or allowed file.")
                 attempt += 1
                 continue
 
-            diff_check = run_cmd(["git", "diff", "--check"], capture=True, check=False)
+            diff_check = run_cmd(["git", "diff", "--check"],
+                                 capture=True, check=False)
             write_debug("diff-check.txt", diff_check.stdout or "")
             if diff_check.returncode != 0:
                 self.feedback = f"Failure type: diff_check_failed\n\nAttempt {attempt} failed git diff --check.\n\n{diff_check.stdout}"
                 write_debug("feedback.txt", self.feedback)
-                self.update_progress(f"⚠️ I applied changes, but they failed git diff --check.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nNext step: fix formatting or whitespace.")
+                self.update_progress(
+                    f"⚠️ I applied changes, but they failed git diff --check.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nNext step: fix formatting or whitespace.")
                 attempt += 1
                 continue
 
-            changed = git(["ls-files", "--modified", "--others", "--exclude-standard"])
+            changed = git(["ls-files", "--modified",
+                          "--others", "--exclude-standard"])
             write_debug("changed-files.txt", changed)
             if not changed.strip():
                 self.feedback = f"Failure type: no_changes\n\nAttempt {attempt} did not produce real file changes."
                 write_debug("feedback.txt", self.feedback)
-                self.update_progress(f"⚠️ I did not produce any real file changes.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nNext step: retry with clearer feedback.")
+                self.update_progress(
+                    f"⚠️ I did not produce any real file changes.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nNext step: retry with clearer feedback.")
                 attempt += 1
                 continue
 
-            self.update_progress(f"🧪 I applied changes and I am running checks.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nStep: install/lint/test/build or detected project checks.")
+            self.update_progress(
+                f"🧪 I applied changes and I am running checks.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nStep: install/lint/test/build or detected project checks.")
 
             checks_ok = self.run_project_checks()
             if checks_ok:
@@ -901,22 +955,27 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                     "I applied the fix successfully.\n\n"
                     f"Attempts used: {attempt}/{MAX_ATTEMPTS}\n\n"
                     "Summary:\n"
-                    + (OUT / "fix-summary.txt").read_text(encoding="utf-8", errors="replace")
+                    + (OUT / "fix-summary.txt").read_text(encoding="utf-8",
+                                                          errors="replace")
                     + "\n"
-                    + (OUT / "checks-summary.md").read_text(encoding="utf-8", errors="replace")
+                    + (OUT / "checks-summary.md").read_text(encoding="utf-8",
+                                                            errors="replace")
                 )
                 write_debug("final-summary.md", self.final_summary)
-                self.update_progress(f"✅ Checks passed.\n\nAttempts used: {attempt}/{MAX_ATTEMPTS}\nNext step: commit/PR.")
+                self.update_progress(
+                    f"✅ Checks passed.\n\nAttempts used: {attempt}/{MAX_ATTEMPTS}\nNext step: commit/PR.")
                 return True
 
             self.feedback = (
                 "Failure type: project_checks_failed\n\n"
                 f"Attempt {attempt} applied changes, but checks failed.\n\n"
-                + (OUT / "checks-summary.md").read_text(encoding="utf-8", errors="replace")
+                + (OUT / "checks-summary.md").read_text(encoding="utf-8",
+                                                        errors="replace")
                 + "\n\nFix only the errors above while preserving the current behavior."
             )
             write_debug("feedback.txt", self.feedback)
-            self.update_progress(f"🔁 I applied changes, but checks failed.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nNext step: fix the check errors and try again.")
+            self.update_progress(
+                f"🔁 I applied changes, but checks failed.\n\nAttempt: {attempt}/{MAX_ATTEMPTS}\nNext step: fix the check errors and try again.")
             attempt += 1
 
         self.final_summary = (
@@ -926,7 +985,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             f"Last feedback:\n{self.feedback}"
         )
         write_debug("final-summary.md", self.final_summary)
-        self.update_progress(f"❌ I could not get the checks to pass within the limits.\n\nAttempts used: {MAX_ATTEMPTS}/{MAX_ATTEMPTS}\nStatus: stopped without committing.")
+        self.update_progress(
+            f"❌ I could not get the checks to pass within the limits.\n\nAttempts used: {MAX_ATTEMPTS}/{MAX_ATTEMPTS}\nStatus: stopped without committing.")
         return False
 
     def system_prompt_for_fix(self) -> str:
@@ -989,14 +1049,16 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                 json.dumps(self.pr_info or {}, indent=2),
                 "",
                 "PR diff, truncated:",
-                (OUT / "pr-diff-limited.txt").read_text(encoding="utf-8", errors="replace") if (OUT / "pr-diff-limited.txt").exists() else "",
+                (OUT / "pr-diff-limited.txt").read_text(encoding="utf-8",
+                                                        errors="replace") if (OUT / "pr-diff-limited.txt").exists() else "",
                 "",
                 "Allowed files current content, truncated:",
             ])
             for rel in self.allowed_files:
                 path = ROOT / rel
                 if path.exists():
-                    lines.append(f"\n----- FILE: {rel} -----\n{read_text_limited(path, MAX_CONTEXT_FILE_BYTES)}\n----- END FILE: {rel} -----")
+                    lines.append(
+                        f"\n----- FILE: {rel} -----\n{read_text_limited(path, MAX_CONTEXT_FILE_BYTES)}\n----- END FILE: {rel} -----")
 
         if self.mode == "solve":
             lines.extend([
@@ -1005,7 +1067,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                 json.dumps(self.issue_info or {}, indent=2),
                 "",
                 "Repository files, truncated:",
-                (OUT / "repo-files-limited.txt").read_text(encoding="utf-8", errors="replace") if (OUT / "repo-files-limited.txt").exists() else "",
+                (OUT / "repo-files-limited.txt").read_text(encoding="utf-8",
+                                                           errors="replace") if (OUT / "repo-files-limited.txt").exists() else "",
                 "",
                 "Common project files:",
             ])
@@ -1025,7 +1088,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             ]:
                 path = ROOT / rel
                 if path.exists() and not is_ignored(rel, self.ignore_patterns):
-                    lines.append(f"\n----- FILE: {rel} -----\n{read_text_limited(path, MAX_CONTEXT_FILE_BYTES)}\n----- END FILE: {rel} -----")
+                    lines.append(
+                        f"\n----- FILE: {rel} -----\n{read_text_limited(path, MAX_CONTEXT_FILE_BYTES)}\n----- END FILE: {rel} -----")
 
         context = "\n".join(lines)
         write_debug("context.txt", context)
@@ -1035,14 +1099,17 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
         try:
             data = parse_jsonish(response)
         except Exception as exc:
-            write_debug("apply-error.txt", f"Failure type: invalid_json\nAI response JSON parse failed: {exc}\n\nAI response preview:\n{response[:4000]}")
+            write_debug(
+                "apply-error.txt", f"Failure type: invalid_json\nAI response JSON parse failed: {exc}\n\nAI response preview:\n{response[:4000]}")
             return "error"
 
         if not isinstance(data, dict):
-            write_debug("apply-error.txt", f"Failure type: invalid_json\nAI response JSON must be an object.\n\nAI response preview:\n{response[:4000]}")
+            write_debug(
+                "apply-error.txt", f"Failure type: invalid_json\nAI response JSON must be an object.\n\nAI response preview:\n{response[:4000]}")
             return "error"
 
-        summary = str(data.get("summary") or "I applied the requested fix.").strip()
+        summary = str(data.get("summary")
+                      or "I applied the requested fix.").strip()
         write_debug("fix-summary.txt", summary + "\n")
 
         needs_files = data.get("needs_files")
@@ -1067,7 +1134,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
 
         files = data.get("files")
         if not isinstance(files, list):
-            write_debug("apply-error.txt", f"Failure type: invalid_json\nAI response JSON must contain either needs_files or files array.\n\nAI response preview:\n{response[:4000]}")
+            write_debug(
+                "apply-error.txt", f"Failure type: invalid_json\nAI response JSON must contain either needs_files or files array.\n\nAI response preview:\n{response[:4000]}")
             return "error"
 
         allowed_set = set(self.allowed_files)
@@ -1075,37 +1143,44 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
 
         for item in files:
             if not isinstance(item, dict):
-                write_debug("apply-error.txt", "Failure type: invalid_json\nEach files item must be an object.")
+                write_debug(
+                    "apply-error.txt", "Failure type: invalid_json\nEach files item must be an object.")
                 return "error"
 
             path = item.get("path")
             content = item.get("content")
 
             if not isinstance(path, str) or not path.strip():
-                write_debug("apply-error.txt", "Failure type: invalid_json\nEach files item must contain a path string.")
+                write_debug(
+                    "apply-error.txt", "Failure type: invalid_json\nEach files item must contain a path string.")
                 return "error"
 
             if not isinstance(content, str):
-                write_debug("apply-error.txt", f"Failure type: invalid_json\nFile {path} must contain a content string.")
+                write_debug(
+                    "apply-error.txt", f"Failure type: invalid_json\nFile {path} must contain a content string.")
                 return "error"
 
             path = path.strip()
 
             if not safe_rel_path(path):
-                write_debug("apply-error.txt", f"Failure type: unsafe_file\nUnsafe file path rejected: {path}")
+                write_debug(
+                    "apply-error.txt", f"Failure type: unsafe_file\nUnsafe file path rejected: {path}")
                 return "error"
 
             if is_ignored(path, self.ignore_patterns):
-                write_debug("apply-error.txt", f"Failure type: ignored_file\nRefusing to edit ignored file: {path}")
+                write_debug(
+                    "apply-error.txt", f"Failure type: ignored_file\nRefusing to edit ignored file: {path}")
                 return "error"
 
             if self.mode in {"fix", "continue"} and path not in allowed_set:
-                write_debug("apply-error.txt", f"Failure type: file_not_allowed\nFile path is not in allowed files list: {path}")
+                write_debug(
+                    "apply-error.txt", f"Failure type: file_not_allowed\nFile path is not in allowed files list: {path}")
                 return "error"
 
             if self.mode == "solve" and path not in allowed_set and (ROOT / path).exists():
                 if is_ignored(path, self.ignore_patterns):
-                    write_debug("apply-error.txt", f"Failure type: ignored_file\nRefusing to edit ignored file: {path}")
+                    write_debug(
+                        "apply-error.txt", f"Failure type: ignored_file\nRefusing to edit ignored file: {path}")
                     return "error"
 
             target = ROOT / path
@@ -1114,7 +1189,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             changed_count += 1
 
         if changed_count == 0:
-            write_debug("apply-error.txt", "Failure type: no_changes\nAI returned zero files to change.")
+            write_debug(
+                "apply-error.txt", "Failure type: no_changes\nAI returned zero files to change.")
             return "error"
 
         return "ok"
@@ -1132,22 +1208,26 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                 continue
             path = ROOT / rel
             if path.exists() and safe_rel_path(rel) and not is_ignored(rel, self.ignore_patterns):
-                chunks.append(f"\n----- REQUESTED FILE: {rel} -----\n{read_text_limited(path, MAX_CONTEXT_REQUESTED_FILE_BYTES)}\n----- END REQUESTED FILE: {rel} -----")
+                chunks.append(
+                    f"\n----- REQUESTED FILE: {rel} -----\n{read_text_limited(path, MAX_CONTEXT_REQUESTED_FILE_BYTES)}\n----- END REQUESTED FILE: {rel} -----")
             else:
-                chunks.append(f"\n----- REQUESTED FILE MISSING OR BLOCKED: {rel} -----")
+                chunks.append(
+                    f"\n----- REQUESTED FILE MISSING OR BLOCKED: {rel} -----")
         self.extra_context += "\n".join(chunks)
         write_debug("extra-context.txt", self.extra_context)
 
     def prepare_environment(self) -> bool:
         if (ROOT / ".ella" / "checks.sh").exists():
-            write_debug("install-summary.md", "- ⚪ custom .ella/checks.sh found, install is handled by the custom checks script\n")
+            write_debug("install-summary.md",
+                        "- ⚪ custom .ella/checks.sh found, install is handled by the custom checks script\n")
             return True
 
         summaries: list[str] = []
         ok = True
 
         for name, cmd in self.detect_install_commands():
-            success, log = self.run_logged_check(f"install-{name}", cmd, timeout=1200)
+            success, log = self.run_logged_check(
+                f"install-{name}", cmd, timeout=1200)
             summaries.append(f"- {'✅' if success else '❌'} install ({name})")
             if not success:
                 summaries.append("")
@@ -1168,29 +1248,37 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
 
         if (ROOT / "package.json").exists():
             if (ROOT / "pnpm-lock.yaml").exists():
-                commands.append(("pnpm", ["bash", "-lc", "corepack enable || true; pnpm install --frozen-lockfile"]))
+                commands.append(
+                    ("pnpm", ["bash", "-lc", "corepack enable || true; pnpm install --frozen-lockfile"]))
             elif (ROOT / "package-lock.json").exists():
                 commands.append(("npm", ["npm", "ci"]))
             elif (ROOT / "yarn.lock").exists():
-                commands.append(("yarn", ["bash", "-lc", "corepack enable || true; yarn install --frozen-lockfile"]))
+                commands.append(
+                    ("yarn", ["bash", "-lc", "corepack enable || true; yarn install --frozen-lockfile"]))
             elif (ROOT / "bun.lockb").exists() or (ROOT / "bun.lock").exists():
                 if command_exists("bun"):
-                    commands.append(("bun", ["bun", "install", "--frozen-lockfile"]))
+                    commands.append(
+                        ("bun", ["bun", "install", "--frozen-lockfile"]))
 
         if (ROOT / "pyproject.toml").exists():
             if (ROOT / "uv.lock").exists() and command_exists("uv"):
                 commands.append(("uv", ["uv", "sync"]))
             elif (ROOT / "poetry.lock").exists() and command_exists("poetry"):
-                commands.append(("poetry", ["poetry", "install", "--no-interaction"]))
+                commands.append(
+                    ("poetry", ["poetry", "install", "--no-interaction"]))
             elif (ROOT / "requirements.txt").exists():
-                commands.append(("pip", [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]))
+                commands.append(
+                    ("pip", [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]))
             else:
-                commands.append(("pip-editable", [sys.executable, "-m", "pip", "install", "-e", "."]))
+                commands.append(
+                    ("pip-editable", [sys.executable, "-m", "pip", "install", "-e", "."]))
         elif (ROOT / "requirements.txt").exists():
-            commands.append(("pip", [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]))
+            commands.append(
+                ("pip", [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]))
 
         if (ROOT / "composer.json").exists() and command_exists("composer"):
-            commands.append(("composer", ["composer", "install", "--no-interaction", "--no-progress"]))
+            commands.append(
+                ("composer", ["composer", "install", "--no-interaction", "--no-progress"]))
 
         return commands
 
@@ -1198,7 +1286,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
         summary: list[str] = ["Checks executed:", ""]
         install_summary = (OUT / "install-summary.md")
         if install_summary.exists():
-            summary.append(install_summary.read_text(encoding="utf-8", errors="replace").strip())
+            summary.append(install_summary.read_text(
+                encoding="utf-8", errors="replace").strip())
             summary.append("")
 
         if (ROOT / ".ella" / "checks.sh").exists():
@@ -1232,7 +1321,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
         if (ROOT / "package.json").exists():
             scripts = {}
             try:
-                package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+                package = json.loads(
+                    (ROOT / "package.json").read_text(encoding="utf-8"))
                 scripts = package.get("scripts") or {}
             except Exception:
                 scripts = {}
@@ -1242,7 +1332,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             elif (ROOT / "yarn.lock").exists():
                 runner = ["yarn"]
             elif (ROOT / "bun.lockb").exists() or (ROOT / "bun.lock").exists():
-                runner = ["bun", "run"] if command_exists("bun") else ["npm", "run"]
+                runner = ["bun", "run"] if command_exists("bun") else [
+                    "npm", "run"]
             else:
                 runner = ["npm", "run"]
 
@@ -1251,34 +1342,42 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                     checks.append((f"node-{script}", [*runner, script]))
 
         if (ROOT / "go.mod").exists() and command_exists("go"):
-            checks.append(("go-fmt", ["bash", "-lc", 'test -z "$(gofmt -l .)"']))
+            checks.append(
+                ("go-fmt", ["bash", "-lc", 'test -z "$(gofmt -l .)"']))
             checks.append(("go-vet", ["go", "vet", "./..."]))
             checks.append(("go-test", ["go", "test", "./..."]))
 
         if (ROOT / "Cargo.toml").exists() and command_exists("cargo"):
             checks.append(("cargo-fmt", ["cargo", "fmt", "--check"]))
-            checks.append(("cargo-clippy", ["cargo", "clippy", "--", "-D", "warnings"]))
+            checks.append(
+                ("cargo-clippy", ["cargo", "clippy", "--", "-D", "warnings"]))
             checks.append(("cargo-test", ["cargo", "test"]))
 
         if (ROOT / "pyproject.toml").exists() or (ROOT / "requirements.txt").exists() or (ROOT / "pytest.ini").exists():
             if self.python_module_exists("ruff") or command_exists("ruff"):
-                cmd = ["ruff", "check", "."] if command_exists("ruff") else [sys.executable, "-m", "ruff", "check", "."]
+                cmd = ["ruff", "check", "."] if command_exists(
+                    "ruff") else [sys.executable, "-m", "ruff", "check", "."]
                 checks.append(("python-ruff", cmd))
             if self.python_module_exists("black") or command_exists("black"):
-                cmd = ["black", "--check", "."] if command_exists("black") else [sys.executable, "-m", "black", "--check", "."]
+                cmd = ["black", "--check", "."] if command_exists(
+                    "black") else [sys.executable, "-m", "black", "--check", "."]
                 checks.append(("python-black", cmd))
             if self.python_module_exists("mypy") or command_exists("mypy"):
-                cmd = ["mypy", "."] if command_exists("mypy") else [sys.executable, "-m", "mypy", "."]
+                cmd = ["mypy", "."] if command_exists(
+                    "mypy") else [sys.executable, "-m", "mypy", "."]
                 checks.append(("python-mypy", cmd))
             if self.python_module_exists("pytest") or command_exists("pytest") or any((ROOT / x).exists() for x in ["tests", "test"]):
-                cmd = ["pytest"] if command_exists("pytest") else [sys.executable, "-m", "pytest"]
+                cmd = ["pytest"] if command_exists("pytest") else [
+                    sys.executable, "-m", "pytest"]
                 checks.append(("python-pytest", cmd))
 
         if any(ROOT.glob("*.sln")) or any(ROOT.glob("**/*.csproj")):
             if command_exists("dotnet"):
                 checks.append(("dotnet-restore", ["dotnet", "restore"]))
-                checks.append(("dotnet-build", ["dotnet", "build", "--no-restore"]))
-                checks.append(("dotnet-test", ["dotnet", "test", "--no-build"]))
+                checks.append(
+                    ("dotnet-build", ["dotnet", "build", "--no-restore"]))
+                checks.append(
+                    ("dotnet-test", ["dotnet", "test", "--no-build"]))
 
         if (ROOT / "pom.xml").exists() and command_exists("mvn"):
             checks.append(("maven-test", ["mvn", "test"]))
@@ -1293,13 +1392,16 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
 
         if (ROOT / "docker-compose.yml").exists() or (ROOT / "compose.yml").exists():
             if command_exists("docker"):
-                compose_file = "docker-compose.yml" if (ROOT / "docker-compose.yml").exists() else "compose.yml"
-                checks.append(("docker-compose-config", ["docker", "compose", "-f", compose_file, "config"]))
+                compose_file = "docker-compose.yml" if (
+                    ROOT / "docker-compose.yml").exists() else "compose.yml"
+                checks.append(
+                    ("docker-compose-config", ["docker", "compose", "-f", compose_file, "config"]))
 
         return checks
 
     def python_module_exists(self, module: str) -> bool:
-        result = run_cmd([sys.executable, "-c", f"import {module}"], check=False, capture=True, timeout=30, env=clean_env_for_checks())
+        result = run_cmd(
+            [sys.executable, "-c", f"import {module}"], check=False, capture=True, timeout=30, env=clean_env_for_checks())
         return result.returncode == 0
 
     def run_logged_check(self, name: str, cmd: list[str], timeout: int = 900) -> tuple[bool, str]:
@@ -1317,7 +1419,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                 timeout=timeout,
                 env=clean_env_for_checks(),
             )
-            log_path.write_text(result.stdout or "", encoding="utf-8", errors="replace")
+            log_path.write_text(result.stdout or "",
+                                encoding="utf-8", errors="replace")
             return result.returncode == 0, tail_text(log_path, 120)
         except subprocess.TimeoutExpired as exc:
             output = (exc.stdout or "") if isinstance(exc.stdout, str) else ""
@@ -1330,14 +1433,16 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
 
     def commit_and_push_fix(self) -> str:
         if not self.commit_name or not self.commit_email:
-            raise RuntimeError("Missing required commit secrets: YURI_COMMIT_NAME and/or YURI_COMMIT_EMAIL")
+            raise RuntimeError(
+                "Missing required commit secrets: YURI_COMMIT_NAME and/or YURI_COMMIT_EMAIL")
         if not self.pr_info:
             raise RuntimeError("PR info missing")
 
         git(["config", "user.name", self.commit_name])
         git(["config", "user.email", self.commit_email])
 
-        changed = git(["ls-files", "--modified", "--others", "--exclude-standard"]).splitlines()
+        changed = git(["ls-files", "--modified", "--others",
+                      "--exclude-standard"]).splitlines()
         if not changed:
             raise RuntimeError("No changed files to commit")
 
@@ -1351,12 +1456,14 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
 
     def commit_and_push_solve(self) -> str:
         if not self.commit_name or not self.commit_email:
-            raise RuntimeError("Missing required commit secrets: YURI_COMMIT_NAME and/or YURI_COMMIT_EMAIL")
+            raise RuntimeError(
+                "Missing required commit secrets: YURI_COMMIT_NAME and/or YURI_COMMIT_EMAIL")
 
         git(["config", "user.name", self.commit_name])
         git(["config", "user.email", self.commit_email])
 
-        changed = git(["ls-files", "--modified", "--others", "--exclude-standard"]).splitlines()
+        changed = git(["ls-files", "--modified", "--others",
+                      "--exclude-standard"]).splitlines()
         if not changed:
             raise RuntimeError("No changed files to commit")
 
