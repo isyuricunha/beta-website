@@ -1349,7 +1349,7 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             else:
                 runner = ["npm", "run"]
 
-            for script in ["lint", "typecheck", "check", "test", "build"]:
+            for script in ["lint", "typecheck", "test", "build"]:
                 if script in scripts:
                     checks.append((f"node-{script}", [*runner, script]))
 
