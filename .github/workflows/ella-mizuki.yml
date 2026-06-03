@@ -160,7 +160,11 @@ jobs:
             --repo "$REPO" \
             > "$RUNNER_TEMP/pr-diff.txt"
 
-          head -c 100000 "$RUNNER_TEMP/pr-diff.txt" > "$RUNNER_TEMP/pr-diff-limited.txt"
+          if [ "${{ steps.parse.outputs.mode }}" = "fix" ]; then
+            head -c 30000 "$RUNNER_TEMP/pr-diff.txt" > "$RUNNER_TEMP/pr-diff-limited.txt"
+          else
+            head -c 80000 "$RUNNER_TEMP/pr-diff.txt" > "$RUNNER_TEMP/pr-diff-limited.txt"
+          fi
 
           HEAD_REF="$(jq -r '.headRefName' "$RUNNER_TEMP/pr-info.json")"
           IS_CROSS_REPOSITORY="$(jq -r '.isCrossRepository' "$RUNNER_TEMP/pr-info.json")"
@@ -235,11 +239,11 @@ jobs:
             cat "$RUNNER_TEMP/pr-info.json"
 
             echo ""
-            echo "PR diff, possibly truncated:"
+            echo "PR diff, truncated:"
             cat "$RUNNER_TEMP/pr-diff-limited.txt"
 
             echo ""
-            echo "Changed files content, possibly truncated:"
+            echo "Changed files content, truncated:"
           } > "$RUNNER_TEMP/ella-context.txt"
 
           while IFS= read -r file; do
@@ -247,14 +251,14 @@ jobs:
               {
                 echo ""
                 echo "----- FILE: $file -----"
-                head -c 30000 "$file"
+                head -c 12000 "$file"
                 echo ""
                 echo "----- END FILE: $file -----"
               } >> "$RUNNER_TEMP/ella-context.txt"
             fi
           done < "$RUNNER_TEMP/pr-files.txt"
 
-      - name: Call AI endpoint
+      - name: Call AI endpoint with streaming
         if: >
           ${{
             steps.parse.outputs.mode == 'ask' ||
@@ -271,16 +275,20 @@ jobs:
 
           if [ "$ELLA_MODE" = "fix" ]; then
             SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer only with a valid unified diff patch. Do not use Markdown fences. Do not explain. Make the smallest safe code change possible."
+            MAX_TOKENS=2500
           elif [ "$ELLA_MODE" = "pr" ]; then
             SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical. Analyze only the PR context provided. Do not modify code."
+            MAX_TOKENS=1200
           else
             SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical."
+            MAX_TOKENS=600
           fi
 
           REQUEST_BODY="$(jq -n \
             --arg model "$ELLA_AI_MODEL" \
             --arg system "$SYSTEM_PROMPT" \
             --rawfile context "$RUNNER_TEMP/ella-context.txt" \
+            --argjson max_tokens "$MAX_TOKENS" \
             '{
               model: $model,
               messages: [
@@ -293,11 +301,20 @@ jobs:
                   content: $context
                 }
               ],
-              temperature: 0.2
+              temperature: 0.1,
+              max_tokens: $max_tokens,
+              stream: true
             }')"
 
+          echo "Calling AI endpoint with streaming..."
+          echo "Mode: $ELLA_MODE"
+          echo "Model: $ELLA_AI_MODEL"
+
           HTTP_STATUS="$(curl -sS \
-            -o "$RUNNER_TEMP/response.json" \
+            --no-buffer \
+            --connect-timeout 20 \
+            --max-time 900 \
+            -o "$RUNNER_TEMP/response.stream" \
             -w "%{http_code}" \
             -X POST "${ELLA_AI_BASE_URL%/}/chat/completions" \
             -H "Authorization: Bearer ${ELLA_AI_API_KEY}" \
@@ -308,19 +325,92 @@ jobs:
 
           if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
             echo "AI endpoint failed"
-            cat "$RUNNER_TEMP/response.json"
+            cat "$RUNNER_TEMP/response.stream"
             exit 1
           fi
 
-          AI_RESPONSE="$(jq -r '.choices[0].message.content // empty' "$RUNNER_TEMP/response.json")"
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          import os
+          import sys
 
-          if [ -z "$AI_RESPONSE" ]; then
-            echo "Could not read AI response"
-            cat "$RUNNER_TEMP/response.json"
-            exit 1
-          fi
+          runner_temp = Path(os.environ["RUNNER_TEMP"])
+          response_path = runner_temp / "response.stream"
+          output_path = runner_temp / "ai-response.txt"
 
-          printf "%s" "$AI_RESPONSE" > "$RUNNER_TEMP/ai-response.txt"
+          text = response_path.read_text(encoding="utf-8", errors="replace")
+          stripped = text.strip()
+
+          if not stripped:
+              print("Empty AI stream response", file=sys.stderr)
+              sys.exit(1)
+
+          content_parts = []
+
+          if stripped.startswith("{"):
+              try:
+                  data = json.loads(stripped)
+                  choices = data.get("choices") or []
+                  if choices:
+                      choice = choices[0]
+                      message = choice.get("message") or {}
+                      delta = choice.get("delta") or {}
+                      if message.get("content"):
+                          content_parts.append(message["content"])
+                      elif delta.get("content"):
+                          content_parts.append(delta["content"])
+                      elif choice.get("text"):
+                          content_parts.append(choice["text"])
+              except Exception as exc:
+                  print(f"Failed to parse JSON response: {exc}", file=sys.stderr)
+                  print(stripped[:4000], file=sys.stderr)
+                  sys.exit(1)
+          else:
+              for raw_line in text.splitlines():
+                  line = raw_line.strip()
+
+                  if not line:
+                      continue
+
+                  if line.startswith(":"):
+                      continue
+
+                  if not line.startswith("data:"):
+                      continue
+
+                  payload = line[len("data:"):].strip()
+
+                  if not payload or payload == "[DONE]":
+                      continue
+
+                  try:
+                      data = json.loads(payload)
+                  except json.JSONDecodeError:
+                      continue
+
+                  choices = data.get("choices") or []
+
+                  for choice in choices:
+                      delta = choice.get("delta") or {}
+                      message = choice.get("message") or {}
+
+                      if delta.get("content"):
+                          content_parts.append(delta["content"])
+                      elif message.get("content"):
+                          content_parts.append(message["content"])
+                      elif choice.get("text"):
+                          content_parts.append(choice["text"])
+
+          content = "".join(content_parts).strip()
+
+          if not content:
+              print("Could not extract content from AI stream response", file=sys.stderr)
+              print(stripped[:4000], file=sys.stderr)
+              sys.exit(1)
+
+          output_path.write_text(content, encoding="utf-8")
+          PY
 
       - name: Comment AI response
         if: ${{ steps.parse.outputs.mode == 'ask' || steps.parse.outputs.mode == 'pr' }}
