@@ -859,8 +859,7 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             if delta.get("tool_calls") or message.get("tool_calls") or choice.get("tool_calls"):
                 tool_call_seen = True
 
-            content = delta.get("content") or message.get(
-                "content") or choice.get("text")
+            content = delta.get("content") or message.get("content") or choice.get("text")
             if content:
                 content_parts.append(str(content))
 
@@ -1443,6 +1442,189 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             log_path.write_text(str(exc), encoding="utf-8", errors="replace")
             return False, str(exc)
 
+    def infer_commit_type(self, changed_files: list[str]) -> tuple[str, str | None]:
+        normalized = [path.replace("\\", "/") for path in changed_files]
+
+        if not normalized:
+            return "chore", None
+
+        if all(
+            path.endswith((".md", ".mdx", ".txt", ".rst"))
+            or path.lower().endswith("readme")
+            or "/docs/" in path
+            or path.startswith("docs/")
+            for path in normalized
+        ):
+            return "docs", None
+
+        if all(
+            path.startswith(".github/workflows/")
+            or path.startswith(".github/actions/")
+            or path.startswith(".ella/")
+            or path in {"Dockerfile", "docker-compose.yml", "compose.yml"}
+            or path.endswith((".yml", ".yaml"))
+            for path in normalized
+        ):
+            return "ci", None
+
+        if all(
+            "/test/" in path
+            or "/tests/" in path
+            or path.startswith("test/")
+            or path.startswith("tests/")
+            or path.endswith((".test.ts", ".test.tsx", ".spec.ts", ".spec.tsx", ".test.js", ".spec.js"))
+            for path in normalized
+        ):
+            return "test", None
+
+        if any(
+            path.endswith(("package.json", "pnpm-lock.yaml", "package-lock.json", "yarn.lock", "bun.lockb"))
+            or "dependabot" in path
+            for path in normalized
+        ):
+            return "chore", "deps"
+
+        if any(
+            path.startswith("apps/web/")
+            or path.startswith("apps/docs/")
+            or path.startswith("packages/ui/")
+            for path in normalized
+        ):
+            return "fix", "ui"
+
+        return "fix", None
+
+    def fallback_commit_message(self, changed_files: list[str]) -> str:
+        commit_type, scope = self.infer_commit_type(changed_files)
+        summary = "apply requested changes"
+
+        summary_path = OUT / "fix-summary.txt"
+        if summary_path.exists():
+            raw_summary = summary_path.read_text(encoding="utf-8", errors="replace").strip()
+            if raw_summary:
+                first_line = raw_summary.splitlines()[0].strip()
+                first_line = re.sub(r"^(fix|fixed|change|changed|update|updated|add|added):?\s+", "", first_line, flags=re.I)
+                if first_line:
+                    summary = first_line[:90].rstrip(" .")
+
+        if self.mode == "solve":
+            issue_title = ""
+            if self.issue_info:
+                issue_title = str(self.issue_info.get("title", "")).strip()
+            if issue_title:
+                summary = issue_title[:90].rstrip(" .")
+
+        subject_prefix = f"{commit_type}({scope})" if scope else commit_type
+        subject = f"{subject_prefix}: {summary}"
+        if len(subject) > 72:
+            subject = subject[:69].rstrip(" .") + "..."
+
+        body_lines = [
+            "Details:",
+            f"- Request: {self.prompt}",
+        ]
+
+        if summary_path.exists():
+            raw_summary = summary_path.read_text(encoding="utf-8", errors="replace").strip()
+            if raw_summary:
+                body_lines.append(f"- Summary: {raw_summary}")
+
+        if changed_files:
+            body_lines.append("- Changed files:")
+            for path in changed_files[:12]:
+                body_lines.append(f"  - {path}")
+            if len(changed_files) > 12:
+                body_lines.append(f"  - ...and {len(changed_files) - 12} more")
+
+        if self.mode == "solve":
+            body_lines.append(f"- Refs: #{self.issue_number}")
+
+        return subject + "\n\n" + "\n".join(body_lines).strip() + "\n"
+
+    def generate_commit_message(self, changed_files: list[str]) -> str:
+        fallback = self.fallback_commit_message(changed_files)
+
+        diff_stat = git(["diff", "--stat"], check=False)
+        diff = git(["diff", "--", *changed_files], check=False) if changed_files else ""
+        diff = diff[:12000]
+
+        summary = ""
+        summary_path = OUT / "fix-summary.txt"
+        if summary_path.exists():
+            summary = summary_path.read_text(encoding="utf-8", errors="replace").strip()
+
+        context_lines = [
+            "Create a Conventional Commit message for these changes.",
+            "",
+            "Rules:",
+            "- Return ONLY valid JSON.",
+            "- No Markdown and no code fences.",
+            "- Subject must follow Conventional Commits, like docs: update README or fix(ui): handle empty state.",
+            "- Subject must be <= 72 characters.",
+            "- Body should be detailed but concise, using 2-6 bullet points.",
+            "- Use English.",
+            "- Use imperative mood.",
+            "- Do not mention Ella unless the changed files are specifically about Ella.",
+            "",
+            f"Mode: {self.mode}",
+            f"Issue or PR number: {self.issue_number}",
+            "",
+            "User request:",
+            self.prompt,
+            "",
+            "AI change summary:",
+            summary,
+            "",
+            "Changed files:",
+            "\n".join(changed_files),
+            "",
+            "Diff stat:",
+            diff_stat,
+            "",
+            "Diff, possibly truncated:",
+            diff,
+            "",
+            "Return schema:",
+            '{ "subject": "type(scope): short summary", "body": "- Detail one\\n- Detail two" }',
+        ]
+
+        system_prompt = (
+            "You write high-quality git commit messages. "
+            "Return only valid JSON with subject and body. "
+            "Do not call tools. Do not include reasoning."
+        )
+
+        try:
+            response = self.ai_call("\n".join(context_lines), system_prompt, 1200)
+            data = parse_jsonish(response)
+
+            subject = str(data.get("subject", "")).strip()
+            body = str(data.get("body", "")).strip()
+
+            if not subject or "\n" in subject:
+                raise ValueError("Invalid commit subject")
+
+            if len(subject) > 72:
+                subject = subject[:69].rstrip(" .") + "..."
+
+            if not re.match(r"^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z0-9._/-]+\))?!?: .+", subject):
+                raise ValueError(f"Commit subject is not conventional: {subject}")
+
+            if not body:
+                body = fallback.split("\n\n", 1)[1].strip() if "\n\n" in fallback else ""
+
+            return subject + "\n\n" + body.strip() + "\n"
+
+        except Exception as exc:
+            write_debug("commit-message-fallback.txt", f"Falling back to heuristic commit message.\nReason: {type(exc).__name__}: {exc}\n")
+            return fallback
+
+    def write_commit_message_file(self, changed_files: list[str]) -> Path:
+        message = self.generate_commit_message(changed_files)
+        path = OUT / "commit-message.txt"
+        path.write_text(message, encoding="utf-8")
+        return path
+
     def commit_and_push_fix(self) -> str:
         if not self.commit_name or not self.commit_email:
             raise RuntimeError(
@@ -1458,8 +1640,10 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
         if not changed:
             raise RuntimeError("No changed files to commit")
 
+        commit_message_path = self.write_commit_message_file(changed)
+
         run_cmd(["git", "add", "--", *changed], capture=True)
-        git(["commit", "--no-verify", "-m", "Apply requested fix"])
+        git(["commit", "--no-verify", "-F", str(commit_message_path)])
 
         head_ref = self.pr_info["headRefName"]
         git(["push", "origin", f"HEAD:{head_ref}"])
@@ -1479,9 +1663,10 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
         if not changed:
             raise RuntimeError("No changed files to commit")
 
+        commit_message_path = self.write_commit_message_file(changed)
+
         run_cmd(["git", "add", "--", *changed], capture=True)
-        git(["commit", "--no-verify", "-m",
-            f"Solve issue #{self.issue_number}"])
+        git(["commit", "--no-verify", "-F", str(commit_message_path)])
         git(["push", "origin", f"HEAD:{self.solve_branch}"])
 
         return git(["rev-parse", "--short", "HEAD"]).strip()
