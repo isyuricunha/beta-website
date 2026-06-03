@@ -10,7 +10,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  test-ella:
+  test-ella-comment:
     if: >
       contains(github.event.comment.body, '/ella test') &&
       github.event.comment.user.login == 'isyuricunha'
@@ -35,3 +35,69 @@ jobs:
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$REPO" \
             --body "Oi, eu sou a Ella Mizuki. Token funcionando."
+
+  test-yuri-commit:
+    if: >
+      contains(github.event.comment.body, '/ella commit-test') &&
+      github.event.comment.user.login == 'isyuricunha'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Ella Mizuki token
+        id: ella-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.YUE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.YUE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.ella-token.outputs.token }}
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Configure commit author as Yuri
+        env:
+          YURI_COMMIT_NAME: ${{ vars.YURI_COMMIT_NAME }}
+          YURI_COMMIT_EMAIL: ${{ vars.YURI_COMMIT_EMAIL }}
+        run: |
+          if [ -z "$YURI_COMMIT_NAME" ]; then
+            echo "Missing variable: YURI_COMMIT_NAME"
+            exit 1
+          fi
+
+          if [ -z "$YURI_COMMIT_EMAIL" ]; then
+            echo "Missing variable: YURI_COMMIT_EMAIL"
+            exit 1
+          fi
+
+          git config user.name "$YURI_COMMIT_NAME"
+          git config user.email "$YURI_COMMIT_EMAIL"
+
+      - name: Create test commit
+        run: |
+          mkdir -p .github
+
+          {
+            echo "Ella Mizuki commit test"
+            echo "Updated at: $(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+            echo "Triggered by: ${{ github.event.comment.user.login }}"
+          } > .github/ella-mizuki-commit-test.txt
+
+          git add .github/ella-mizuki-commit-test.txt
+          git commit -m "Test Ella Mizuki commit author"
+          git push
+
+      - name: Comment result as Ella Mizuki
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          YURI_COMMIT_NAME: ${{ vars.YURI_COMMIT_NAME }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --body "Commit de teste criado. O autor do commit deve aparecer como ${YURI_COMMIT_NAME}, e este comentário deve aparecer como Ella Mizuki."
