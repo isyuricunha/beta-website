@@ -30,8 +30,8 @@ jobs:
         id: ella_token
         uses: actions/create-github-app-token@v3
         with:
-          client-id: ${{ secrets.YUE_APP_CLIENT_ID }}
-          private-key: ${{ secrets.YUE_APP_PRIVATE_KEY }}
+          client-id: ${{ secrets.ELLA_APP_CLIENT_ID }}
+          private-key: ${{ secrets.ELLA_APP_PRIVATE_KEY }}
           permission-contents: write
           permission-issues: write
           permission-pull-requests: write
