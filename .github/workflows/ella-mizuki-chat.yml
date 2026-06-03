@@ -1,0 +1,109 @@
+name: Ella Mizuki Chat
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  ella-chat:
+    if: >
+      startsWith(github.event.comment.body, '/ella ask') &&
+      github.event.comment.user.login == 'isyuricunha'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Ella Mizuki token
+        id: ella-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.YUE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.YUE_APP_PRIVATE_KEY }}
+          permission-issues: write
+          permission-pull-requests: write
+
+      - name: Call AI endpoint
+        env:
+          ELLA_AI_BASE_URL: ${{ vars.ELLA_AI_BASE_URL }}
+          ELLA_AI_MODEL: ${{ vars.ELLA_AI_MODEL }}
+          ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+        run: |
+          set -e
+
+          if [ -z "$ELLA_AI_BASE_URL" ]; then
+            echo "Missing variable: ELLA_AI_BASE_URL"
+            exit 1
+          fi
+
+          if [ -z "$ELLA_AI_MODEL" ]; then
+            echo "Missing variable: ELLA_AI_MODEL"
+            exit 1
+          fi
+
+          if [ -z "$ELLA_AI_API_KEY" ]; then
+            echo "Missing secret: ELLA_AI_API_KEY"
+            exit 1
+          fi
+
+          USER_PROMPT="$(printf "%s" "$COMMENT_BODY" | sed '1s#^/ella ask[[:space:]]*##')"
+
+          if [ -z "$(printf "%s" "$USER_PROMPT" | tr -d '[:space:]')" ]; then
+            echo "Missing prompt after /ella ask"
+            exit 1
+          fi
+
+          REQUEST_BODY="$(jq -n \
+            --arg model "$ELLA_AI_MODEL" \
+            --arg system "You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical. In this mode, do not modify code." \
+            --arg user "$USER_PROMPT" \
+            '{
+              model: $model,
+              messages: [
+                { role: "system", content: $system },
+                { role: "user", content: $user }
+              ],
+              temperature: 0.2
+            }')"
+
+          HTTP_STATUS="$(curl -sS \
+            -o response.json \
+            -w "%{http_code}" \
+            -X POST "${ELLA_AI_BASE_URL%/}/chat/completions" \
+            -H "Authorization: Bearer ${ELLA_AI_API_KEY}" \
+            -H "Content-Type: application/json" \
+            --data "$REQUEST_BODY")"
+
+          echo "HTTP status: $HTTP_STATUS"
+
+          if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
+            echo "AI endpoint failed"
+            cat response.json
+            exit 1
+          fi
+
+          AI_RESPONSE="$(jq -r '.choices[0].message.content // empty' response.json)"
+
+          if [ -z "$AI_RESPONSE" ]; then
+            echo "Could not read AI response"
+            cat response.json
+            exit 1
+          fi
+
+          echo "$AI_RESPONSE" > ai-response.txt
+
+      - name: Comment AI response as Ella Mizuki
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          AI_RESPONSE="$(cat ai-response.txt)"
+
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --body "$AI_RESPONSE"
