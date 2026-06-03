@@ -85,7 +85,7 @@ jobs:
           Analisa o PR atual usando título, descrição e diff.
 
           \`/ella fix pedido\`
-          Tenta editar o PR atual, rodar checks e commitar como Yuri Cunha."
+          Tenta editar arquivos do PR, rodar checks e commitar como Yuri Cunha."
 
       - name: Comment unknown command
         if: ${{ steps.parse.outputs.mode == 'unknown' }}
@@ -167,9 +167,11 @@ jobs:
           fi
 
           HEAD_REF="$(jq -r '.headRefName' "$RUNNER_TEMP/pr-info.json")"
+          BASE_REF="$(jq -r '.baseRefName' "$RUNNER_TEMP/pr-info.json")"
           IS_CROSS_REPOSITORY="$(jq -r '.isCrossRepository' "$RUNNER_TEMP/pr-info.json")"
 
           echo "head_ref=$HEAD_REF" >> "$GITHUB_OUTPUT"
+          echo "base_ref=$BASE_REF" >> "$GITHUB_OUTPUT"
           echo "is_cross_repository=$IS_CROSS_REPOSITORY" >> "$GITHUB_OUTPUT"
 
       - name: Prepare PR analysis context
@@ -235,6 +237,28 @@ jobs:
             cat "$RUNNER_TEMP/ella-user-prompt.txt"
 
             echo ""
+            echo "Important output format:"
+            echo "Return ONLY valid JSON. No Markdown. No code fences."
+            echo "Schema:"
+            echo "{"
+            echo "  \"summary\": \"short explanation\","
+            echo "  \"files\": ["
+            echo "    { \"path\": \"relative/path.ext\", \"content\": \"complete final file content\" }"
+            echo "  ]"
+            echo "}"
+            echo ""
+            echo "Rules:"
+            echo "- Only edit files listed in Allowed files."
+            echo "- Return the complete final content for each edited file."
+            echo "- Keep the smallest safe change possible."
+            echo "- Do not include diffs."
+            echo "- Do not include explanations outside JSON."
+
+            echo ""
+            echo "Allowed files:"
+            cat "$RUNNER_TEMP/pr-files.txt"
+
+            echo ""
             echo "PR info:"
             cat "$RUNNER_TEMP/pr-info.json"
 
@@ -243,7 +267,7 @@ jobs:
             cat "$RUNNER_TEMP/pr-diff-limited.txt"
 
             echo ""
-            echo "Changed files content, truncated:"
+            echo "Allowed files current content, truncated:"
           } > "$RUNNER_TEMP/ella-context.txt"
 
           while IFS= read -r file; do
@@ -251,7 +275,7 @@ jobs:
               {
                 echo ""
                 echo "----- FILE: $file -----"
-                head -c 12000 "$file"
+                head -c 18000 "$file"
                 echo ""
                 echo "----- END FILE: $file -----"
               } >> "$RUNNER_TEMP/ella-context.txt"
@@ -274,8 +298,8 @@ jobs:
           set -e
 
           if [ "$ELLA_MODE" = "fix" ]; then
-            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Do not reason step by step. Do not explain. Do not use Markdown fences. Start your response with 'diff --git'. Return only a valid unified diff patch. Make the smallest safe code change possible."
-            MAX_TOKENS=5000
+            SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Do not reason step by step. Return only valid JSON. No Markdown. No code fences. The JSON must contain a short summary and a files array. Each file item must contain path and complete final content. Only edit files explicitly listed as allowed."
+            MAX_TOKENS=8000
           elif [ "$ELLA_MODE" = "pr" ]; then
             SYSTEM_PROMPT="You are Ella Mizuki, Yuri's GitHub repository assistant. Answer in Brazilian Portuguese. Be short, direct, and practical. Analyze only the PR context provided. Do not modify code."
             MAX_TOKENS=1200
@@ -430,52 +454,156 @@ jobs:
             --repo "$REPO" \
             --body "$AI_RESPONSE"
 
-      - name: Extract and apply patch
-        id: apply_patch
+      - name: Apply JSON file changes
+        id: apply_files
         if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false' }}
         run: |
-          set -e
+          set +e
 
           python3 - <<'PY'
           from pathlib import Path
+          import json
           import os
           import re
           import sys
 
           runner_temp = Path(os.environ["RUNNER_TEMP"])
-          text = (runner_temp / "ai-response.txt").read_text(encoding="utf-8")
+          repo = Path.cwd()
 
-          match = re.search(r"```(?:diff|patch)?\s*\n(.*?)```", text, re.S)
-          patch = match.group(1) if match else text
-          patch = patch.strip() + "\n"
+          response_path = runner_temp / "ai-response.txt"
+          allowed_path = runner_temp / "pr-files.txt"
+          summary_path = runner_temp / "ella-fix-summary.txt"
+          error_path = runner_temp / "ella-apply-error.txt"
 
-          diff_match = re.search(r"(diff --git .*)", patch, re.S)
-          if diff_match:
-              patch = diff_match.group(1).strip() + "\n"
+          raw = response_path.read_text(encoding="utf-8", errors="replace").strip()
 
-          if not patch.startswith(("diff --git", "--- ")):
-              print("AI did not return a valid unified diff patch.", file=sys.stderr)
-              print(text[:4000], file=sys.stderr)
+          def fail(message):
+              error_path.write_text(message + "\n\nAI response preview:\n" + raw[:4000], encoding="utf-8")
+              print(message, file=sys.stderr)
               sys.exit(1)
 
-          (runner_temp / "ella.patch").write_text(patch, encoding="utf-8")
+          if raw.startswith("```"):
+              raw = re.sub(r"^```(?:json)?\s*", "", raw)
+              raw = re.sub(r"\s*```$", "", raw).strip()
+
+          try:
+              data = json.loads(raw)
+          except json.JSONDecodeError:
+              start = raw.find("{")
+              end = raw.rfind("}")
+              if start == -1 or end == -1 or end <= start:
+                  fail("AI response is not valid JSON.")
+              try:
+                  data = json.loads(raw[start:end + 1])
+              except json.JSONDecodeError as exc:
+                  fail(f"AI response JSON parse failed: {exc}")
+
+          if not isinstance(data, dict):
+              fail("AI response JSON must be an object.")
+
+          files = data.get("files")
+          summary = data.get("summary") or "Fix aplicado pela Ella Mizuki."
+
+          if not isinstance(files, list):
+              fail("AI response JSON must contain a files array.")
+
+          allowed_files = set()
+          if allowed_path.exists():
+              for line in allowed_path.read_text(encoding="utf-8", errors="replace").splitlines():
+                  line = line.strip()
+                  if line:
+                      allowed_files.add(line)
+
+          if not allowed_files:
+              fail("No allowed PR files found.")
+
+          changed_count = 0
+
+          for item in files:
+              if not isinstance(item, dict):
+                  fail("Each files item must be an object.")
+
+              path = item.get("path")
+              content = item.get("content")
+
+              if not isinstance(path, str) or not path.strip():
+                  fail("Each files item must contain a path string.")
+
+              if not isinstance(content, str):
+                  fail(f"File {path} must contain a content string.")
+
+              path = path.strip()
+
+              if path.startswith("/") or ".." in Path(path).parts or path.startswith(".git/"):
+                  fail(f"Unsafe file path rejected: {path}")
+
+              if path not in allowed_files:
+                  fail(f"File path is not in the PR allowed files list: {path}")
+
+              target = repo / path
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_text(content, encoding="utf-8")
+              changed_count += 1
+
+          summary_path.write_text(str(summary).strip() + "\n", encoding="utf-8")
+
+          if changed_count == 0:
+              fail("AI returned zero files to change.")
           PY
 
-          git apply --check "$RUNNER_TEMP/ella.patch"
-          git apply "$RUNNER_TEMP/ella.patch"
+          STATUS=$?
 
-          git ls-files --modified --others --exclude-standard > "$RUNNER_TEMP/ella-changed-files.txt"
-
-          if [ ! -s "$RUNNER_TEMP/ella-changed-files.txt" ]; then
+          if [ "$STATUS" != "0" ]; then
+            echo "apply_success=false" >> "$GITHUB_OUTPUT"
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
+          git diff --check > "$RUNNER_TEMP/ella-diff-check.txt" 2>&1
+          DIFF_CHECK_STATUS=$?
+
+          if [ "$DIFF_CHECK_STATUS" != "0" ]; then
+            {
+              echo "git diff --check failed:"
+              cat "$RUNNER_TEMP/ella-diff-check.txt"
+            } > "$RUNNER_TEMP/ella-apply-error.txt"
+
+            echo "apply_success=false" >> "$GITHUB_OUTPUT"
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git ls-files --modified --others --exclude-standard > "$RUNNER_TEMP/ella-changed-files.txt"
+
+          if [ ! -s "$RUNNER_TEMP/ella-changed-files.txt" ]; then
+            echo "apply_success=true" >> "$GITHUB_OUTPUT"
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "apply_success=true" >> "$GITHUB_OUTPUT"
           echo "has_changes=true" >> "$GITHUB_OUTPUT"
           git status --short
 
+      - name: Comment apply failure
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_files.outputs.apply_success == 'false' }}
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          ERROR_TEXT="$(cat "$RUNNER_TEMP/ella-apply-error.txt")"
+
+          gh pr comment "$PR_NUMBER" \
+            --repo "$REPO" \
+            --body "Tentei aplicar o fix, mas a resposta da IA não veio em um formato aplicável.
+
+          \`\`\`txt
+          ${ERROR_TEXT}
+          \`\`\`"
+
       - name: Comment no changes
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'false' }}
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_files.outputs.apply_success == 'true' && steps.apply_files.outputs.has_changes == 'false' }}
         env:
           GH_TOKEN: ${{ steps.ella-token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -483,10 +611,10 @@ jobs:
         run: |
           gh pr comment "$PR_NUMBER" \
             --repo "$REPO" \
-            --body "A IA não gerou nenhuma mudança aplicável."
+            --body "A IA respondeu, mas não gerou nenhuma mudança real nos arquivos."
 
       - name: Run project checks
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'true' }}
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_files.outputs.has_changes == 'true' }}
         run: |
           FAILED=0
           SUMMARY="$RUNNER_TEMP/ella-checks-summary.md"
@@ -561,7 +689,7 @@ jobs:
           echo "$FAILED" > "$RUNNER_TEMP/ella-checks-failed.txt"
 
       - name: Stop if checks failed
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'true' }}
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_files.outputs.has_changes == 'true' }}
         env:
           GH_TOKEN: ${{ steps.ella-token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -581,7 +709,7 @@ jobs:
 
       - name: Commit and push fix as Yuri
         id: commit_fix
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'true' }}
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_files.outputs.has_changes == 'true' }}
         env:
           YURI_COMMIT_NAME: ${{ vars.YURI_COMMIT_NAME }}
           YURI_COMMIT_EMAIL: ${{ vars.YURI_COMMIT_EMAIL }}
@@ -612,7 +740,7 @@ jobs:
           echo "commit_sha=$COMMIT_SHA" >> "$GITHUB_OUTPUT"
 
       - name: Comment fix result
-        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_patch.outputs.has_changes == 'true' }}
+        if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.apply_files.outputs.has_changes == 'true' }}
         env:
           GH_TOKEN: ${{ steps.ella-token.outputs.token }}
           REPO: ${{ github.repository }}
@@ -620,11 +748,15 @@ jobs:
           COMMIT_SHA: ${{ steps.commit_fix.outputs.commit_sha }}
         run: |
           SUMMARY="$(cat "$RUNNER_TEMP/ella-checks-summary.md")"
+          FIX_SUMMARY="$(cat "$RUNNER_TEMP/ella-fix-summary.txt")"
 
           gh pr comment "$PR_NUMBER" \
             --repo "$REPO" \
             --body "Fix aplicado e commitado.
 
           Commit: \`${COMMIT_SHA}\`
+
+          Resumo:
+          ${FIX_SUMMARY}
 
           ${SUMMARY}"
