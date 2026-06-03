@@ -744,7 +744,7 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
         self.comment(
             f"I applied these labels: {', '.join(labels_by_name[name]['name'] for name in picked)}\n\n{summary}")
 
-    def ai_call(self, context: str, system_prompt: str, max_tokens: int) -> str:
+    def ai_call(self, context: str, system_prompt: str, max_tokens: int, allow_retry: bool = True) -> str:
         body = {
             "model": self.ai_model,
             "messages": [
@@ -754,6 +754,8 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             "temperature": 0,
             "max_tokens": max_tokens,
             "stream": True,
+            "tools": [],
+            "tool_choice": "none",
         }
 
         data = json.dumps(body).encode("utf-8")
@@ -773,7 +775,7 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
         )
 
         content_parts: list[str] = []
-        reasoning_parts: list[str] = []
+        tool_call_seen = False
         raw_lines: list[str] = []
 
         try:
@@ -797,15 +799,15 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
                             obj = json.loads(payload)
                         except json.JSONDecodeError:
                             continue
-                        self.collect_ai_choices(
-                            obj, content_parts, reasoning_parts)
+                        if self.collect_ai_choices(obj, content_parts):
+                            tool_call_seen = True
                     else:
                         try:
                             obj = json.loads(stripped)
                         except json.JSONDecodeError:
                             continue
-                        self.collect_ai_choices(
-                            obj, content_parts, reasoning_parts)
+                        if self.collect_ai_choices(obj, content_parts):
+                            tool_call_seen = True
 
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
@@ -819,19 +821,34 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
         write_debug("response.stream", raw_text)
 
         content = "".join(content_parts).strip()
-        if not content:
-            content = "".join(reasoning_parts).strip()
+        if content:
+            return content
 
-        if not content:
-            raise CommandError(
-                "Could not extract content from AI stream response.")
+        if allow_retry:
+            write_debug(
+                "empty-content-retry.txt",
+                "The first response did not contain visible content. Retrying once with tool calls disabled and a stricter prompt.\n"
+                f"tool_call_seen={tool_call_seen}\n",
+            )
+            retry_system_prompt = (
+                system_prompt
+                + "\n\nImportant: do not call tools, do not use function calls, do not expose reasoning, "
+                + "and return only the final visible answer in normal assistant message content."
+            )
+            return self.ai_call(context, retry_system_prompt, max_tokens, allow_retry=False)
 
-        return content
+        reason = "The model did not return visible message content."
+        if tool_call_seen:
+            reason += " It tried to call a tool instead."
+        raise CommandError(reason)
 
     @staticmethod
-    def collect_ai_choices(obj: Any, content_parts: list[str], reasoning_parts: list[str]) -> None:
+    def collect_ai_choices(obj: Any, content_parts: list[str]) -> bool:
         if not isinstance(obj, dict):
-            return
+            return False
+
+        tool_call_seen = False
+
         for choice in obj.get("choices") or []:
             if not isinstance(choice, dict):
                 continue
@@ -839,20 +856,15 @@ On an issue, I create a branch, try to solve it, run checks, and open a PR."""
             delta = choice.get("delta") or {}
             message = choice.get("message") or {}
 
+            if delta.get("tool_calls") or message.get("tool_calls") or choice.get("tool_calls"):
+                tool_call_seen = True
+
             content = delta.get("content") or message.get(
                 "content") or choice.get("text")
             if content:
                 content_parts.append(str(content))
 
-            reasoning = delta.get("reasoning") or message.get(
-                "reasoning") or choice.get("reasoning")
-            if reasoning:
-                reasoning_parts.append(str(reasoning))
-
-            for container in [delta, message]:
-                for item in container.get("reasoning_details") or []:
-                    if isinstance(item, dict) and item.get("text"):
-                        reasoning_parts.append(str(item["text"]))
+        return tool_call_seen
 
     def fix_loop(self) -> bool:
         start = time.time()
