@@ -1,0 +1,35 @@
+name: Ella Mizuki Test
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  test-ella:
+    if: contains(github.event.comment.body, '/ella test')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create Ella Mizuki token
+        id: ella-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.YUE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.YUE_APP_PRIVATE_KEY }}
+          permission-issues: write
+          permission-pull-requests: write
+
+      - name: Comment as Ella Mizuki
+        env:
+          GH_TOKEN: ${{ steps.ella-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --body "Oi, eu sou a Ella Mizuki. Token funcionando."
