@@ -148,4 +148,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-This sentence have a small grammar problem.
+This sentence has a small grammar problem.
