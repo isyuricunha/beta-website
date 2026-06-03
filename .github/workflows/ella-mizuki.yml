@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
+    concurrency:
+      group: ella-mizuki-${{ github.repository }}-${{ github.event.issue.number }}
+      cancel-in-progress: false
+
     env:
       ELLA_MAX_ATTEMPTS: 15
       ELLA_TIME_LIMIT_SECONDS: 3600
@@ -32,6 +36,19 @@ jobs:
           permission-issues: write
           permission-pull-requests: write
           permission-actions: read
+
+      - name: React to command
+        env:
+          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
+          REPO: ${{ github.repository }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+        run: |
+          gh api \
+            --method POST \
+            "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" \
+            -H "Accept: application/vnd.github+json" \
+            -f content="eyes" \
+            >/dev/null || true
 
       - name: Parse command
         id: parse
@@ -238,6 +255,41 @@ jobs:
           echo "base_ref=$DEFAULT_BRANCH" >> "$GITHUB_OUTPUT"
           echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
+      - name: Create progress comment
+        id: progress_comment
+        if: >
+          ${{
+            (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false') ||
+            (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
+          }}
+        env:
+          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          MODE: ${{ steps.parse.outputs.mode }}
+        run: |
+          set -e
+
+          if [ "$MODE" = "solve" ]; then
+            BODY="👀 Ella Mizuki começou a trabalhar nesta issue.
+
+          Status: preparando branch e contexto.
+          Limite: 15 tentativas / 60 minutos."
+          else
+            BODY="👀 Ella Mizuki começou a trabalhar neste PR.
+
+          Status: preparando contexto.
+          Limite: 15 tentativas / 60 minutos."
+          fi
+
+          COMMENT_ID="$(gh api \
+            --method POST \
+            "repos/${REPO}/issues/${ISSUE_NUMBER}/comments" \
+            -f body="$BODY" \
+            --jq '.id')"
+
+          echo "comment_id=$COMMENT_ID" >> "$GITHUB_OUTPUT"
+
       - name: Prepare PR analysis context
         if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'pr' }}
         run: |
@@ -297,6 +349,29 @@ jobs:
         run: |
           set -e
           git checkout -B "$BRANCH_NAME"
+
+      - name: Load repository instructions
+        if: >
+          ${{
+            (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false') ||
+            (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
+          }}
+        run: |
+          set -e
+
+          : > "$RUNNER_TEMP/ella-repo-instructions.txt"
+
+          for file in AGENTS.md ELLA.md .github/ella-instructions.md .github/copilot-instructions.md; do
+            if [ -f "$file" ]; then
+              {
+                echo ""
+                echo "----- INSTRUCTIONS: $file -----"
+                head -c 40000 "$file"
+                echo ""
+                echo "----- END INSTRUCTIONS: $file -----"
+              } >> "$RUNNER_TEMP/ella-repo-instructions.txt"
+            fi
+          done
 
       - name: Prepare fix files list
         if: ${{ github.event.issue.pull_request && steps.parse.outputs.mode == 'fix' && steps.pr.outputs.is_cross_repository == 'false' }}
@@ -483,6 +558,20 @@ jobs:
             --repo "$REPO" \
             --body "$AI_RESPONSE"
 
+      - name: React ask or PR success
+        if: ${{ steps.parse.outputs.mode == 'ask' || steps.parse.outputs.mode == 'pr' }}
+        env:
+          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
+          REPO: ${{ github.repository }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+        run: |
+          gh api \
+            --method POST \
+            "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" \
+            -H "Accept: application/vnd.github+json" \
+            -f content="+1" \
+            >/dev/null || true
+
       - name: Run Ella fix loop
         id: ella_loop
         if: >
@@ -491,12 +580,14 @@ jobs:
             (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
           }}
         env:
+          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
           ELLA_AI_BASE_URL: ${{ secrets.ELLA_AI_BASE_URL }}
           ELLA_AI_MODEL: ${{ secrets.ELLA_AI_MODEL }}
           ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
           ELLA_MODE: ${{ steps.parse.outputs.mode }}
           REPO: ${{ github.repository }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
+          PROGRESS_COMMENT_ID: ${{ steps.progress_comment.outputs.comment_id }}
         run: |
           set -e
 
@@ -511,6 +602,20 @@ jobs:
           : > "$RUNNER_TEMP/ella-extra-context.txt"
           : > "$RUNNER_TEMP/ella-feedback.txt"
           : > "$RUNNER_TEMP/ella-final-summary.md"
+
+          update_progress() {
+            BODY="$1"
+
+            if [ -z "$PROGRESS_COMMENT_ID" ]; then
+              return 0
+            fi
+
+            gh api \
+              --method PATCH \
+              "repos/${REPO}/issues/comments/${PROGRESS_COMMENT_ID}" \
+              -f body="$BODY" \
+              >/dev/null || true
+          }
 
           run_check() {
             NAME="$1"
@@ -565,6 +670,12 @@ jobs:
 
             echo "Running install once..."
 
+            update_progress "👀 Ella Mizuki está preparando o ambiente.
+
+          Status: instalando dependências.
+          Tentativas: 0/${ELLA_MAX_ATTEMPTS}
+          Limite: 60 minutos."
+
             if $INSTALL_COMMAND > "$RUNNER_TEMP/ella-install.log" 2>&1; then
               echo "- ✅ install" > "$RUNNER_TEMP/ella-install-summary.md"
               return 0
@@ -589,6 +700,10 @@ jobs:
               echo ""
               echo "User request:"
               cat "$RUNNER_TEMP/ella-user-prompt.txt"
+
+              echo ""
+              echo "Repository instructions:"
+              cat "$RUNNER_TEMP/ella-repo-instructions.txt" 2>/dev/null || true
 
               echo ""
               echo "Required output format:"
@@ -1016,6 +1131,11 @@ jobs:
               cat "$RUNNER_TEMP/ella-install-summary.md"
             } > "$RUNNER_TEMP/ella-final-summary.md"
 
+            update_progress "❌ Ella Mizuki parou antes de editar.
+
+          Motivo: install falhou.
+          Artifact de debug será gerado se disponível."
+
             echo "success=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -1035,14 +1155,30 @@ jobs:
                 cat "$RUNNER_TEMP/ella-feedback.txt"
               } > "$RUNNER_TEMP/ella-final-summary.md"
 
+              update_progress "⏱️ Ella Mizuki atingiu o limite de tempo.
+
+          Tentativas: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}
+          Tempo usado: ${ELAPSED}s/${ELLA_TIME_LIMIT_SECONDS}s"
+
               break
             fi
 
             echo "Ella attempt ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}"
 
+            update_progress "👀 Ella Mizuki está trabalhando.
+
+          Status: tentativa ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Etapa: preparando contexto e chamando IA.
+          Tempo usado: ${ELAPSED}s/${ELLA_TIME_LIMIT_SECONDS}s"
+
             build_context
 
             if ! call_ai; then
+              update_progress "⚠️ Ella Mizuki encontrou erro ao chamar a IA.
+
+          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Próximo passo: tentar novamente, se houver tempo."
+
               ATTEMPT=$((ATTEMPT + 1))
               continue
             fi
@@ -1058,6 +1194,11 @@ jobs:
                 echo "A tentativa ${ATTEMPT} pediu mais arquivos. Forneci os arquivos válidos solicitados."
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
+              update_progress "📖 Ella Mizuki pediu mais contexto.
+
+          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Status: forneci arquivos extras permitidos."
+
               ATTEMPT=$((ATTEMPT + 1))
               continue
             fi
@@ -1068,6 +1209,11 @@ jobs:
                 echo ""
                 cat "$RUNNER_TEMP/ella-apply-error.txt"
               } > "$RUNNER_TEMP/ella-feedback.txt"
+
+              update_progress "⚠️ Ella Mizuki recebeu uma resposta não aplicável da IA.
+
+          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Próximo passo: pedir correção do formato."
 
               ATTEMPT=$((ATTEMPT + 1))
               continue
@@ -1085,6 +1231,11 @@ jobs:
                 cat "$RUNNER_TEMP/ella-diff-check.txt"
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
+              update_progress "⚠️ Ella Mizuki aplicou mudanças, mas elas falharam em git diff --check.
+
+          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Próximo passo: corrigir formatação/whitespace."
+
               ATTEMPT=$((ATTEMPT + 1))
               continue
             fi
@@ -1096,9 +1247,19 @@ jobs:
                 echo "A tentativa ${ATTEMPT} não gerou mudanças reais nos arquivos."
               } > "$RUNNER_TEMP/ella-feedback.txt"
 
+              update_progress "⚠️ Ella Mizuki não gerou mudanças reais.
+
+          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Próximo passo: tentar novamente com feedback mais direto."
+
               ATTEMPT=$((ATTEMPT + 1))
               continue
             fi
+
+            update_progress "🧪 Ella Mizuki aplicou mudanças e está rodando checks.
+
+          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Etapa: lint/test/build."
 
             set +e
             run_project_checks
@@ -1119,6 +1280,11 @@ jobs:
                 cat "$RUNNER_TEMP/ella-checks-summary.md"
               } > "$RUNNER_TEMP/ella-final-summary.md"
 
+              update_progress "✅ Ella Mizuki passou nos checks.
+
+          Tentativas usadas: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Próximo passo: commit/PR."
+
               break
             fi
 
@@ -1129,6 +1295,11 @@ jobs:
               echo ""
               echo "Corrija apenas os erros acima, preservando o comportamento atual."
             } > "$RUNNER_TEMP/ella-feedback.txt"
+
+            update_progress "🔁 Ella Mizuki aplicou mudanças, mas os checks falharam.
+
+          Tentativa: ${ATTEMPT}/${ELLA_MAX_ATTEMPTS}
+          Próximo passo: corrigir os erros dos checks e tentar novamente."
 
             ATTEMPT=$((ATTEMPT + 1))
           done
@@ -1145,11 +1316,52 @@ jobs:
               } > "$RUNNER_TEMP/ella-final-summary.md"
             fi
 
+            update_progress "❌ Ella Mizuki não conseguiu passar nos checks dentro dos limites.
+
+          Tentativas usadas: $((ATTEMPT - 1))/${ELLA_MAX_ATTEMPTS}
+          Status: parei sem commit."
+
             echo "success=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           echo "success=true" >> "$GITHUB_OUTPUT"
+
+      - name: Upload Ella debug artifacts
+        if: >
+          ${{
+            always() &&
+            (
+              (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix') ||
+              (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
+            )
+          }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ella-mizuki-debug-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/ella-context.txt
+            ${{ runner.temp }}/ella-feedback.txt
+            ${{ runner.temp }}/ella-final-summary.md
+            ${{ runner.temp }}/ella-repo-instructions.txt
+            ${{ runner.temp }}/ella-extra-context.txt
+            ${{ runner.temp }}/ella-allowed-files.txt
+            ${{ runner.temp }}/ella-repo-files-limited.txt
+            ${{ runner.temp }}/pr-info.json
+            ${{ runner.temp }}/issue-info.json
+            ${{ runner.temp }}/pr-diff-limited.txt
+            ${{ runner.temp }}/response.stream
+            ${{ runner.temp }}/ai-response.txt
+            ${{ runner.temp }}/ella-fix-summary.txt
+            ${{ runner.temp }}/ella-apply-error.txt
+            ${{ runner.temp }}/ella-needed-files.txt
+            ${{ runner.temp }}/ella-changed-files.txt
+            ${{ runner.temp }}/ella-checks-summary.md
+            ${{ runner.temp }}/ella-check-*.log
+            ${{ runner.temp }}/ella-install.log
+            ${{ runner.temp }}/ella-install-summary.md
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Comment loop failure
         if: >
@@ -1172,6 +1384,27 @@ jobs:
             --body "Tentei resolver em loop, mas não consegui passar nos checks dentro dos limites.
 
           ${SUMMARY}"
+
+      - name: React loop failure
+        if: >
+          ${{
+            steps.ella_loop.outputs.success == 'false' &&
+            (
+              (github.event.issue.pull_request && steps.parse.outputs.mode == 'fix') ||
+              (!github.event.issue.pull_request && steps.parse.outputs.mode == 'solve')
+            )
+          }}
+        env:
+          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
+          REPO: ${{ github.repository }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+        run: |
+          gh api \
+            --method POST \
+            "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" \
+            -H "Accept: application/vnd.github+json" \
+            -f content="confused" \
+            >/dev/null || true
 
       - name: Commit and push fix as Yuri
         id: commit_fix
@@ -1225,6 +1458,20 @@ jobs:
           Commit: \`${COMMIT_SHA}\`
 
           ${SUMMARY}"
+
+      - name: React fix success
+        if: ${{ steps.ella_loop.outputs.success == 'true' && steps.parse.outputs.mode == 'fix' }}
+        env:
+          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
+          REPO: ${{ github.repository }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+        run: |
+          gh api \
+            --method POST \
+            "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" \
+            -H "Accept: application/vnd.github+json" \
+            -f content="rocket" \
+            >/dev/null || true
 
       - name: Commit solve branch as Yuri
         id: commit_solve
@@ -1302,3 +1549,17 @@ jobs:
 
           PR: ${PR_URL}
           Commit: \`${COMMIT_SHA}\`"
+
+      - name: React solve success
+        if: ${{ steps.ella_loop.outputs.success == 'true' && steps.parse.outputs.mode == 'solve' }}
+        env:
+          GH_TOKEN: ${{ steps.ella_token.outputs.token }}
+          REPO: ${{ github.repository }}
+          COMMENT_ID: ${{ github.event.comment.id }}
+        run: |
+          gh api \
+            --method POST \
+            "repos/${REPO}/issues/comments/${COMMENT_ID}/reactions" \
+            -H "Accept: application/vnd.github+json" \
+            -f content="rocket" \
+            >/dev/null || true
