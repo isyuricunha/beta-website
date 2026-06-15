@@ -69,6 +69,7 @@ export const en = {
       description:
         "A practical notebook for commands, configurations, patterns, and the context that makes them useful.",
       empty: "The notebook is still taking shape.",
+      entryCount: (count) => `${count} ${count === 1 ? "snippet" : "snippets"}`,
     },
     projects: {
       title: "Projects",

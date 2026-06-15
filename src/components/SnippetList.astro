@@ -12,24 +12,23 @@ type Props = {
   locale: Locale;
   dictionary: Dictionary;
   compact?: boolean;
+  wholeRowLink?: boolean;
 };
 
-const { items, locale, dictionary, compact = false } = Astro.props;
+const {
+  items,
+  locale,
+  dictionary,
+  compact = false,
+  wholeRowLink = false,
+} = Astro.props;
 ---
 
 <div class:list={["snippet-list", { compact }]}>
   {
-    items.map(({ entry, entryLocale, isFallback, slug }) => (
-      <article>
-        <div class="snippet-label">
-          <span>{entry.data.category}</span>
-          {entry.data.stack.map((tool) => <Tag label={tool} />)}
-        </div>
-        <a href={getContentPath("snippets", slug, entryLocale)}>
-          {isFallback && <small>{dictionary.common.availableInEnglish}</small>}
-          <h2>{entry.data.title}</h2>
-          <p>{entry.data.description}</p>
-        </a>
+    items.map(({ entry, entryLocale, isFallback, slug }) => {
+      const href = getContentPath("snippets", slug, entryLocale);
+      const metaContent = (
         <ContentMeta
           publishedDate={entry.data.publishedDate}
           readingMinutes={estimateReadingMinutes(entry.body ?? "", entryLocale)}
@@ -37,8 +36,49 @@ const { items, locale, dictionary, compact = false } = Astro.props;
           locale={locale}
           dictionary={dictionary}
         />
-      </article>
-    ))
+      );
+
+      return (
+        <article class:list={{ "whole-row": wholeRowLink }}>
+          {wholeRowLink ? (
+            <a class="snippet-row" href={href}>
+              <div class="snippet-context">
+                <span>{entry.data.category}</span>
+                {entry.data.stack.map((tool) => <Tag label={tool} />)}
+              </div>
+              <div class="snippet-title">
+                <div>
+                  {isFallback && (
+                    <small>{dictionary.common.availableInEnglish}</small>
+                  )}
+                  <h2>{entry.data.title}</h2>
+                  <p>{entry.data.description}</p>
+                </div>
+                <svg aria-hidden="true" viewBox="0 0 20 20">
+                  <path d="M4 10h12m-4-4 4 4-4 4"></path>
+                </svg>
+              </div>
+              {metaContent}
+            </a>
+          ) : (
+            <>
+              <div class="snippet-label">
+                <span>{entry.data.category}</span>
+                {entry.data.stack.map((tool) => <Tag label={tool} />)}
+              </div>
+              <a class="snippet-link" href={href}>
+                {isFallback && (
+                  <small>{dictionary.common.availableInEnglish}</small>
+                )}
+                <h2>{entry.data.title}</h2>
+                <p>{entry.data.description}</p>
+              </a>
+              {metaContent}
+            </>
+          )}
+        </article>
+      );
+    })
   }
 </div>
 
@@ -77,6 +117,52 @@ const { items, locale, dictionary, compact = false } = Astro.props;
     opacity: 1;
   }
 
+  .snippet-row {
+    display: grid;
+    gap: 0.9rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .whole-row {
+    display: block;
+    padding-block: 1.85rem;
+  }
+
+  .snippet-context {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .snippet-context > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgb(199 119 31 / 82%);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.045em;
+    text-transform: lowercase;
+  }
+
+  .snippet-context > span::before {
+    width: 0.24rem;
+    height: 0.24rem;
+    border-radius: 50%;
+    background: rgb(199 119 31 / 78%);
+    box-shadow: 0 0 0.55rem rgb(199 119 31 / 14%);
+    content: "";
+  }
+
+  .snippet-title {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1.5rem;
+  }
+
   .snippet-label {
     display: flex;
     flex-wrap: wrap;
@@ -94,7 +180,7 @@ const { items, locale, dictionary, compact = false } = Astro.props;
     text-transform: uppercase;
   }
 
-  a {
+  .snippet-link {
     color: var(--color-text);
     text-decoration: none;
   }
@@ -117,11 +203,13 @@ const { items, locale, dictionary, compact = false } = Astro.props;
     transition: color 180ms ease;
   }
 
-  a:hover h2 {
+  .snippet-link:hover h2,
+  .snippet-row:hover h2 {
     color: rgb(235 181 88);
   }
 
-  a p {
+  .snippet-link p,
+  .snippet-row p {
     max-width: 40rem;
     margin: 0.7rem 0 0;
     color: var(--color-text-muted);
@@ -131,6 +219,30 @@ const { items, locale, dictionary, compact = false } = Astro.props;
 
   article > :global(.content-meta) {
     grid-column: 2;
+  }
+
+  .snippet-row :global(.content-meta) {
+    max-width: 52rem;
+    justify-content: flex-start;
+    gap: 0.65rem 1.15rem;
+  }
+
+  .snippet-row svg {
+    width: 1rem;
+    margin-top: 0.38rem;
+    fill: none;
+    stroke: rgb(113 113 122 / 78%);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.4;
+    transition:
+      stroke 180ms ease,
+      transform 180ms ease;
+  }
+
+  .snippet-row:hover svg {
+    transform: translateX(0.22rem);
+    stroke: rgb(224 161 58 / 84%);
   }
 
   .compact article {
@@ -150,7 +262,7 @@ const { items, locale, dictionary, compact = false } = Astro.props;
     font-size: 1.2rem;
   }
 
-  .compact a p {
+  .compact .snippet-link p {
     font-size: 0.82rem;
   }
 
@@ -161,6 +273,12 @@ const { items, locale, dictionary, compact = false } = Astro.props;
 
     article > :global(.content-meta) {
       grid-column: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .snippet-row:hover svg {
+      transform: none;
     }
   }
 </style>

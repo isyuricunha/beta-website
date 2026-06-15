@@ -69,6 +69,7 @@ export const fr = {
       description:
         "Un carnet pratique de commandes, de configurations, de méthodes et du contexte qui les rend utiles.",
       empty: "Le carnet prend encore forme.",
+      entryCount: (count) => `${count} ${count === 1 ? "note" : "notes"}`,
     },
     projects: {
       title: "Projets",

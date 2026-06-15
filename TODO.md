@@ -100,3 +100,11 @@
 - [x] Improve blog post TOC and prose reading styles without redesigning layout.
 - [x] Add a subtle final link back to the blog.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 15 - Snippets archive polish
+
+- [x] Replace the sparse snippets category column with inline row metadata.
+- [x] Align the snippets header and archive list in a vertical editorial layout.
+- [x] Add a localized, understated snippet count.
+- [x] Preserve the compact snippets list used on the homepage.
+- [x] Run lint, tests, build, and content validation.

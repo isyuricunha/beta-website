@@ -69,6 +69,8 @@ export const ptBr = {
       description:
         "Um caderno prático de comandos, configurações, padrões e do contexto que torna tudo isso útil.",
       empty: "O caderno ainda está tomando forma.",
+      entryCount: (count) =>
+        `${count} ${count === 1 ? "nota técnica" : "notas técnicas"}`,
     },
     projects: {
       title: "Projetos",

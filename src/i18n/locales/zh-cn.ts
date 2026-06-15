@@ -69,6 +69,7 @@ export const zhCn = {
       description:
         "记录命令、配置、模式，以及让它们真正有用的背景与使用方式。",
       empty: "这本技术笔记仍在整理中。",
+      entryCount: (count) => `${count} 条技术笔记`,
     },
     projects: {
       title: "项目",

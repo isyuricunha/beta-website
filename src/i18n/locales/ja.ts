@@ -69,6 +69,7 @@ export const ja = {
       description:
         "コマンド、設定、パターンと、それらが役立つ理由をまとめる実用的なノートです。",
       empty: "ノートを整理しています。",
+      entryCount: (count) => `${count}件の技術ノート`,
     },
     projects: {
       title: "プロジェクト",

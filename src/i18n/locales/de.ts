@@ -69,6 +69,7 @@ export const de = {
       description:
         "Ein praktisches Notizbuch für Befehle, Konfigurationen, Muster und den Kontext, der sie nützlich macht.",
       empty: "Das Notizbuch nimmt noch Form an.",
+      entryCount: (count) => `${count} ${count === 1 ? "Notiz" : "Notizen"}`,
     },
     projects: {
       title: "Projekte",
