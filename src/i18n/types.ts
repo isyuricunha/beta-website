@@ -35,6 +35,15 @@ type SnippetsPageDictionary = ArchivePageDictionary & {
 
 type ProjectsPageDictionary = ArchivePageDictionary & {
   entryCount: (count: number) => string;
+  detail: {
+    title: string;
+    status: string;
+    type: string;
+    stack: string;
+    source: string;
+    started: string;
+    links: string;
+  };
 };
 
 export type Dictionary = {

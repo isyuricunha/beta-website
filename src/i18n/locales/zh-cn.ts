@@ -81,6 +81,15 @@ export const zhCn = {
         "精选的工具、基础设施、翻译、实验和公开工作。这是一份档案，不是简历。",
       empty: "精选项目即将出现在这里。",
       entryCount: (count) => `${count} 件作品`,
+      detail: {
+        title: "作品详情",
+        status: "状态",
+        type: "类型",
+        stack: "技术栈",
+        source: "源码",
+        started: "开始",
+        links: "链接",
+      },
     },
     about: {
       title: "关于",

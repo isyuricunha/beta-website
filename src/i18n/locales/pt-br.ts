@@ -82,6 +82,15 @@ export const ptBr = {
         "Ferramentas, infraestrutura, traduções, experimentos e trabalhos públicos selecionados. Um arquivo, não um currículo.",
       empty: "Os trabalhos selecionados aparecerão aqui em breve.",
       entryCount: (count) => `${count} ${count === 1 ? "artefato" : "artefatos"}`,
+      detail: {
+        title: "Detalhes do artefato",
+        status: "Status",
+        type: "Tipo",
+        stack: "Stack",
+        source: "Fonte",
+        started: "Início",
+        links: "Links",
+      },
     },
     about: {
       title: "Sobre",

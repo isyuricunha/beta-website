@@ -140,3 +140,11 @@
 - [x] Surface category, stack, and editorial tags without duplicates.
 - [x] Validate the archive with one item and a simulated multi-project list.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 20 - Project artifact detail polish
+
+- [x] Separate project stack and external links on individual project pages.
+- [x] Add a localized, compact artifact details block.
+- [x] Refine individual project back links, prose, and closing navigation.
+- [x] Keep short project pages visually intentional on desktop and mobile.
+- [x] Run lint, tests, build, and content validation.

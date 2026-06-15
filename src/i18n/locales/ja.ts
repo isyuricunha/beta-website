@@ -81,6 +81,15 @@ export const ja = {
         "選んだツール、インフラ、翻訳、実験、公開活動。履歴書ではなく、作ったものの記録です。",
       empty: "選んだ活動をまもなく掲載します。",
       entryCount: (count) => `${count}件の制作物`,
+      detail: {
+        title: "制作物の詳細",
+        status: "状態",
+        type: "種類",
+        stack: "技術",
+        source: "ソース",
+        started: "開始",
+        links: "リンク",
+      },
     },
     about: {
       title: "自己紹介",

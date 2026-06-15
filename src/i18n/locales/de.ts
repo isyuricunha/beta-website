@@ -82,6 +82,15 @@ export const de = {
       empty: "Ausgewählte Arbeiten erscheinen bald hier.",
       entryCount: (count) =>
         `${count} ${count === 1 ? "Artefakt" : "Artefakte"}`,
+      detail: {
+        title: "Artefakt-Details",
+        status: "Status",
+        type: "Typ",
+        stack: "Stack",
+        source: "Quelle",
+        started: "Begonnen",
+        links: "Links",
+      },
     },
     about: {
       title: "Über mich",

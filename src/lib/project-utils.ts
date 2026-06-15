@@ -1,12 +1,8 @@
-export function getProjectTaxonomy(
-  category: string,
-  stack: readonly string[],
-  tags: readonly string[],
-): string[] {
+export function getProjectLabels(labels: readonly string[]): string[] {
   const seenLabels = new Set<string>();
-  const taxonomy: string[] = [];
+  const projectLabels: string[] = [];
 
-  for (const value of [category, ...stack, ...tags]) {
+  for (const value of labels) {
     const label = value.trim();
     const normalizedLabel = label.toLocaleLowerCase();
 
@@ -15,8 +11,16 @@ export function getProjectTaxonomy(
     }
 
     seenLabels.add(normalizedLabel);
-    taxonomy.push(label);
+    projectLabels.push(label);
   }
 
-  return taxonomy;
+  return projectLabels;
+}
+
+export function getProjectTaxonomy(
+  category: string,
+  stack: readonly string[],
+  tags: readonly string[],
+): string[] {
+  return getProjectLabels([category, ...stack, ...tags]);
 }

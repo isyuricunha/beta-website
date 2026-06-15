@@ -81,6 +81,15 @@ export const en = {
         "Selected tools, infrastructure, translations, experiments, and public work. An archive, not a résumé.",
       empty: "Selected work will appear here soon.",
       entryCount: (count) => `${count} ${count === 1 ? "artifact" : "artifacts"}`,
+      detail: {
+        title: "Artifact details",
+        status: "Status",
+        type: "Type",
+        stack: "Stack",
+        source: "Source",
+        started: "Started",
+        links: "Links",
+      },
     },
     about: {
       title: "About",
