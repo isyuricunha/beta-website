@@ -31,6 +31,7 @@ export const ptBr = {
     backToSnippets: "Voltar para as notas",
     backToProjects: "Voltar para os projetos",
     tableOfContents: "Nesta página",
+    onThisNote: "Nesta nota",
     footerNote: "Feito com cuidado. Mantido simples de propósito.",
     minuteRead: (minutes) => `${minutes} min de leitura`,
   },

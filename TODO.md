@@ -108,3 +108,19 @@
 - [x] Add a localized, understated snippet count.
 - [x] Preserve the compact snippets list used on the homepage.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 16 - Snippet reading polish
+
+- [x] Refine the snippet header, taxonomy metadata, and back links.
+- [x] Show a discreet TOC only when a snippet has at least three headings.
+- [x] Improve technical prose and inline code readability.
+- [x] Add a minimal closing link back to the snippets archive.
+- [x] Run lint, tests, build, and content validation.
+
+## Milestone 17 - Snippet code block tools
+
+- [ ] Add language labels and accessible copy buttons to snippet code blocks.
+- [ ] Keep clipboard behavior working across Astro client-side navigation.
+- [ ] Add translated copy feedback without introducing a dependency.
+- [ ] Test clipboard interaction and reduced-motion behavior.
+- [ ] Run lint, tests, build, and content validation.

@@ -31,6 +31,7 @@ export const de = {
     backToSnippets: "Zurück zu den Notizen",
     backToProjects: "Zurück zu den Projekten",
     tableOfContents: "Auf dieser Seite",
+    onThisNote: "In dieser Notiz",
     footerNote: "Mit Sorgfalt gebaut. Bewusst einfach gehalten.",
     minuteRead: (minutes) => `${minutes} Min. Lesezeit`,
   },

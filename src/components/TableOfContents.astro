@@ -10,16 +10,18 @@ type Heading = {
 type Props = {
   headings: Heading[];
   dictionary: Dictionary;
+  label?: string;
 };
 
-const { headings, dictionary } = Astro.props;
+const { headings, dictionary, label = dictionary.common.tableOfContents } =
+  Astro.props;
 const visibleHeadings = headings.filter((heading) => heading.depth === 2);
 ---
 
 {
   visibleHeadings.length > 0 && (
     <aside>
-      <p>{dictionary.common.tableOfContents}</p>
+      <p>{label}</p>
       <ol>
         {visibleHeadings.map((heading) => (
           <li>

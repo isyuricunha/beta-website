@@ -31,6 +31,7 @@ export const ja = {
     backToSnippets: "技術ノートへ戻る",
     backToProjects: "プロジェクトへ戻る",
     tableOfContents: "目次",
+    onThisNote: "このノートの内容",
     footerNote: "丁寧に作り、意図して簡素に保つ。",
     minuteRead: (minutes) => `約${minutes}分`,
   },
