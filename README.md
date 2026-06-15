@@ -6,6 +6,10 @@ Collections, Astro i18n routing, Tailwind CSS, Shiki, RSS, and Sitemap.
 The site is intentionally small. It has no React runtime, database, CMS,
 authentication, server functions, or visitor-side translation.
 
+##
+
+`https://breaking.yuricunha.com/`
+
 ## Requirements
 
 - Node.js 24
