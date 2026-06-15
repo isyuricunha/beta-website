@@ -1,14 +1,13 @@
 ---
 import ExternalLink from "@/components/ExternalLink.astro";
 import Tag from "@/components/Tag.astro";
-import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/types";
 import type { LocalizedEntry } from "@/lib/content";
 import { getContentPath } from "@/lib/content";
+import { getProjectTaxonomy } from "@/lib/project-utils";
 
 type Props = {
   items: LocalizedEntry<"projects">[];
-  locale: Locale;
   dictionary: Dictionary;
 };
 
@@ -17,51 +16,78 @@ const { items, dictionary } = Astro.props;
 
 <div class="project-list">
   {
-    items.map(({ entry, entryLocale, isFallback, slug }, index) => (
-      <article>
-        <span class="project-number">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <div class="project-main">
-          {isFallback && (
-            <small>{dictionary.common.availableInEnglish}</small>
-          )}
-          <a
-            class="project-title"
-            href={getContentPath("projects", slug, entryLocale)}
-          >
-            <h2>{entry.data.name}</h2>
-          </a>
-          <p>{entry.data.description}</p>
-          <div class="project-tags">
-            <Tag label={entry.data.category} />
-            {entry.data.stack.map((tool) => <Tag label={tool} />)}
+    items.map(({ entry, entryLocale, isFallback, slug }, index) => {
+      const projectTags = getProjectTaxonomy(
+        entry.data.category,
+        entry.data.stack,
+        entry.data.tags,
+      );
+      const hasExternalLinks = Boolean(
+        entry.data.repositoryUrl ||
+          entry.data.homepageUrl ||
+          entry.data.externalUrl,
+      );
+
+      return (
+        <article>
+          <div class="project-index" aria-hidden="true">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <i></i>
           </div>
-        </div>
-        <div class="project-side">
-          <span class="status">
-            <i aria-hidden="true"></i>
-            {dictionary.projectStatuses[entry.data.status]}
-          </span>
-          {entry.data.repositoryUrl && (
-            <ExternalLink
-              href={entry.data.repositoryUrl}
-              label={dictionary.common.externalLink}
-            >
-              {dictionary.common.github}
-            </ExternalLink>
-          )}
-          {entry.data.homepageUrl && (
-            <ExternalLink
-              href={entry.data.homepageUrl}
-              label={dictionary.common.externalLink}
-            >
-              {dictionary.common.externalLink}
-            </ExternalLink>
-          )}
-        </div>
-      </article>
-    ))
+          <div class="project-record">
+            {isFallback && (
+              <small>{dictionary.common.availableInEnglish}</small>
+            )}
+            <div class="project-heading">
+              <a
+                class="project-title"
+                href={getContentPath("projects", slug, entryLocale)}
+              >
+                <h2>{entry.data.name}</h2>
+              </a>
+              <div class="project-meta">
+                <span class="status">
+                  <i aria-hidden="true"></i>
+                  {dictionary.projectStatuses[entry.data.status]}
+                </span>
+                {hasExternalLinks && (
+                  <div class="project-links">
+                    {entry.data.repositoryUrl && (
+                      <ExternalLink
+                        href={entry.data.repositoryUrl}
+                        label={dictionary.common.externalLink}
+                      >
+                        {dictionary.common.github}
+                      </ExternalLink>
+                    )}
+                    {entry.data.homepageUrl && (
+                      <ExternalLink
+                        href={entry.data.homepageUrl}
+                        label={dictionary.common.externalLink}
+                    >
+                      {dictionary.common.website}
+                    </ExternalLink>
+                    )}
+                    {entry.data.externalUrl && (
+                      <ExternalLink
+                        href={entry.data.externalUrl}
+                        label={dictionary.common.externalLink}
+                      >
+                        {dictionary.common.externalLink}
+                      </ExternalLink>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+            <p>{entry.data.description}</p>
+            <div class="project-tags">
+              {projectTags.map((tag) => <Tag label={tag} />)}
+            </div>
+          </div>
+        </article>
+      );
+    })
   }
 </div>
 
@@ -75,9 +101,9 @@ const { items, dictionary } = Astro.props;
     position: relative;
     isolation: isolate;
     display: grid;
-    grid-template-columns: 3rem minmax(0, 1fr) auto;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
     gap: 1.5rem;
-    padding: 2rem 0;
+    padding: 2rem 0 2.15rem;
     border-bottom: 1px solid rgb(255 255 255 / 5.5%);
     transition: border-color 180ms ease;
   }
@@ -86,7 +112,7 @@ const { items, dictionary } = Astro.props;
     position: absolute;
     z-index: -1;
     inset: 0;
-    background: linear-gradient(90deg, rgb(199 119 31 / 2.4%), transparent 58%);
+    background: linear-gradient(90deg, rgb(199 119 31 / 2.4%), transparent 62%);
     content: "";
     opacity: 0;
     transition: opacity 180ms ease;
@@ -100,23 +126,49 @@ const { items, dictionary } = Astro.props;
     opacity: 1;
   }
 
-  .project-number,
-  small {
-    color: var(--color-text-faint);
+  .project-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.28rem;
+    color: rgb(161 161 170 / 58%);
     font-family: var(--font-jetbrains-mono), monospace;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
   }
 
-  .project-number {
-    padding-top: 0.4rem;
+  .project-index i {
+    width: 1px;
+    min-height: 2.4rem;
+    flex: 1;
+    background: linear-gradient(
+      to bottom,
+      rgb(199 119 31 / 34%),
+      rgb(255 255 255 / 4%)
+    );
+  }
+
+  .project-record {
+    max-width: 52rem;
+    min-width: 0;
   }
 
   small {
     display: block;
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.5rem;
     color: var(--color-accent-bright);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+  }
+
+  .project-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem 1rem;
   }
 
   .project-title {
@@ -127,9 +179,10 @@ const { items, dictionary } = Astro.props;
 
   h2 {
     margin: 0;
-    font-size: 1.45rem;
-    font-weight: 540;
-    letter-spacing: -0.035em;
+    font-size: clamp(1.4rem, 3vw, 1.72rem);
+    font-weight: 560;
+    letter-spacing: -0.038em;
+    line-height: 1.15;
     transition: color 180ms ease;
   }
 
@@ -137,62 +190,110 @@ const { items, dictionary } = Astro.props;
     color: rgb(235 181 88);
   }
 
-  .project-main > p {
-    max-width: 38rem;
-    margin: 0.7rem 0 1rem;
-    color: var(--color-text-muted);
-    font-size: 0.88rem;
-    line-height: 1.7;
-  }
-
-  .project-tags {
+  .project-meta,
+  .project-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.45rem;
+    align-items: center;
   }
 
-  .project-side {
-    display: flex;
-    min-width: 7rem;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.7rem;
-    color: var(--color-text-faint);
-    font-family: var(--font-jetbrains-mono), monospace;
-    font-size: 0.67rem;
+  .project-meta {
+    gap: 0.55rem 0.8rem;
+  }
+
+  .project-links {
+    gap: 0.75rem;
   }
 
   .status {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
+    color: rgb(161 161 170 / 72%);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
   }
 
   .status i {
-    width: 0.35rem;
-    height: 0.35rem;
+    width: 0.28rem;
+    height: 0.28rem;
     border-radius: 50%;
-    background: rgb(199 119 31 / 92%);
-    box-shadow: 0 0 0.7rem rgb(199 119 31 / 16%);
+    background: rgb(199 119 31 / 82%);
+    box-shadow: 0 0 0.6rem rgb(199 119 31 / 14%);
   }
 
-  .project-side :global(a) {
-    color: var(--color-text-faint);
-    text-decoration: none;
+  .project-links::before {
+    width: 1px;
+    height: 0.75rem;
+    margin-right: 0.05rem;
+    background: rgb(255 255 255 / 8%);
+    content: "";
   }
 
-  .project-side :global(a:hover) {
+  .project-links :global(a) {
+    color: rgb(161 161 170 / 68%);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.22em;
+    transition:
+      color 160ms ease,
+      text-decoration-color 160ms ease;
+  }
+
+  .project-links :global(a:hover) {
     color: var(--color-accent-bright);
+    text-decoration-color: rgb(199 119 31 / 48%);
+  }
+
+  .project-record > p {
+    max-width: 43rem;
+    margin: 0.85rem 0 1rem;
+    color: rgb(161 161 170 / 88%);
+    font-size: 0.9rem;
+    line-height: 1.72;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.42rem;
   }
 
   @media (max-width: 620px) {
     article {
-      grid-template-columns: 2rem 1fr;
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+      gap: 0.8rem;
+      padding-block: 1.75rem 1.9rem;
     }
 
-    .project-side {
-      grid-column: 2;
+    .project-index {
       align-items: flex-start;
+    }
+
+    .project-index i {
+      margin-left: 0.15rem;
+    }
+
+    .project-heading {
+      align-items: flex-start;
+    }
+
+    .project-meta {
+      width: 100%;
+    }
+
+    .project-links::before {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    article::before,
+    h2,
+    .project-links :global(a) {
+      transition: none;
     }
   }
 </style>

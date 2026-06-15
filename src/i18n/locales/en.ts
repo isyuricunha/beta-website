@@ -23,6 +23,7 @@ export const en = {
     email: "Email",
     github: "GitHub",
     rss: "RSS",
+    website: "Website",
     externalLink: "External link",
     published: "Published",
     updated: "Updated",
@@ -79,6 +80,7 @@ export const en = {
       description:
         "Selected tools, infrastructure, translations, experiments, and public work. An archive, not a résumé.",
       empty: "Selected work will appear here soon.",
+      entryCount: (count) => `${count} ${count === 1 ? "artifact" : "artifacts"}`,
     },
     about: {
       title: "About",

@@ -23,6 +23,7 @@ export const ja = {
     email: "メール",
     github: "GitHub",
     rss: "RSS",
+    website: "ウェブサイト",
     externalLink: "外部リンク",
     published: "公開",
     updated: "更新",
@@ -79,6 +80,7 @@ export const ja = {
       description:
         "選んだツール、インフラ、翻訳、実験、公開活動。履歴書ではなく、作ったものの記録です。",
       empty: "選んだ活動をまもなく掲載します。",
+      entryCount: (count) => `${count}件の制作物`,
     },
     about: {
       title: "自己紹介",

@@ -23,6 +23,7 @@ export const zhCn = {
     email: "邮箱",
     github: "GitHub",
     rss: "RSS",
+    website: "网站",
     externalLink: "外部链接",
     published: "发布",
     updated: "更新",
@@ -79,6 +80,7 @@ export const zhCn = {
       description:
         "精选的工具、基础设施、翻译、实验和公开工作。这是一份档案，不是简历。",
       empty: "精选项目即将出现在这里。",
+      entryCount: (count) => `${count} 件作品`,
     },
     about: {
       title: "关于",

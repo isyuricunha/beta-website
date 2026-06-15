@@ -23,6 +23,7 @@ export const ptBr = {
     email: "Email",
     github: "GitHub",
     rss: "RSS",
+    website: "Site",
     externalLink: "Link externo",
     published: "Publicado",
     updated: "Atualizado",
@@ -80,6 +81,7 @@ export const ptBr = {
       description:
         "Ferramentas, infraestrutura, traduções, experimentos e trabalhos públicos selecionados. Um arquivo, não um currículo.",
       empty: "Os trabalhos selecionados aparecerão aqui em breve.",
+      entryCount: (count) => `${count} ${count === 1 ? "artefato" : "artefatos"}`,
     },
     about: {
       title: "Sobre",

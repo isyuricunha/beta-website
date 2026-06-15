@@ -132,3 +132,11 @@
 - [x] Keep horizontal code scrolling isolated below the fixed toolbar.
 - [x] Validate short, multiline, mobile, clipboard, and reduced-motion behavior.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 19 - Projects archive identity
+
+- [x] Group each project name, status, links, description, and tags as one artifact.
+- [x] Add a vertical projects header with a localized artifact count.
+- [x] Surface category, stack, and editorial tags without duplicates.
+- [x] Validate the archive with one item and a simulated multi-project list.
+- [x] Run lint, tests, build, and content validation.

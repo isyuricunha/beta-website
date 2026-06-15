@@ -19,6 +19,7 @@ const dictionary = getDictionary(locale);
 const page = dictionary.pages[section];
 const isBlog = section === "blog";
 const isSnippets = section === "snippets";
+const isProjects = section === "projects";
 const isAbout = section === "about";
 const isContact = section === "contact";
 const archivePage =
@@ -35,20 +36,30 @@ const archiveCount = isBlog
   ? dictionary.pages.blog.entryCount(blogItems.length)
   : isSnippets
     ? dictionary.pages.snippets.entryCount(snippetItems.length)
-    : undefined;
+    : isProjects
+      ? dictionary.pages.projects.entryCount(projectItems.length)
+      : undefined;
 ---
 
 <BaseLayout title={page.title} description={page.description} locale={locale}>
   <article
     class:list={[
       "page",
-      { "blog-page": isBlog, "snippets-page": isSnippets },
+      {
+        "blog-page": isBlog,
+        "snippets-page": isSnippets,
+        "projects-page": isProjects,
+      },
     ]}
   >
     <header
       class:list={[
         "page-header",
-        { "blog-header": isBlog, "snippets-header": isSnippets },
+        {
+          "blog-header": isBlog,
+          "snippets-header": isSnippets,
+          "projects-header": isProjects,
+        },
       ]}
     >
       <p class="page-index">/ {section}</p>
@@ -135,7 +146,6 @@ const archiveCount = isBlog
         <div class="archive-list">
           <ProjectList
             items={projectItems}
-            locale={locale}
             dictionary={dictionary}
           />
         </div>
@@ -161,6 +171,11 @@ const archiveCount = isBlog
   }
 
   .snippets-page {
+    min-height: auto;
+    padding: clamp(3.75rem, 7vw, 5.4rem) 0 clamp(3.75rem, 6vw, 4.75rem);
+  }
+
+  .projects-page {
     min-height: auto;
     padding: clamp(3.75rem, 7vw, 5.4rem) 0 clamp(3.75rem, 6vw, 4.75rem);
   }
@@ -199,7 +214,8 @@ const archiveCount = isBlog
   }
 
   .blog-header,
-  .snippets-header {
+  .snippets-header,
+  .projects-header {
     display: block;
     max-width: 44rem;
     padding-bottom: 0;
@@ -210,24 +226,30 @@ const archiveCount = isBlog
   .blog-header .page-description,
   .snippets-header .page-index,
   .snippets-header h1,
-  .snippets-header .page-description {
+  .snippets-header .page-description,
+  .projects-header .page-index,
+  .projects-header h1,
+  .projects-header .page-description {
     grid-column: auto;
   }
 
   .blog-header .page-index,
-  .snippets-header .page-index {
+  .snippets-header .page-index,
+  .projects-header .page-index {
     margin: 0 0 0.8rem;
     color: rgb(199 119 31 / 86%);
   }
 
   .blog-header h1,
-  .snippets-header h1 {
+  .snippets-header h1,
+  .projects-header h1 {
     font-weight: 560;
     letter-spacing: -0.055em;
   }
 
   .blog-header .page-description,
-  .snippets-header .page-description {
+  .snippets-header .page-description,
+  .projects-header .page-description {
     max-width: 40rem;
     margin-top: 0.9rem;
     font-size: 0.98rem;
@@ -271,7 +293,8 @@ const archiveCount = isBlog
   }
 
   .blog-page .archive-list,
-  .snippets-page .archive-list {
+  .snippets-page .archive-list,
+  .projects-page .archive-list {
     margin-top: 2.35rem;
   }
 
@@ -407,7 +430,8 @@ const archiveCount = isBlog
     }
 
     .blog-header,
-    .snippets-header {
+    .snippets-header,
+    .projects-header {
       padding-bottom: 0;
     }
 
@@ -417,6 +441,9 @@ const archiveCount = isBlog
     .snippets-header .page-index,
     .snippets-header h1,
     .snippets-header .page-description,
+    .projects-header .page-index,
+    .projects-header h1,
+    .projects-header .page-description,
     .archive-count {
       grid-column: 1;
     }
