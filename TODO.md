@@ -156,3 +156,10 @@
 - [x] Add a compact currently block and subtle closing line.
 - [x] Refine about spacing, card treatment, and mobile stacking.
 - [x] Run lint, tests, build, content validation, and visual checks.
+
+## Milestone 22 - About identity copy adjustment
+
+- [x] Shift the English about copy toward servers, databases, self-hosting, and automation.
+- [x] Remove the remaining generic software developer framing from the English about page.
+- [x] Keep the approved layout, spacing, card, nav, footer, and route structure unchanged.
+- [x] Run lint, tests, build, and content validation.

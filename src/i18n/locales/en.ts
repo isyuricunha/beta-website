@@ -94,27 +94,28 @@ export const en = {
     about: {
       title: "About",
       description:
-        "I'm Yuri. I like software that stays understandable, infrastructure that does not demand attention, and tools that give people more control.",
+        "I'm Yuri. I work close to the metal of the web: servers, databases, automation, and small private systems built to stay understandable.",
       paragraphs: [
-        "I build small systems for myself and the open web: scripts, websites, automations, self-hosted services, and notes that help me remember why a thing exists.",
-        "Privacy, self-hosting, automation, and simple software keep showing up because they make the digital parts of life feel less borrowed and more repairable.",
-        "This site is where I keep the trail: longer thoughts, practical snippets, selected projects, and the small lessons that would otherwise disappear into chats, issues, or closed platforms.",
+        "I keep small systems for myself and the open web: servers, databases, scripts, automations, self-hosted services, and notes that explain why a thing exists.",
+        "I like infrastructure that can be understood, repaired, and left alone when nothing needs attention. The best systems are usually boring in public and clear when they need work.",
+        "Privacy, self-hosting, and automation keep showing up because they reduce dependence, noise, and the feeling that the tools around us belong to someone else.",
+        "This site is where I keep the trail: longer notes, practical snippets, selected projects, and small lessons from systems I run, break, fix, and learn from.",
       ],
       careTitle: "Small rules",
       careItems: [
-        "Software that stays understandable",
-        "Systems I can repair",
+        "Systems that stay understandable",
+        "Infrastructure I can repair",
+        "Databases with clear boundaries",
         "Privacy without theater",
         "Automation that removes friction",
-        "Tools that do not demand attention",
       ],
       currentlyTitle: "Currently",
       currentlyItems: [
-        "Building small tools",
+        "Keeping servers boring",
         "Writing practical notes",
-        "Keeping infrastructure boring",
+        "Automating small annoyances",
       ],
-      closing: "A quiet corner for things I build and learn.",
+      closing: "A quiet corner for systems I keep, break, fix, and learn from.",
     },
     contact: {
       title: "Contact",
