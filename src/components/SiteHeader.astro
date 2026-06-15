@@ -1,0 +1,139 @@
+---
+import LanguageSwitcher from "@/components/LanguageSwitcher.astro";
+import LogoMark from "@/components/LogoMark.astro";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary, Section } from "@/i18n/types";
+import { sections } from "@/i18n/types";
+import { getLocalizedPath, getSectionPath, stripLocalePrefix } from "@/lib/routes";
+
+type Props = {
+  locale: Locale;
+  pathname: string;
+  dictionary: Dictionary;
+  availableLocales?: readonly Locale[] | undefined;
+};
+
+const { locale, pathname, dictionary, availableLocales } = Astro.props;
+const currentPath = stripLocalePrefix(pathname);
+
+function isSectionActive(section: Section): boolean {
+  return currentPath.startsWith(`/${section}/`);
+}
+---
+
+<header class="site-header">
+  <a
+    class="home-link"
+    href={getLocalizedPath("/", locale)}
+    aria-label="Yuri Cunha"
+  >
+    <LogoMark />
+  </a>
+  <nav aria-label="Primary navigation">
+    {
+      sections.map((section) => (
+        <a
+          href={getSectionPath(locale, section)}
+          aria-current={isSectionActive(section) ? "page" : undefined}
+        >
+          {dictionary.navigation[section]}
+        </a>
+      ))
+    }
+  </nav>
+  <LanguageSwitcher
+    locale={locale}
+    pathname={pathname}
+    dictionary={dictionary}
+    availableLocales={availableLocales}
+  />
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem;
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: var(--radius-lg);
+    background: rgb(7 7 7 / 82%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 4%),
+      0 1rem 4rem rgb(0 0 0 / 28%);
+    backdrop-filter: blur(18px);
+  }
+
+  .home-link {
+    display: flex;
+    border-radius: 0.8rem;
+    text-decoration: none;
+  }
+
+  nav {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.15rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  nav a {
+    position: relative;
+    flex: none;
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.7rem;
+    color: var(--color-text-faint);
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease;
+  }
+
+  nav a:hover {
+    color: var(--color-text);
+  }
+
+  nav a[aria-current="page"] {
+    background: rgb(255 255 255 / 4%);
+    color: var(--color-text);
+  }
+
+  nav a[aria-current="page"]::after {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.35rem;
+    left: 0.75rem;
+    height: 1px;
+    background: var(--color-accent);
+    content: "";
+  }
+
+  @media (max-width: 740px) {
+    .site-header {
+      grid-template-columns: auto auto;
+    }
+
+    nav {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      justify-content: flex-start;
+      padding: 0.15rem;
+    }
+
+    .site-header > :global(.language-switcher) {
+      justify-self: end;
+    }
+  }
+</style>

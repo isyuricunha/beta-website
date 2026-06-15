@@ -1,0 +1,68 @@
+---
+import type { Locale } from "@/i18n/config";
+import { localeMetadata, locales } from "@/i18n/config";
+import { getLocalizedPath } from "@/lib/routes";
+
+type Props = {
+  title: string;
+  description: string;
+  locale: Locale;
+  pathname: string;
+  image?: string;
+  type?: "website" | "article" | undefined;
+  availableLocales?: readonly Locale[] | undefined;
+  publishedTime?: Date | undefined;
+  updatedTime?: Date | undefined;
+  tags?: string[] | undefined;
+};
+
+const {
+  title,
+  description,
+  locale,
+  pathname,
+  image = "/og.svg",
+  type = "website",
+  availableLocales = locales,
+  publishedTime,
+  updatedTime,
+  tags = [],
+} = Astro.props;
+
+const siteName = "Yuri Cunha";
+const pageTitle = title === siteName ? title : `${title} · ${siteName}`;
+const canonicalUrl = new URL(pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
+---
+
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{
+  availableLocales.map((alternateLocale) => (
+    <link
+      rel="alternate"
+      hreflang={localeMetadata[alternateLocale].languageTag}
+      href={new URL(getLocalizedPath(pathname, alternateLocale), Astro.site)}
+    />
+  ))
+}
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href={new URL(getLocalizedPath(pathname, "en"), Astro.site)}
+/>
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:locale" content={localeMetadata[locale].languageTag} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+{updatedTime && <meta property="article:modified_time" content={updatedTime.toISOString()} />}
+{tags.map((tag) => <meta property="article:tag" content={tag} />)}

@@ -1,0 +1,128 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+
+import ContentMeta from "@/components/ContentMeta.astro";
+import Prose from "@/components/Prose.astro";
+import TableOfContents from "@/components/TableOfContents.astro";
+import { getDictionary } from "@/i18n";
+import type { Locale } from "@/i18n/config";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getSectionPath } from "@/lib/routes";
+import { estimateReadingMinutes, parseContentId } from "@/lib/content-utils";
+
+type Props = {
+  entry: CollectionEntry<"blog">;
+  availableLocales: Locale[];
+};
+
+const { entry, availableLocales } = Astro.props;
+const { locale } = parseContentId(entry.id);
+const dictionary = getDictionary(locale);
+const { Content, headings } = await render(entry);
+const readingMinutes = estimateReadingMinutes(entry.body ?? "", locale);
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  locale={locale}
+  availableLocales={availableLocales}
+  type="article"
+  publishedTime={entry.data.publishedDate}
+  updatedTime={entry.data.updatedDate}
+  tags={entry.data.tags}
+>
+  <article class="content-page">
+    <a class="back-link" href={getSectionPath(locale, "blog")}>
+      <span aria-hidden="true">←</span>
+      {dictionary.common.backToBlog}
+    </a>
+    <header>
+      <h1>{entry.data.title}</h1>
+      <p>{entry.data.description}</p>
+      <ContentMeta
+        publishedDate={entry.data.publishedDate}
+        updatedDate={entry.data.updatedDate}
+        readingMinutes={readingMinutes}
+        tags={entry.data.tags}
+        locale={locale}
+        dictionary={dictionary}
+      />
+    </header>
+    <div class:list={["content-grid", { "with-toc": entry.data.showTableOfContents }]}>
+      <Prose>
+        <Content />
+      </Prose>
+      {
+        entry.data.showTableOfContents && (
+          <TableOfContents headings={headings} dictionary={dictionary} />
+        )
+      }
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .content-page {
+    padding: 4rem 0 7rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent-bright);
+  }
+
+  header {
+    max-width: 50rem;
+    margin: 4rem 0 5rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.8rem, 7vw, 5.6rem);
+    font-weight: 550;
+    letter-spacing: -0.065em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  header > p {
+    max-width: 42rem;
+    margin: 1.5rem 0 2rem;
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .content-grid {
+    max-width: 46rem;
+  }
+
+  .content-grid.with-toc {
+    display: grid;
+    max-width: none;
+    grid-template-columns: minmax(0, 46rem) minmax(10rem, 14rem);
+    align-items: start;
+    gap: clamp(3rem, 8vw, 7rem);
+  }
+
+  @media (max-width: 820px) {
+    .content-grid.with-toc {
+      grid-template-columns: 1fr;
+    }
+
+    .content-grid :global(aside) {
+      display: none;
+    }
+  }
+</style>

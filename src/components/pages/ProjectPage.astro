@@ -1,0 +1,155 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+
+import ExternalLink from "@/components/ExternalLink.astro";
+import Prose from "@/components/Prose.astro";
+import Tag from "@/components/Tag.astro";
+import { getDictionary } from "@/i18n";
+import type { Locale } from "@/i18n/config";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getSectionPath } from "@/lib/routes";
+import { parseContentId } from "@/lib/content-utils";
+
+type Props = {
+  entry: CollectionEntry<"projects">;
+  availableLocales: Locale[];
+};
+
+const { entry, availableLocales } = Astro.props;
+const { locale } = parseContentId(entry.id);
+const dictionary = getDictionary(locale);
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  title={entry.data.name}
+  description={entry.data.description}
+  locale={locale}
+  availableLocales={availableLocales}
+>
+  <article class="content-page">
+    <a class="back-link" href={getSectionPath(locale, "projects")}>
+      <span aria-hidden="true">←</span>
+      {dictionary.common.backToProjects}
+    </a>
+    <header>
+      <div class="project-status">
+        <span aria-hidden="true"></span>
+        {dictionary.projectStatuses[entry.data.status]}
+        <i>/</i>
+        {entry.data.category}
+      </div>
+      <h1>{entry.data.name}</h1>
+      <p>{entry.data.description}</p>
+      <div class="project-actions">
+        {entry.data.stack.map((tool) => <Tag label={tool} />)}
+        {
+          entry.data.repositoryUrl && (
+            <ExternalLink
+              href={entry.data.repositoryUrl}
+              label={dictionary.common.externalLink}
+            >
+              {dictionary.common.github}
+            </ExternalLink>
+          )
+        }
+        {
+          entry.data.homepageUrl && (
+            <ExternalLink
+              href={entry.data.homepageUrl}
+              label={dictionary.common.externalLink}
+            >
+              {dictionary.common.externalLink}
+            </ExternalLink>
+          )
+        }
+      </div>
+    </header>
+    <Prose>
+      <Content />
+    </Prose>
+  </article>
+</BaseLayout>
+
+<style>
+  .content-page {
+    max-width: 48rem;
+    padding: 4rem 0 7rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent-bright);
+  }
+
+  header {
+    margin: 4rem 0 5rem;
+  }
+
+  .project-status {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+  }
+
+  .project-status span {
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 1rem var(--color-accent-glow);
+  }
+
+  .project-status i {
+    color: var(--color-border-strong);
+    font-style: normal;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.8rem, 8vw, 5.8rem);
+    font-weight: 550;
+    letter-spacing: -0.065em;
+    line-height: 0.98;
+  }
+
+  header > p {
+    margin: 1.5rem 0 2rem;
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .project-actions :global(a) {
+    margin-left: 0.4rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+    text-decoration: none;
+  }
+
+  .project-actions :global(a:hover) {
+    color: var(--color-accent-bright);
+  }
+</style>

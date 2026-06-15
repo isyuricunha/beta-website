@@ -1,0 +1,19 @@
+---
+import StaticSectionPage from "@/components/pages/StaticSectionPage.astro";
+import { sections, type Section } from "@/i18n/types";
+
+export function getStaticPaths() {
+  return sections.map((section) => ({
+    params: { section },
+    props: { section },
+  }));
+}
+
+type Props = {
+  section: Section;
+};
+
+const { section } = Astro.props;
+---
+
+<StaticSectionPage locale="en" section={section} />

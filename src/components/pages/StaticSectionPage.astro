@@ -1,0 +1,323 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ExternalLink from "@/components/ExternalLink.astro";
+import PostList from "@/components/PostList.astro";
+import ProjectList from "@/components/ProjectList.astro";
+import SnippetList from "@/components/SnippetList.astro";
+import { getDictionary } from "@/i18n";
+import type { Locale } from "@/i18n/config";
+import type { Section } from "@/i18n/types";
+import { getLocalizedListing } from "@/lib/content";
+
+type Props = {
+  locale: Locale;
+  section: Section;
+};
+
+const { locale, section } = Astro.props;
+const dictionary = getDictionary(locale);
+const page = dictionary.pages[section];
+const isAbout = section === "about";
+const isContact = section === "contact";
+const archivePage =
+  section === "blog" || section === "snippets" || section === "projects"
+    ? dictionary.pages[section]
+    : undefined;
+const blogItems =
+  section === "blog" ? await getLocalizedListing("blog", locale) : [];
+const snippetItems =
+  section === "snippets" ? await getLocalizedListing("snippets", locale) : [];
+const projectItems =
+  section === "projects" ? await getLocalizedListing("projects", locale) : [];
+---
+
+<BaseLayout title={page.title} description={page.description} locale={locale}>
+  <article class="page">
+    <header class="page-header">
+      <p class="page-index">/ {section}</p>
+      <h1>{page.title}</h1>
+      <p>{page.description}</p>
+    </header>
+
+    {
+      isAbout ? (
+        <div class="about-grid">
+          <div class="body-copy">
+            {dictionary.pages.about.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+          <aside>
+            <h2>{dictionary.pages.about.careTitle}</h2>
+            <ul>
+              {dictionary.pages.about.careItems.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      ) : isContact ? (
+        <div class="contact-grid">
+          <a class="contact-row" href="mailto:me@yuricunha.com">
+            <span>01</span>
+            <strong>{dictionary.pages.contact.emailLabel}</strong>
+            <small>me@yuricunha.com</small>
+          </a>
+          <ExternalLink
+            class="contact-row"
+            href="https://github.com/isyuricunha"
+            label={dictionary.common.externalLink}
+          >
+            <span>02</span>
+            <strong>{dictionary.pages.contact.githubLabel}</strong>
+            <small>@isyuricunha</small>
+          </ExternalLink>
+          <p class="contact-note">{dictionary.pages.contact.note}</p>
+        </div>
+      ) : section === "blog" ? (
+        blogItems.length > 0 ? (
+          <div class="archive-list">
+            <PostList
+              items={blogItems}
+              locale={locale}
+              dictionary={dictionary}
+            />
+          </div>
+        ) : (
+          <div class="empty-state">
+            <span aria-hidden="true" />
+            <p>{archivePage?.empty}</p>
+          </div>
+        )
+      ) : section === "snippets" ? (
+        snippetItems.length > 0 ? (
+          <div class="archive-list">
+            <SnippetList
+              items={snippetItems}
+              locale={locale}
+              dictionary={dictionary}
+            />
+          </div>
+        ) : (
+          <div class="empty-state">
+            <span aria-hidden="true" />
+            <p>{archivePage?.empty}</p>
+          </div>
+        )
+      ) : projectItems.length > 0 ? (
+        <div class="archive-list">
+          <ProjectList
+            items={projectItems}
+            locale={locale}
+            dictionary={dictionary}
+          />
+        </div>
+      ) : (
+        <div class="empty-state">
+          <span aria-hidden="true" />
+          <p>{archivePage?.empty}</p>
+        </div>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 42rem;
+    padding: clamp(5rem, 11vw, 8rem) 0 7rem;
+  }
+
+  .page-header {
+    display: grid;
+    max-width: 48rem;
+    grid-template-columns: minmax(7rem, 0.3fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 1.25rem 2rem;
+  }
+
+  .page-index {
+    margin: 0.8rem 0 0;
+    color: var(--color-accent);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 550;
+    letter-spacing: -0.065em;
+    line-height: 0.95;
+  }
+
+  .page-header > p:last-child {
+    grid-column: 2;
+    max-width: 39rem;
+    margin: 0.5rem 0 0;
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .empty-state {
+    display: flex;
+    min-height: 15rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 5rem;
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-xl);
+    color: var(--color-text-faint);
+  }
+
+  .archive-list {
+    margin-top: 6rem;
+  }
+
+  .empty-state span {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 1rem var(--color-accent-glow);
+  }
+
+  .empty-state p {
+    margin: 0;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+    gap: clamp(3rem, 9vw, 7rem);
+    margin-top: 6rem;
+  }
+
+  .body-copy {
+    max-width: 40rem;
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .body-copy p {
+    margin: 0 0 1.5rem;
+  }
+
+  aside {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface-base);
+  }
+
+  aside h2 {
+    margin: 0 0 1.4rem;
+    color: var(--color-text);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  aside ul {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  aside li {
+    position: relative;
+    padding-left: 1rem;
+    color: var(--color-text-muted);
+    font-size: 0.83rem;
+    line-height: 1.6;
+  }
+
+  aside li::before {
+    position: absolute;
+    top: 0.55rem;
+    left: 0;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    content: "";
+  }
+
+  .contact-grid {
+    display: grid;
+    max-width: 48rem;
+    margin-top: 6rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .contact-grid :global(.contact-row) {
+    display: grid;
+    min-height: 6rem;
+    grid-template-columns: 3rem minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    text-decoration: none;
+    transition:
+      padding 160ms ease,
+      color 160ms ease;
+  }
+
+  .contact-grid :global(.contact-row:hover) {
+    padding-inline: 1rem;
+    color: var(--color-accent-bright);
+  }
+
+  .contact-row span {
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+  }
+
+  .contact-row strong {
+    font-size: 1rem;
+    font-weight: 520;
+  }
+
+  .contact-row small {
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.72rem;
+  }
+
+  .contact-note {
+    margin: 1.5rem 0 0;
+    color: var(--color-text-faint);
+    font-size: 0.78rem;
+  }
+
+  @media (max-width: 720px) {
+    .page-header {
+      grid-template-columns: 1fr;
+    }
+
+    .page-header > p:last-child {
+      grid-column: 1;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-grid :global(.contact-row) {
+      grid-template-columns: 2rem 1fr auto;
+    }
+
+    .contact-row small {
+      display: none;
+    }
+  }
+</style>

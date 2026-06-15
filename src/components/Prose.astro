@@ -1,0 +1,105 @@
+<div class="prose">
+  <slot />
+</div>
+
+<style>
+  .prose {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .prose :global(h2),
+  .prose :global(h3) {
+    scroll-margin-top: 2rem;
+    color: var(--color-text);
+    font-weight: 560;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  .prose :global(h2) {
+    margin: 3.5rem 0 1rem;
+    font-size: 1.85rem;
+  }
+
+  .prose :global(h3) {
+    margin: 2.5rem 0 0.8rem;
+    font-size: 1.3rem;
+  }
+
+  .prose :global(p) {
+    margin: 0 0 1.35rem;
+  }
+
+  .prose :global(a) {
+    color: var(--color-accent-bright);
+    text-decoration-color: var(--color-accent-soft);
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color 150ms ease;
+  }
+
+  .prose :global(a:hover) {
+    text-decoration-color: var(--color-accent-bright);
+  }
+
+  .prose :global(strong) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 1.25rem 0 1.5rem;
+    padding-left: 1.35rem;
+  }
+
+  .prose :global(li) {
+    margin: 0.45rem 0;
+    padding-left: 0.3rem;
+  }
+
+  .prose :global(li::marker) {
+    color: var(--color-accent);
+  }
+
+  .prose :global(blockquote) {
+    margin: 2rem 0;
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    border-left: 2px solid var(--color-accent-soft);
+    color: var(--color-text);
+  }
+
+  .prose :global(code:not(pre code)) {
+    padding: 0.18rem 0.35rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.35rem;
+    background: var(--color-surface-base);
+    color: var(--color-accent-bright);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.82em;
+  }
+
+  .prose :global(pre) {
+    margin: 1.75rem 0;
+    padding: 1.2rem 1.3rem;
+    overflow-x: auto;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    background: #050505 !important;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 4%);
+  }
+
+  .prose :global(pre code) {
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.8rem;
+    line-height: 1.75;
+  }
+
+  .prose :global(hr) {
+    margin: 3rem 0;
+    border: 0;
+    border-top: 1px solid var(--color-border);
+  }
+</style>

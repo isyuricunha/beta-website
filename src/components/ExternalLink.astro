@@ -1,0 +1,40 @@
+---
+type Props = {
+  href: string;
+  label?: string;
+  class?: string;
+};
+
+const { href, label, class: className } = Astro.props;
+---
+
+<a
+  class:list={["external-link", className]}
+  href={href}
+  rel="me noreferrer"
+  target="_blank"
+>
+  <slot />
+  <svg aria-hidden="true" viewBox="0 0 16 16">
+    <path d="M5 3h8v8M13 3 3 13"></path>
+  </svg>
+  {label && <span class="sr-only">({label})</span>}
+</a>
+
+<style>
+  .external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+  }
+</style>

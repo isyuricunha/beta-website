@@ -1,0 +1,75 @@
+---
+import { Font } from "astro:assets";
+
+import SeoHead from "@/components/SeoHead.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import { getDictionary } from "@/i18n";
+import { localeMetadata, type Locale } from "@/i18n/config";
+
+import "@/styles/global.css";
+
+type Props = {
+  title: string;
+  description: string;
+  locale: Locale;
+  availableLocales?: readonly Locale[] | undefined;
+  type?: "website" | "article" | undefined;
+  publishedTime?: Date | undefined;
+  updatedTime?: Date | undefined;
+  tags?: string[] | undefined;
+};
+
+const {
+  title,
+  description,
+  locale,
+  availableLocales,
+  type,
+  publishedTime,
+  updatedTime,
+  tags,
+} = Astro.props;
+const dictionary = getDictionary(locale);
+---
+
+<!doctype html>
+<html lang={localeMetadata[locale].languageTag}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Yuri Cunha" href="/rss.xml" />
+    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-jetbrains-mono" />
+    <SeoHead
+      title={title}
+      description={description}
+      locale={locale}
+      pathname={Astro.url.pathname}
+      availableLocales={availableLocales}
+      type={type}
+      publishedTime={publishedTime}
+      updatedTime={updatedTime}
+      tags={tags}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">{dictionary.common.skipToContent}</a>
+    <div class="ambient ambient-top" aria-hidden="true"></div>
+    <div class="site-shell">
+      <SiteHeader
+        locale={locale}
+        pathname={Astro.url.pathname}
+        dictionary={dictionary}
+        availableLocales={availableLocales}
+      />
+      <main id="content">
+        <slot />
+      </main>
+      <SiteFooter dictionary={dictionary} />
+    </div>
+  </body>
+</html>

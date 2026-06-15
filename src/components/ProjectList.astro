@@ -1,0 +1,177 @@
+---
+import ExternalLink from "@/components/ExternalLink.astro";
+import Tag from "@/components/Tag.astro";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/types";
+import type { LocalizedEntry } from "@/lib/content";
+import { getContentPath } from "@/lib/content";
+
+type Props = {
+  items: LocalizedEntry<"projects">[];
+  locale: Locale;
+  dictionary: Dictionary;
+};
+
+const { items, dictionary } = Astro.props;
+---
+
+<div class="project-list">
+  {
+    items.map(({ entry, entryLocale, isFallback, slug }, index) => (
+      <article>
+        <span class="project-number">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div class="project-main">
+          {isFallback && (
+            <small>{dictionary.common.availableInEnglish}</small>
+          )}
+          <a
+            class="project-title"
+            href={getContentPath("projects", slug, entryLocale)}
+          >
+            <h2>{entry.data.name}</h2>
+          </a>
+          <p>{entry.data.description}</p>
+          <div class="project-tags">
+            <Tag label={entry.data.category} />
+            {entry.data.stack.map((tool) => <Tag label={tool} />)}
+          </div>
+        </div>
+        <div class="project-side">
+          <span class="status">
+            <i aria-hidden="true"></i>
+            {dictionary.projectStatuses[entry.data.status]}
+          </span>
+          {entry.data.repositoryUrl && (
+            <ExternalLink
+              href={entry.data.repositoryUrl}
+              label={dictionary.common.externalLink}
+            >
+              {dictionary.common.github}
+            </ExternalLink>
+          )}
+          {entry.data.homepageUrl && (
+            <ExternalLink
+              href={entry.data.homepageUrl}
+              label={dictionary.common.externalLink}
+            >
+              {dictionary.common.externalLink}
+            </ExternalLink>
+          )}
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .project-list {
+    display: grid;
+    border-top: 1px solid var(--color-border);
+  }
+
+  article {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .project-number,
+  small {
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.65rem;
+  }
+
+  .project-number {
+    padding-top: 0.4rem;
+  }
+
+  small {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: var(--color-accent-bright);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .project-title {
+    display: inline-block;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 540;
+    letter-spacing: -0.035em;
+    transition: color 160ms ease;
+  }
+
+  .project-title:hover h2 {
+    color: var(--color-accent-bright);
+  }
+
+  .project-main > p {
+    max-width: 38rem;
+    margin: 0.7rem 0 1rem;
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .project-side {
+    display: flex;
+    min-width: 7rem;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.7rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.67rem;
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .status i {
+    width: 0.35rem;
+    height: 0.35rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0.75rem var(--color-accent-glow);
+  }
+
+  .project-side :global(a) {
+    color: var(--color-text-faint);
+    text-decoration: none;
+  }
+
+  .project-side :global(a:hover) {
+    color: var(--color-accent-bright);
+  }
+
+  @media (max-width: 620px) {
+    article {
+      grid-template-columns: 2rem 1fr;
+    }
+
+    .project-side {
+      grid-column: 2;
+      align-items: flex-start;
+    }
+  }
+</style>

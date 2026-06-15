@@ -1,0 +1,32 @@
+---
+type Props = {
+  class?: string;
+};
+
+const { class: className } = Astro.props;
+---
+
+<span class:list={["logo-mark", className]} aria-hidden="true">y</span>
+
+<style>
+  .logo-mark {
+    display: inline-grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border: 1px solid rgb(224 161 58 / 32%);
+    border-radius: 0.8rem;
+    background:
+      linear-gradient(145deg, rgb(224 161 58 / 12%), transparent 55%),
+      var(--color-surface-base);
+    color: var(--color-accent-bright);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 1.05rem;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 5%),
+      0 0 1.5rem rgb(199 119 31 / 8%);
+  }
+</style>

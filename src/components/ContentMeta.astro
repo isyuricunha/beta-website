@@ -1,0 +1,100 @@
+---
+import Tag from "@/components/Tag.astro";
+import type { Locale } from "@/i18n/config";
+import { localeMetadata } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/types";
+
+type Props = {
+  publishedDate?: Date | undefined;
+  updatedDate?: Date | undefined;
+  readingMinutes?: number | undefined;
+  tags?: string[] | undefined;
+  locale: Locale;
+  dictionary: Dictionary;
+};
+
+const {
+  publishedDate,
+  updatedDate,
+  readingMinutes,
+  tags = [],
+  locale,
+  dictionary,
+} = Astro.props;
+const dateFormatter = new Intl.DateTimeFormat(
+  localeMetadata[locale].languageTag,
+  { dateStyle: "medium", timeZone: "UTC" },
+);
+---
+
+<div class="content-meta">
+  <div class="facts">
+    {
+      publishedDate && (
+        <span>
+          {dictionary.common.published}{" "}
+          <time datetime={publishedDate.toISOString()}>
+            {dateFormatter.format(publishedDate)}
+          </time>
+        </span>
+      )
+    }
+    {
+      updatedDate && (
+        <span>
+          {dictionary.common.updated}{" "}
+          <time datetime={updatedDate.toISOString()}>
+            {dateFormatter.format(updatedDate)}
+          </time>
+        </span>
+      )
+    }
+    {
+      readingMinutes && (
+        <span>{dictionary.common.minuteRead(readingMinutes)}</span>
+      )
+    }
+  </div>
+  {tags.length > 0 && <div class="tags">{tags.map((tag) => <Tag label={tag} />)}</div>}
+</div>
+
+<style>
+  .content-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .facts,
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem 1rem;
+  }
+
+  .facts span {
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.65rem;
+  }
+
+  .facts span + span {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .facts span + span::before {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0.2rem;
+    height: 0.2rem;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: var(--color-accent-soft);
+    content: "";
+  }
+</style>

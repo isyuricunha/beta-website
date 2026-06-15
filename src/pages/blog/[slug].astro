@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import BlogPostPage from "@/components/pages/BlogPostPage.astro";
+import type { Locale } from "@/i18n/config";
+import {
+  getAvailableLocales,
+  getPublishableEntries,
+} from "@/lib/content";
+import { parseContentId } from "@/lib/content-utils";
+
+export async function getStaticPaths() {
+  const entries = await getPublishableEntries("blog");
+
+  return Promise.all(
+    entries
+      .filter((entry) => parseContentId(entry.id).locale === "en")
+      .map(async (entry) => {
+        const { slug } = parseContentId(entry.id);
+        return {
+          params: { slug },
+          props: {
+            entry,
+            availableLocales: await getAvailableLocales("blog", slug),
+          },
+        };
+      }),
+  );
+}
+
+type Props = {
+  entry: CollectionEntry<"blog">;
+  availableLocales: Locale[];
+};
+
+const { entry, availableLocales } = Astro.props;
+---
+
+<BlogPostPage entry={entry} availableLocales={availableLocales} />

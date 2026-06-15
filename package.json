@@ -1,0 +1,36 @@
+{
+  "name": "yuri-cunha-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.4.0",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check && pnpm content:check",
+    "lint": "astro check",
+    "test": "tsx --test",
+    "content:new:post": "tsx scripts/new-post.ts",
+    "content:new:snippet": "tsx scripts/new-snippet.ts",
+    "content:translate": "tsx scripts/translate-content.ts",
+    "content:check": "tsx scripts/check-content.ts"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "6.0.3",
+    "@astrojs/rss": "4.0.18",
+    "@astrojs/sitemap": "3.7.3",
+    "@tailwindcss/vite": "4.3.1",
+    "astro": "6.4.6",
+    "tailwindcss": "4.3.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "gray-matter": "4.0.3",
+    "tsx": "4.22.4",
+    "typescript": "6.0.3"
+  }
+}

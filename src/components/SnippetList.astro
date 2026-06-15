@@ -1,0 +1,145 @@
+---
+import ContentMeta from "@/components/ContentMeta.astro";
+import Tag from "@/components/Tag.astro";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/types";
+import type { LocalizedEntry } from "@/lib/content";
+import { getContentPath } from "@/lib/content";
+import { estimateReadingMinutes } from "@/lib/content-utils";
+
+type Props = {
+  items: LocalizedEntry<"snippets">[];
+  locale: Locale;
+  dictionary: Dictionary;
+  compact?: boolean;
+};
+
+const { items, locale, dictionary, compact = false } = Astro.props;
+---
+
+<div class:list={["snippet-list", { compact }]}>
+  {
+    items.map(({ entry, entryLocale, isFallback, slug }) => (
+      <article>
+        <div class="snippet-label">
+          <span>{entry.data.category}</span>
+          {entry.data.stack.map((tool) => <Tag label={tool} />)}
+        </div>
+        <a href={getContentPath("snippets", slug, entryLocale)}>
+          {isFallback && <small>{dictionary.common.availableInEnglish}</small>}
+          <h2>{entry.data.title}</h2>
+          <p>{entry.data.description}</p>
+        </a>
+        <ContentMeta
+          publishedDate={entry.data.publishedDate}
+          readingMinutes={estimateReadingMinutes(entry.body ?? "", entryLocale)}
+          tags={entry.data.tags}
+          locale={locale}
+          dictionary={dictionary}
+        />
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .snippet-list {
+    display: grid;
+    border-top: 1px solid var(--color-border);
+  }
+
+  article {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
+    gap: 1.25rem 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .snippet-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .snippet-label > span {
+    width: 100%;
+    color: var(--color-accent);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  small {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: var(--color-accent-bright);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 540;
+    letter-spacing: -0.035em;
+    transition: color 160ms ease;
+  }
+
+  a:hover h2 {
+    color: var(--color-accent-bright);
+  }
+
+  a p {
+    max-width: 40rem;
+    margin: 0.7rem 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  article > :global(.content-meta) {
+    grid-column: 2;
+  }
+
+  .compact article {
+    grid-template-columns: 1fr;
+    padding-block: 1.5rem;
+  }
+
+  .compact .snippet-label {
+    display: none;
+  }
+
+  .compact article > :global(.content-meta) {
+    grid-column: 1;
+  }
+
+  .compact h2 {
+    font-size: 1.2rem;
+  }
+
+  .compact a p {
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 680px) {
+    article {
+      grid-template-columns: 1fr;
+    }
+
+    article > :global(.content-meta) {
+      grid-column: 1;
+    }
+  }
+</style>

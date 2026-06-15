@@ -1,0 +1,63 @@
+---
+title: "Limpeza do Docker sem surpresas"
+description: "Inspecione o uso de disco primeiro e remova apenas os recursos do Docker que você realmente pretende descartar."
+publishedDate: 2026-06-15
+locale: pt-br
+tags:
+  - docker
+  - operações
+  - armazenamento
+category: containers
+stack:
+  - Docker
+level: beginner
+draft: false
+featured: true
+canonicalSourceLocale: en
+translation:
+  sourceLocale: en
+  generatedAt: 2026-06-15
+  generator: example-static-translation
+---
+
+## O que é
+
+O Docker mantém containers parados, imagens não utilizadas, cache de build, redes e volumes até que você os remova. Os comandos de limpeza recuperam esse espaço em disco.
+
+## Quando usar
+
+Use este processo quando o armazenamento do Docker crescer inesperadamente, um host de build estiver com pouco espaço ou você quiser entender o que pode ser removido antes de executar um prune destrutivo.
+
+## Onde usar
+
+Execute estes comandos no host do Docker. Em produção, confirme quais volumes e containers parados ainda fazem parte dos procedimentos de recuperação ou rollback antes de apagar qualquer coisa.
+
+## Como usar
+
+Comece com um inventário:
+
+```bash
+docker system df -v
+docker ps --all
+docker volume ls
+```
+
+Remova primeiro containers parados e camadas de imagem órfãs:
+
+```bash
+docker container prune
+docker image prune
+docker builder prune
+```
+
+Use o comando mais amplo apenas depois de revisar seu alcance:
+
+```bash
+docker system prune
+```
+
+## Notas e cuidados
+
+Não adicione `--volumes` sem avaliar. Volumes não utilizados ainda podem conter a única cópia dos dados de uma aplicação.
+
+`docker system prune --all` remove todas as imagens que não estão sendo usadas por um container, não apenas camadas órfãs. Isso pode deixar o próximo deploy mais lento e remover uma imagem que você esperava manter para rollback.

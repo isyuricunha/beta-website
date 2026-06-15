@@ -1,0 +1,8 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+# Astro 6 and Vite 7 still request esbuild 0.27, but the June 2026 security
+# fixes are available only in 0.28.1.
+overrides:
+  esbuild: 0.28.1

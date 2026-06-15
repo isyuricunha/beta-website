@@ -1,0 +1,171 @@
+---
+import {
+  localeMetadata,
+  locales,
+  type Locale,
+} from "@/i18n/config";
+import type { Dictionary } from "@/i18n/types";
+import { getLocalizedPath } from "@/lib/routes";
+
+type Props = {
+  locale: Locale;
+  pathname: string;
+  dictionary: Dictionary;
+  availableLocales?: readonly Locale[] | undefined;
+};
+
+const {
+  locale,
+  pathname,
+  dictionary,
+  availableLocales = locales,
+} = Astro.props;
+---
+
+<details class="language-switcher">
+  <summary>
+    <span class="sr-only">{dictionary.common.openLanguageMenu}: </span>
+    <span>{locale.toUpperCase()}</span>
+    <svg aria-hidden="true" viewBox="0 0 16 16">
+      <path d="m4 6 4 4 4-4"></path>
+    </svg>
+  </summary>
+  <div class="language-menu">
+    <p>{dictionary.common.language}</p>
+    <ul>
+      {
+        locales.map((targetLocale) => {
+          const isAvailable = availableLocales.includes(targetLocale);
+          const isCurrent = targetLocale === locale;
+
+          return (
+            <li>
+              {isAvailable ? (
+                <a
+                  href={getLocalizedPath(pathname, targetLocale)}
+                  lang={localeMetadata[targetLocale].languageTag}
+                  aria-current={isCurrent ? "page" : undefined}
+                >
+                  <span>{localeMetadata[targetLocale].label}</span>
+                  <small>{targetLocale}</small>
+                </a>
+              ) : (
+                <span class="unavailable" aria-disabled="true">
+                  <span>{localeMetadata[targetLocale].label}</span>
+                  <small>{targetLocale}</small>
+                </span>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</details>
+
+<style>
+  .language-switcher {
+    position: relative;
+  }
+
+  summary {
+    display: flex;
+    min-width: 3.25rem;
+    min-height: 2.5rem;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    transition:
+      border-color 150ms ease,
+      color 150ms ease,
+      background-color 150ms ease;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:hover,
+  details[open] summary {
+    border-color: var(--color-border);
+    background: var(--color-surface-raised-base);
+    color: var(--color-accent-bright);
+  }
+
+  summary svg {
+    width: 0.65rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+  }
+
+  .language-menu {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 0.6rem);
+    right: 0;
+    width: 12rem;
+    padding: 0.55rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 1rem;
+    background: rgb(7 7 7 / 96%);
+    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 45%);
+  }
+
+  .language-menu p {
+    margin: 0;
+    padding: 0.55rem 0.65rem 0.4rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  ul {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a,
+  .unavailable {
+    display: flex;
+    min-height: 2.4rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem 0.65rem;
+    border-radius: 0.65rem;
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a[aria-current="page"] {
+    background: rgb(199 119 31 / 10%);
+    color: var(--color-text);
+  }
+
+  small {
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+  }
+
+  .unavailable {
+    opacity: 0.35;
+  }
+</style>

@@ -1,0 +1,70 @@
+---
+import type { Dictionary } from "@/i18n/types";
+
+type Heading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
+
+type Props = {
+  headings: Heading[];
+  dictionary: Dictionary;
+};
+
+const { headings, dictionary } = Astro.props;
+const visibleHeadings = headings.filter((heading) => heading.depth === 2);
+---
+
+{
+  visibleHeadings.length > 0 && (
+    <aside>
+      <p>{dictionary.common.tableOfContents}</p>
+      <ol>
+        {visibleHeadings.map((heading) => (
+          <li>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ol>
+    </aside>
+  )
+}
+
+<style>
+  aside {
+    position: sticky;
+    top: 2rem;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--color-border);
+  }
+
+  p {
+    margin: 0 0 1rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  ol {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    color: var(--color-text-faint);
+    font-size: 0.75rem;
+    line-height: 1.45;
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  a:hover {
+    color: var(--color-accent-bright);
+  }
+</style>

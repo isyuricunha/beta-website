@@ -1,0 +1,346 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LogoMark from "@/components/LogoMark.astro";
+import PostList from "@/components/PostList.astro";
+import SnippetList from "@/components/SnippetList.astro";
+import { getDictionary } from "@/i18n";
+import type { Locale } from "@/i18n/config";
+import { sections } from "@/i18n/types";
+import { getLocalizedListing } from "@/lib/content";
+import { getSectionPath } from "@/lib/routes";
+
+type Props = {
+  locale: Locale;
+};
+
+const { locale } = Astro.props;
+const dictionary = getDictionary(locale);
+const latestPosts = (await getLocalizedListing("blog", locale)).slice(0, 1);
+const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
+  0,
+  1,
+);
+---
+
+<BaseLayout
+  title="Yuri Cunha"
+  description={dictionary.meta.siteDescription}
+  locale={locale}
+>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">
+        <span></span>
+        {dictionary.home.eyebrow}
+      </p>
+      <h1>{dictionary.home.title}</h1>
+      <p class="hero-description">{dictionary.home.description}</p>
+    </div>
+    <aside class="statement">
+      <LogoMark class="signature" />
+      <p>{dictionary.home.statement}</p>
+      <span>{dictionary.home.statementDetail}</span>
+    </aside>
+  </section>
+
+  <section class="latest" aria-labelledby="latest-title">
+    <header>
+      <p class="section-index">01 / {dictionary.common.latest}</p>
+      <h2 id="latest-title">{dictionary.common.featured}</h2>
+    </header>
+    <div class="latest-grid">
+      <div>
+        <div class="latest-label">
+          <span>{dictionary.navigation.blog}</span>
+          <a href={getSectionPath(locale, "blog")}>{dictionary.common.viewAll}</a>
+        </div>
+        <PostList
+          items={latestPosts}
+          locale={locale}
+          dictionary={dictionary}
+          compact
+        />
+      </div>
+      <div>
+        <div class="latest-label">
+          <span>{dictionary.navigation.snippets}</span>
+          <a href={getSectionPath(locale, "snippets")}>{dictionary.common.viewAll}</a>
+        </div>
+        <SnippetList
+          items={latestSnippets}
+          locale={locale}
+          dictionary={dictionary}
+          compact
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="explore" aria-labelledby="explore-title">
+    <header>
+      <p class="section-index">02 / archive</p>
+      <div>
+        <h2 id="explore-title">{dictionary.home.exploreTitle}</h2>
+        <p>{dictionary.home.exploreDescription}</p>
+      </div>
+    </header>
+    <nav aria-label={dictionary.home.exploreTitle}>
+      {
+        sections.map((section, index) => (
+          <a href={getSectionPath(locale, section)}>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <strong>{dictionary.navigation[section]}</strong>
+            <svg aria-hidden="true" viewBox="0 0 20 20">
+              <path d="M4 10h12m-4-4 4 4-4 4"></path>
+            </svg>
+          </a>
+        ))
+      }
+    </nav>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    display: grid;
+    min-height: 38rem;
+    grid-template-columns: minmax(0, 1.6fr) minmax(17rem, 0.7fr);
+    align-items: end;
+    gap: clamp(3rem, 9vw, 8rem);
+    padding: clamp(6rem, 14vw, 10rem) 0 clamp(5rem, 10vw, 7rem);
+  }
+
+  .hero-copy {
+    max-width: 48rem;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 1.75rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow span {
+    width: 1.75rem;
+    height: 1px;
+    background: var(--color-accent);
+    box-shadow: 0 0 0.8rem var(--color-accent-glow);
+  }
+
+  h1 {
+    max-width: 13ch;
+    margin: 0;
+    font-size: clamp(3rem, 7vw, 5.8rem);
+    font-weight: 560;
+    letter-spacing: -0.065em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .hero-description {
+    max-width: 40rem;
+    margin: 2rem 0 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    line-height: 1.75;
+  }
+
+  .statement {
+    position: relative;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background:
+      linear-gradient(145deg, rgb(199 119 31 / 7%), transparent 48%),
+      var(--color-surface-base);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 4%);
+  }
+
+  .statement::after {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 1rem var(--color-accent-glow);
+    content: "";
+  }
+
+  .statement :global(.signature) {
+    margin-bottom: 3.5rem;
+  }
+
+  .statement p {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.05rem;
+    font-weight: 560;
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+  }
+
+  .statement > span {
+    display: block;
+    margin-top: 0.8rem;
+    color: var(--color-text-faint);
+    font-size: 0.78rem;
+    line-height: 1.65;
+  }
+
+  .explore {
+    padding: 5rem 0 7rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .latest {
+    padding: 5rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .latest > header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .latest > header h2 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+  }
+
+  .latest-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+
+  .latest-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .latest-label a {
+    color: var(--color-text-faint);
+    text-decoration: none;
+  }
+
+  .latest-label a:hover {
+    color: var(--color-accent-bright);
+  }
+
+  .explore > header {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.45fr) minmax(0, 1fr);
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-index {
+    margin: 0;
+    color: var(--color-accent);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+
+  h2 {
+    max-width: 18ch;
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 540;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+  }
+
+  .explore header div p {
+    max-width: 38rem;
+    margin: 1rem 0 0;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .explore nav {
+    display: grid;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .explore nav a {
+    display: grid;
+    grid-template-columns: 4rem 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    min-height: 5rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      padding 160ms ease;
+  }
+
+  .explore nav a:hover {
+    padding-inline: 1rem;
+    border-color: var(--color-accent-soft);
+    background: linear-gradient(90deg, rgb(199 119 31 / 7%), transparent 65%);
+  }
+
+  .explore nav span {
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.68rem;
+  }
+
+  .explore nav strong {
+    font-size: 1.05rem;
+    font-weight: 520;
+  }
+
+  .explore nav svg {
+    width: 1rem;
+    fill: none;
+    stroke: var(--color-text-faint);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.4;
+  }
+
+  @media (max-width: 760px) {
+    .hero {
+      min-height: auto;
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 3rem;
+      padding-top: 5rem;
+    }
+
+    .statement {
+      max-width: 28rem;
+    }
+
+    .explore > header {
+      grid-template-columns: 1fr;
+    }
+
+    .latest-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

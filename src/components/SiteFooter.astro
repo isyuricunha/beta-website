@@ -1,0 +1,60 @@
+---
+import ExternalLink from "@/components/ExternalLink.astro";
+import type { Dictionary } from "@/i18n/types";
+
+type Props = {
+  dictionary: Dictionary;
+};
+
+const { dictionary } = Astro.props;
+const year = new Date().getUTCFullYear();
+---
+
+<footer>
+  <p>{year}</p>
+  <nav aria-label="External links">
+    <ExternalLink
+      href="https://github.com/isyuricunha"
+      label={dictionary.common.externalLink}
+    >
+      {dictionary.common.github}
+    </ExternalLink>
+    <a href="mailto:me@yuricunha.com">{dictionary.common.email}</a>
+    <a href="/rss.xml">{dictionary.common.rss}</a>
+  </nav>
+</footer>
+
+<style>
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.72rem;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 1.2rem;
+  }
+
+  a {
+    color: var(--color-text-faint);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  a:hover {
+    color: var(--color-accent-bright);
+  }
+</style>

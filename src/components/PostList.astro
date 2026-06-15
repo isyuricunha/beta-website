@@ -1,0 +1,145 @@
+---
+import ContentMeta from "@/components/ContentMeta.astro";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/types";
+import type { LocalizedEntry } from "@/lib/content";
+import { getContentPath } from "@/lib/content";
+import { estimateReadingMinutes } from "@/lib/content-utils";
+
+type Props = {
+  items: LocalizedEntry<"blog">[];
+  locale: Locale;
+  dictionary: Dictionary;
+  compact?: boolean;
+};
+
+const { items, locale, dictionary, compact = false } = Astro.props;
+---
+
+<div class:list={["post-list", { compact }]}>
+  {
+    items.map(({ entry, entryLocale, isFallback, slug }) => (
+      <article>
+        <a class="post-title" href={getContentPath("blog", slug, entryLocale)}>
+          <span class="marker" aria-hidden="true"></span>
+          <div>
+            {isFallback && (
+              <small>{dictionary.common.availableInEnglish}</small>
+            )}
+            <h2>{entry.data.title}</h2>
+            <p>{entry.data.description}</p>
+          </div>
+          <svg aria-hidden="true" viewBox="0 0 20 20">
+            <path d="M4 10h12m-4-4 4 4-4 4"></path>
+          </svg>
+        </a>
+        <ContentMeta
+          publishedDate={entry.data.publishedDate}
+          readingMinutes={estimateReadingMinutes(entry.body ?? "", entryLocale)}
+          tags={entry.data.tags}
+          locale={locale}
+          dictionary={dictionary}
+        />
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .post-list {
+    display: grid;
+    border-top: 1px solid var(--color-border);
+  }
+
+  article {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-title {
+    display: grid;
+    grid-template-columns: 0.5rem minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .marker {
+    width: 0.38rem;
+    height: 0.38rem;
+    margin-top: 0.65rem;
+    border-radius: 50%;
+    background: var(--color-border-strong);
+    transition:
+      background-color 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .post-title:hover .marker {
+    background: var(--color-accent);
+    box-shadow: 0 0 1rem var(--color-accent-glow);
+  }
+
+  small {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: var(--color-accent-bright);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    font-weight: 540;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    transition: color 160ms ease;
+  }
+
+  .post-title:hover h2 {
+    color: var(--color-accent-bright);
+  }
+
+  p {
+    max-width: 42rem;
+    margin: 0.75rem 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  svg {
+    width: 1rem;
+    margin-top: 0.45rem;
+    fill: none;
+    stroke: var(--color-text-faint);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.4;
+    transition:
+      stroke 160ms ease,
+      transform 160ms ease;
+  }
+
+  .post-title:hover svg {
+    transform: translateX(0.25rem);
+    stroke: var(--color-accent-bright);
+  }
+
+  .compact article {
+    padding-block: 1.5rem;
+  }
+
+  .compact h2 {
+    font-size: 1.2rem;
+  }
+
+  .compact p {
+    font-size: 0.82rem;
+  }
+</style>

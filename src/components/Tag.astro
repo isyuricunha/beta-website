@@ -1,0 +1,24 @@
+---
+type Props = {
+  label: string;
+};
+
+const { label } = Astro.props;
+---
+
+<span>{label}</span>
+
+<style>
+  span {
+    display: inline-flex;
+    min-height: 1.65rem;
+    align-items: center;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text-faint);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.02em;
+  }
+</style>
