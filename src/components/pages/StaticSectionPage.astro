@@ -177,20 +177,19 @@ const projectItems =
   }
 
   .blog-header {
-    max-width: none;
-    grid-template-columns: 0.5rem minmax(0, 42rem) auto;
-    gap: 0.7rem 1rem;
-    padding-bottom: 2.25rem;
+    display: block;
+    max-width: 44rem;
+    padding-bottom: 0;
   }
 
   .blog-header .page-index,
   .blog-header h1,
   .blog-header .page-description {
-    grid-column: 2;
+    grid-column: auto;
   }
 
   .blog-header .page-index {
-    margin-top: 0;
+    margin: 0 0 0.8rem;
     color: rgb(199 119 31 / 86%);
   }
 
@@ -200,21 +199,17 @@ const projectItems =
   }
 
   .blog-header .page-description {
-    max-width: 36rem;
-    margin-top: 0.35rem;
-    font-size: 0.96rem;
-    line-height: 1.68;
+    max-width: 40rem;
+    margin-top: 0.9rem;
+    font-size: 0.98rem;
+    line-height: 1.72;
   }
 
   .archive-count {
     display: inline-flex;
-    grid-column: 3;
-    grid-row: 2 / span 2;
-    align-self: end;
-    justify-self: end;
     align-items: center;
     gap: 0.45rem;
-    margin: 0 0 0.35rem;
+    margin: 1rem 0 0;
     color: rgb(161 161 170 / 70%);
     font-family: var(--font-jetbrains-mono), monospace;
     font-size: 0.62rem;
@@ -247,7 +242,7 @@ const projectItems =
   }
 
   .blog-page .archive-list {
-    margin-top: 1.15rem;
+    margin-top: 2.35rem;
   }
 
   .empty-state span {
@@ -382,8 +377,7 @@ const projectItems =
     }
 
     .blog-header {
-      grid-template-columns: 1fr;
-      padding-bottom: 1.75rem;
+      padding-bottom: 0;
     }
 
     .blog-header .page-index,
@@ -394,9 +388,7 @@ const projectItems =
     }
 
     .archive-count {
-      grid-row: auto;
-      justify-self: start;
-      margin-top: 0.35rem;
+      margin-top: 0.9rem;
     }
 
     .about-grid {

@@ -85,3 +85,10 @@
 - [x] Make blog archive rows fully clickable with refined hover behavior.
 - [x] Reduce empty vertical space on sparse blog listings.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 13 - Blog header correction
+
+- [x] Restore a simple vertical blog header composition.
+- [x] Keep the blog counter subtle and below the description.
+- [x] Preserve the refined blog row interactions.
+- [x] Run lint, tests, build, and content validation.
