@@ -163,3 +163,11 @@
 - [x] Remove the remaining generic software developer framing from the English about page.
 - [x] Keep the approved layout, spacing, card, nav, footer, and route structure unchanged.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 23 - Contact page micro-polish
+
+- [x] Make the email row feel more intentional while keeping the mailto link simple.
+- [x] Refine the GitHub row hover, contrast, and external-link motion.
+- [x] Keep the privacy note as a subtle direct-links detail.
+- [x] Confirm no real PGP key exists before skipping a PGP row.
+- [x] Run lint, tests, build, content validation, and visual checks.

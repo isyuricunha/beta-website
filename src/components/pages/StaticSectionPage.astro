@@ -50,6 +50,7 @@ const archiveCount = isBlog
         "snippets-page": isSnippets,
         "projects-page": isProjects,
         "about-page": isAbout,
+        "contact-page": isContact,
       },
     ]}
   >
@@ -108,16 +109,17 @@ const archiveCount = isBlog
       ) : isContact ? (
         <div class="contact-grid">
           <a class="contact-row" href="mailto:me@yuricunha.com">
-            <span>01</span>
+            <span class="contact-index">01</span>
             <strong>{dictionary.pages.contact.emailLabel}</strong>
             <small>me@yuricunha.com</small>
+            <i aria-hidden="true">→</i>
           </a>
           <ExternalLink
             class="contact-row"
             href="https://github.com/isyuricunha"
             label={dictionary.common.externalLink}
           >
-            <span>02</span>
+            <span class="contact-index">02</span>
             <strong>{dictionary.pages.contact.githubLabel}</strong>
             <small>@isyuricunha</small>
           </ExternalLink>
@@ -196,6 +198,11 @@ const archiveCount = isBlog
   .about-page {
     min-height: auto;
     padding: clamp(4rem, 7vw, 5.8rem) 0 clamp(4rem, 6vw, 4.85rem);
+  }
+
+  .contact-page {
+    min-height: auto;
+    padding-bottom: clamp(4rem, 6vw, 4.85rem);
   }
 
   .page-header {
@@ -463,51 +470,139 @@ const archiveCount = isBlog
 
   .contact-grid {
     display: grid;
-    max-width: 48rem;
-    margin-top: 4.5rem;
-    border-top: 1px solid var(--color-border);
+    max-width: 47rem;
+    margin-top: clamp(3.35rem, 6vw, 4.25rem);
+    border-top: 1px solid rgb(255 255 255 / 6%);
   }
 
   .contact-grid :global(.contact-row) {
+    position: relative;
+    isolation: isolate;
     display: grid;
     min-height: 6rem;
     grid-template-columns: 3rem minmax(0, 1fr) auto auto;
     align-items: center;
     gap: 1rem;
-    border-bottom: 1px solid var(--color-border);
+    padding: 0 0.15rem;
+    border-bottom: 1px solid rgb(255 255 255 / 6%);
     color: var(--color-text);
     text-decoration: none;
     transition:
-      padding 160ms ease,
-      color 160ms ease;
+      border-color 180ms ease,
+      color 180ms ease,
+      padding 180ms ease;
+  }
+
+  .contact-grid :global(.contact-row::before) {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(199 119 31 / 3.8%), transparent 68%);
+    content: "";
+    opacity: 0;
+    transition: opacity 180ms ease;
   }
 
   .contact-grid :global(.contact-row:hover) {
-    padding-inline: 1rem;
-    color: var(--color-accent-bright);
+    padding-inline: 0.9rem;
+    border-color: rgb(199 119 31 / 22%);
+    color: var(--color-text);
   }
 
-  .contact-row span {
+  .contact-grid :global(.contact-row:hover::before) {
+    opacity: 1;
+  }
+
+  .contact-index {
     color: var(--color-text-faint);
     font-family: var(--font-jetbrains-mono), monospace;
     font-size: 0.68rem;
+    transition: color 180ms ease;
   }
 
   .contact-row strong {
     font-size: 1rem;
     font-weight: 520;
+    letter-spacing: -0.015em;
+    transition: color 180ms ease;
   }
 
   .contact-row small {
-    color: var(--color-text-faint);
+    color: rgb(161 161 170 / 78%);
     font-family: var(--font-jetbrains-mono), monospace;
     font-size: 0.72rem;
+    transition: color 180ms ease;
+  }
+
+  .contact-row i,
+  .contact-grid :global(.contact-row svg) {
+    width: 0.85rem;
+    height: 0.85rem;
+    color: rgb(161 161 170 / 64%);
+    transition:
+      color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .contact-row i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    line-height: 1;
+  }
+
+  .contact-grid :global(.contact-row:hover .contact-index) {
+    color: rgb(199 119 31 / 90%);
+  }
+
+  .contact-row:hover .contact-index {
+    color: rgb(199 119 31 / 90%);
+  }
+
+  .contact-grid :global(.contact-row:hover strong),
+  .contact-grid :global(.contact-row:hover small) {
+    color: var(--color-text);
+  }
+
+  .contact-row:hover strong,
+  .contact-row:hover small {
+    color: var(--color-text);
+  }
+
+  .contact-grid :global(.contact-row:hover i) {
+    color: var(--color-accent-bright);
+    transform: translateX(0.16rem);
+  }
+
+  .contact-row:hover i {
+    color: var(--color-accent-bright);
+    transform: translateX(0.16rem);
+  }
+
+  .contact-grid :global(.contact-row:hover svg) {
+    color: var(--color-accent-bright);
   }
 
   .contact-note {
-    margin: 1.5rem 0 0;
-    color: var(--color-text-faint);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 1.45rem 0 0;
+    color: rgb(161 161 170 / 72%);
     font-size: 0.78rem;
+    line-height: 1.65;
+  }
+
+  .contact-note::before {
+    width: 0.28rem;
+    height: 0.28rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: rgb(199 119 31 / 76%);
+    box-shadow: 0 0 0.6rem rgb(199 119 31 / 12%);
+    content: "";
   }
 
   @media (max-width: 720px) {
@@ -555,10 +650,23 @@ const archiveCount = isBlog
 
     .contact-grid :global(.contact-row) {
       grid-template-columns: 2rem 1fr auto;
+      min-height: 5.5rem;
     }
 
     .contact-row small {
       display: none;
+    }
+
+    .contact-grid :global(.contact-row small) {
+      display: none;
+    }
+
+    .contact-note {
+      align-items: flex-start;
+    }
+
+    .contact-note::before {
+      margin-top: 0.55rem;
     }
   }
 </style>
