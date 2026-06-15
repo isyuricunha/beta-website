@@ -175,7 +175,7 @@ const statementParts = splitHighlight(
     max-width: 46rem;
     margin: 0;
     font-size: clamp(2.85rem, 4.8vw, 5.25rem);
-    font-weight: 600;
+    font-weight: 580;
     letter-spacing: -0.055em;
     line-height: 0.98;
     text-wrap: balance;
@@ -198,6 +198,20 @@ const statementParts = splitHighlight(
       linear-gradient(145deg, rgb(199 119 31 / 7%), transparent 48%),
       var(--color-surface-base);
     box-shadow: inset 0 1px 0 rgb(255 255 255 / 4%);
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease,
+      transform 220ms ease;
+  }
+
+  .statement:hover {
+    transform: translateY(-1px);
+    border-color: rgb(199 119 31 / 30%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 5%),
+      inset 0 0 2.5rem rgb(199 119 31 / 3%),
+      0 0.9rem 2.5rem rgb(0 0 0 / 18%),
+      0 0 1.6rem rgb(199 119 31 / 5%);
   }
 
   .statement::after {
@@ -210,6 +224,14 @@ const statementParts = splitHighlight(
     background: var(--color-accent);
     box-shadow: 0 0 1rem var(--color-accent-glow);
     content: "";
+    animation: statement-pulse 7.5s ease-in-out infinite;
+  }
+
+  @keyframes statement-pulse {
+    50% {
+      opacity: 0.74;
+      box-shadow: 0 0 1.35rem rgb(199 119 31 / 24%);
+    }
   }
 
   .statement :global(.signature) {

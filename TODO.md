@@ -63,3 +63,10 @@
 - [x] Space shimmer delays so nearby words do not animate together.
 - [x] Preserve typography inheritance and reduced-motion behavior.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 10 - Global micro-polish
+
+- [x] Add subtle background grain, refined selection, and page transitions.
+- [x] Replace the home section title with a more personal editorial label.
+- [x] Refine the header, hero statement card, and footer note.
+- [x] Run lint, tests, build, and content validation.

@@ -1,5 +1,6 @@
 ---
 import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 
 import SeoHead from "@/components/SeoHead.astro";
 import SiteFooter from "@/components/SiteFooter.astro";
@@ -44,6 +45,7 @@ const dictionary = getDictionary(locale);
     <link rel="alternate" type="application/rss+xml" title="Yuri Cunha" href="/rss.xml" />
     <Font cssVariable="--font-inter" preload />
     <Font cssVariable="--font-jetbrains-mono" />
+    <ClientRouter />
     <SeoHead
       title={title}
       description={description}

@@ -17,7 +17,7 @@ export const zhCn = {
     language: "语言",
     openLanguageMenu: "选择语言",
     latest: "最新",
-    featured: "精选",
+    featured: "最新记录",
     viewAll: "查看全部",
     readMore: "继续阅读",
     email: "邮箱",
@@ -31,6 +31,7 @@ export const zhCn = {
     backToSnippets: "返回技术笔记",
     backToProjects: "返回项目",
     tableOfContents: "本页内容",
+    footerNote: "用心构建，有意保持简单。",
     minuteRead: (minutes) => `约 ${minutes} 分钟`,
   },
   projectStatuses: {

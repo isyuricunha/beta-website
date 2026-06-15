@@ -12,6 +12,7 @@ const year = new Date().getUTCFullYear();
 
 <footer>
   <p>{year}</p>
+  <small>{dictionary.common.footerNote}</small>
   <nav aria-label="External links">
     <ExternalLink
       href="https://github.com/isyuricunha"
@@ -48,6 +49,13 @@ const year = new Date().getUTCFullYear();
     gap: 1.2rem;
   }
 
+  small {
+    color: rgb(161 161 170 / 72%);
+    font-size: 0.68rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+
   a {
     color: var(--color-text-faint);
     text-decoration: none;
@@ -56,5 +64,17 @@ const year = new Date().getUTCFullYear();
 
   a:hover {
     color: var(--color-accent-bright);
+  }
+
+  @media (max-width: 680px) {
+    footer {
+      flex-wrap: wrap;
+    }
+
+    small {
+      order: 3;
+      width: 100%;
+      text-align: left;
+    }
   }
 </style>

@@ -17,7 +17,7 @@ export const ptBr = {
     language: "Idioma",
     openLanguageMenu: "Escolher idioma",
     latest: "Recentes",
-    featured: "Destaques",
+    featured: "Notas recentes",
     viewAll: "Ver tudo",
     readMore: "Ler mais",
     email: "Email",
@@ -31,6 +31,7 @@ export const ptBr = {
     backToSnippets: "Voltar para as notas",
     backToProjects: "Voltar para os projetos",
     tableOfContents: "Nesta página",
+    footerNote: "Feito com cuidado. Mantido simples de propósito.",
     minuteRead: (minutes) => `${minutes} min de leitura`,
   },
   projectStatuses: {

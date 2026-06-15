@@ -49,6 +49,7 @@ export type Dictionary = {
     backToSnippets: string;
     backToProjects: string;
     tableOfContents: string;
+    footerNote: string;
     minuteRead: (minutes: number) => string;
   };
   projectStatuses: Record<ProjectStatus, string>;

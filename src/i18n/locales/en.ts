@@ -17,7 +17,7 @@ export const en = {
     language: "Language",
     openLanguageMenu: "Choose language",
     latest: "Latest",
-    featured: "Featured",
+    featured: "Latest notes",
     viewAll: "View all",
     readMore: "Read more",
     email: "Email",
@@ -31,6 +31,7 @@ export const en = {
     backToSnippets: "Back to snippets",
     backToProjects: "Back to projects",
     tableOfContents: "On this page",
+    footerNote: "Built with care. Kept simple on purpose.",
     minuteRead: (minutes) => `${minutes} min read`,
   },
   projectStatuses: {

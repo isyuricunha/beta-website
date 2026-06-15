@@ -17,7 +17,7 @@ export const ja = {
     language: "言語",
     openLanguageMenu: "言語を選択",
     latest: "最新",
-    featured: "注目",
+    featured: "最近の記録",
     viewAll: "すべて見る",
     readMore: "続きを読む",
     email: "メール",
@@ -31,6 +31,7 @@ export const ja = {
     backToSnippets: "技術ノートへ戻る",
     backToProjects: "プロジェクトへ戻る",
     tableOfContents: "目次",
+    footerNote: "丁寧に作り、意図して簡素に保つ。",
     minuteRead: (minutes) => `約${minutes}分`,
   },
   projectStatuses: {

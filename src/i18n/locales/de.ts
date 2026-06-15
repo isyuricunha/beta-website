@@ -17,7 +17,7 @@ export const de = {
     language: "Sprache",
     openLanguageMenu: "Sprache wählen",
     latest: "Neu",
-    featured: "Ausgewählt",
+    featured: "Neue Notizen",
     viewAll: "Alle ansehen",
     readMore: "Weiterlesen",
     email: "E-Mail",
@@ -31,6 +31,7 @@ export const de = {
     backToSnippets: "Zurück zu den Notizen",
     backToProjects: "Zurück zu den Projekten",
     tableOfContents: "Auf dieser Seite",
+    footerNote: "Mit Sorgfalt gebaut. Bewusst einfach gehalten.",
     minuteRead: (minutes) => `${minutes} Min. Lesezeit`,
   },
   projectStatuses: {
