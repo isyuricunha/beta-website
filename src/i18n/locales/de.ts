@@ -62,6 +62,7 @@ export const de = {
       description:
         "Essays, technische Entscheidungen, persönliche Notizen und Gedanken aus der Softwareentwicklung und dem Betrieb eigener Systeme.",
       empty: "Die ersten Beiträge werden vorbereitet.",
+      entryCount: (count) => `${count} ${count === 1 ? "Notiz" : "Notizen"}`,
     },
     snippets: {
       title: "Notizen",

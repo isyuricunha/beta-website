@@ -77,3 +77,11 @@
 - [x] Refine title, arrow, tag, and metadata microinteractions.
 - [x] Preserve the existing list structure and content.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 12 - Blog archive polish
+
+- [x] Refine the blog index header alignment, weight, and spacing.
+- [x] Add a localized, discreet blog post counter.
+- [x] Make blog archive rows fully clickable with refined hover behavior.
+- [x] Reduce empty vertical space on sparse blog listings.
+- [x] Run lint, tests, build, and content validation.

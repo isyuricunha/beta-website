@@ -62,6 +62,7 @@ export const zhCn = {
       description:
         "关于软件开发和维护个人系统的文章、技术决策、个人记录与思考。",
       empty: "第一批文章正在准备中。",
+      entryCount: (count) => `${count} 条记录`,
     },
     snippets: {
       title: "技术笔记",

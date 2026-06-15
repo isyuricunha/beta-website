@@ -25,6 +25,10 @@ type ArchivePageDictionary = {
   empty: string;
 };
 
+type BlogPageDictionary = ArchivePageDictionary & {
+  entryCount: (count: number) => string;
+};
+
 export type Dictionary = {
   meta: {
     siteDescription: string;
@@ -65,7 +69,7 @@ export type Dictionary = {
     exploreDescription: string;
   };
   pages: {
-    blog: ArchivePageDictionary;
+    blog: BlogPageDictionary;
     snippets: ArchivePageDictionary;
     projects: ArchivePageDictionary;
     about: {

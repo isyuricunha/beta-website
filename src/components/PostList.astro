@@ -11,37 +11,73 @@ type Props = {
   locale: Locale;
   dictionary: Dictionary;
   compact?: boolean;
+  wholeRowLink?: boolean;
 };
 
-const { items, locale, dictionary, compact = false } = Astro.props;
+const {
+  items,
+  locale,
+  dictionary,
+  compact = false,
+  wholeRowLink = false,
+} = Astro.props;
 ---
 
 <div class:list={["post-list", { compact }]}>
   {
-    items.map(({ entry, entryLocale, isFallback, slug }) => (
-      <article>
-        <a class="post-title" href={getContentPath("blog", slug, entryLocale)}>
-          <span class="marker" aria-hidden="true"></span>
-          <div>
-            {isFallback && (
-              <small>{dictionary.common.availableInEnglish}</small>
-            )}
-            <h2>{entry.data.title}</h2>
-            <p>{entry.data.description}</p>
-          </div>
-          <svg aria-hidden="true" viewBox="0 0 20 20">
-            <path d="M4 10h12m-4-4 4 4-4 4"></path>
-          </svg>
-        </a>
+    items.map(({ entry, entryLocale, isFallback, slug }) => {
+      const href = getContentPath("blog", slug, entryLocale);
+      const readingMinutes = estimateReadingMinutes(entry.body ?? "", entryLocale);
+      const metaContent = (
         <ContentMeta
           publishedDate={entry.data.publishedDate}
-          readingMinutes={estimateReadingMinutes(entry.body ?? "", entryLocale)}
+          readingMinutes={readingMinutes}
           tags={entry.data.tags}
           locale={locale}
           dictionary={dictionary}
         />
-      </article>
-    ))
+      );
+
+      return (
+        <article>
+          {wholeRowLink ? (
+            <a class="post-row" href={href}>
+              <div class="post-title">
+                <span class="marker" aria-hidden="true"></span>
+                <div>
+                  {isFallback && (
+                    <small>{dictionary.common.availableInEnglish}</small>
+                  )}
+                  <h2>{entry.data.title}</h2>
+                  <p>{entry.data.description}</p>
+                </div>
+                <svg aria-hidden="true" viewBox="0 0 20 20">
+                  <path d="M4 10h12m-4-4 4 4-4 4"></path>
+                </svg>
+              </div>
+              {metaContent}
+            </a>
+          ) : (
+            <>
+              <a class="post-title" href={href}>
+                <span class="marker" aria-hidden="true"></span>
+                <div>
+                  {isFallback && (
+                    <small>{dictionary.common.availableInEnglish}</small>
+                  )}
+                  <h2>{entry.data.title}</h2>
+                  <p>{entry.data.description}</p>
+                </div>
+                <svg aria-hidden="true" viewBox="0 0 20 20">
+                  <path d="M4 10h12m-4-4 4 4-4 4"></path>
+                </svg>
+              </a>
+              {metaContent}
+            </>
+          )}
+        </article>
+      );
+    })
   }
 </div>
 
@@ -54,7 +90,7 @@ const { items, locale, dictionary, compact = false } = Astro.props;
   article {
     position: relative;
     isolation: isolate;
-    padding: 2rem 0;
+    padding: 1.9rem 0;
     border-bottom: 1px solid rgb(255 255 255 / 5.5%);
     transition: border-color 180ms ease;
   }
@@ -87,6 +123,12 @@ const { items, locale, dictionary, compact = false } = Astro.props;
     text-decoration: none;
   }
 
+  .post-row {
+    display: block;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
   .marker {
     width: 0.38rem;
     height: 0.38rem;
@@ -98,7 +140,8 @@ const { items, locale, dictionary, compact = false } = Astro.props;
       box-shadow 160ms ease;
   }
 
-  .post-title:hover .marker {
+  .post-title:hover .marker,
+  .post-row:hover .marker {
     background: var(--color-accent);
     box-shadow: 0 0 0.85rem rgb(199 119 31 / 18%);
   }
@@ -122,7 +165,8 @@ const { items, locale, dictionary, compact = false } = Astro.props;
     transition: color 180ms ease;
   }
 
-  .post-title:hover h2 {
+  .post-title:hover h2,
+  .post-row:hover h2 {
     color: rgb(235 181 88);
   }
 
@@ -147,13 +191,22 @@ const { items, locale, dictionary, compact = false } = Astro.props;
       transform 180ms ease;
   }
 
-  .post-title:hover svg {
-    transform: translateX(0.18rem);
+  .post-title:hover svg,
+  .post-row:hover svg {
+    transform: translateX(0.22rem);
     stroke: rgb(224 161 58 / 84%);
+  }
+
+  .post-row :global(.content-meta) {
+    margin-left: 1.5rem;
   }
 
   .compact article {
     padding-block: 1.5rem;
+  }
+
+  .compact .post-row :global(.content-meta) {
+    margin-left: 0;
   }
 
   .compact h2 {

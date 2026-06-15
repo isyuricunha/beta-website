@@ -17,6 +17,7 @@ type Props = {
 const { locale, section } = Astro.props;
 const dictionary = getDictionary(locale);
 const page = dictionary.pages[section];
+const isBlog = section === "blog";
 const isAbout = section === "about";
 const isContact = section === "contact";
 const archivePage =
@@ -32,11 +33,19 @@ const projectItems =
 ---
 
 <BaseLayout title={page.title} description={page.description} locale={locale}>
-  <article class="page">
-    <header class="page-header">
+  <article class:list={["page", { "blog-page": isBlog }]}>
+    <header class:list={["page-header", { "blog-header": isBlog }]}>
       <p class="page-index">/ {section}</p>
       <h1>{page.title}</h1>
-      <p>{page.description}</p>
+      <p class="page-description">{page.description}</p>
+      {
+        isBlog && (
+          <p class="archive-count">
+            <span aria-hidden="true" />
+            {dictionary.pages.blog.entryCount(blogItems.length)}
+          </p>
+        )
+      }
     </header>
 
     {
@@ -81,6 +90,7 @@ const projectItems =
               items={blogItems}
               locale={locale}
               dictionary={dictionary}
+              wholeRowLink
             />
           </div>
         ) : (
@@ -128,6 +138,11 @@ const projectItems =
     padding: clamp(4.5rem, 9vw, 6.5rem) 0 5.5rem;
   }
 
+  .blog-page {
+    min-height: auto;
+    padding: clamp(3.75rem, 7vw, 5.4rem) 0 clamp(3.75rem, 6vw, 4.75rem);
+  }
+
   .page-header {
     display: grid;
     max-width: 48rem;
@@ -152,13 +167,67 @@ const projectItems =
     line-height: 0.98;
   }
 
-  .page-header > p:last-child {
+  .page-description {
     grid-column: 2;
     max-width: 39rem;
     margin: 0.5rem 0 0;
     color: var(--color-text-muted);
     font-size: 1rem;
     line-height: 1.72;
+  }
+
+  .blog-header {
+    max-width: none;
+    grid-template-columns: 0.5rem minmax(0, 42rem) auto;
+    gap: 0.7rem 1rem;
+    padding-bottom: 2.25rem;
+  }
+
+  .blog-header .page-index,
+  .blog-header h1,
+  .blog-header .page-description {
+    grid-column: 2;
+  }
+
+  .blog-header .page-index {
+    margin-top: 0;
+    color: rgb(199 119 31 / 86%);
+  }
+
+  .blog-header h1 {
+    font-weight: 560;
+    letter-spacing: -0.055em;
+  }
+
+  .blog-header .page-description {
+    max-width: 36rem;
+    margin-top: 0.35rem;
+    font-size: 0.96rem;
+    line-height: 1.68;
+  }
+
+  .archive-count {
+    display: inline-flex;
+    grid-column: 3;
+    grid-row: 2 / span 2;
+    align-self: end;
+    justify-self: end;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0 0 0.35rem;
+    color: rgb(161 161 170 / 70%);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+  }
+
+  .archive-count span {
+    width: 0.28rem;
+    height: 0.28rem;
+    border-radius: 50%;
+    background: rgb(199 119 31 / 82%);
+    box-shadow: 0 0 0.65rem rgb(199 119 31 / 14%);
   }
 
   .empty-state {
@@ -175,6 +244,10 @@ const projectItems =
 
   .archive-list {
     margin-top: 4.5rem;
+  }
+
+  .blog-page .archive-list {
+    margin-top: 1.15rem;
   }
 
   .empty-state span {
@@ -304,8 +377,26 @@ const projectItems =
       grid-template-columns: 1fr;
     }
 
-    .page-header > p:last-child {
+    .page-description {
       grid-column: 1;
+    }
+
+    .blog-header {
+      grid-template-columns: 1fr;
+      padding-bottom: 1.75rem;
+    }
+
+    .blog-header .page-index,
+    .blog-header h1,
+    .blog-header .page-description,
+    .archive-count {
+      grid-column: 1;
+    }
+
+    .archive-count {
+      grid-row: auto;
+      justify-self: start;
+      margin-top: 0.35rem;
     }
 
     .about-grid {

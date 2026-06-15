@@ -62,6 +62,7 @@ export const ptBr = {
       description:
         "Ensaios, decisões técnicas, notas pessoais e reflexões sobre construir software e manter meus próprios sistemas.",
       empty: "As primeiras notas estão sendo preparadas.",
+      entryCount: (count) => `${count} ${count === 1 ? "nota" : "notas"}`,
     },
     snippets: {
       title: "Notas",

@@ -62,6 +62,7 @@ export const ja = {
       description:
         "ソフトウェア開発や自分のシステム運用から生まれたエッセイ、技術的な判断、個人的な記録、考察。",
       empty: "最初の記事を準備しています。",
+      entryCount: (count) => `${count}件の記録`,
     },
     snippets: {
       title: "技術ノート",

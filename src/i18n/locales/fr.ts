@@ -62,6 +62,7 @@ export const fr = {
       description:
         "Essais, décisions techniques, notes personnelles et réflexions issues de la création de logiciels et de la gestion de mes propres systèmes.",
       empty: "Les premières notes sont en préparation.",
+      entryCount: (count) => `${count} ${count === 1 ? "note" : "notes"}`,
     },
     snippets: {
       title: "Notes",
