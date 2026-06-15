@@ -27,6 +27,16 @@ const { class: className } = Astro.props;
     line-height: 1;
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 5%),
-      0 0 1.5rem rgb(199 119 31 / 8%);
+      0 0 1.25rem rgb(199 119 31 / 7%);
+    animation: logo-breathe 7s ease-in-out infinite;
+  }
+
+  @keyframes logo-breathe {
+    50% {
+      border-color: rgb(224 161 58 / 38%);
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 5%),
+        0 0 1.5rem rgb(199 119 31 / 11%);
+    }
   }
 </style>

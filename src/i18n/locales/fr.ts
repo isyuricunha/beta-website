@@ -44,6 +44,7 @@ export const fr = {
   home: {
     eyebrow: "Notes personnelles depuis le web ouvert",
     title: "Je construis des systèmes privés et calmes pour moi-même et le web ouvert.",
+    titleHighlight: "calmes",
     description:
       "Logiciel, auto-hébergement, vie privée, automatisation et petites choses utiles. Je conserve ici le travail et les idées qui l’accompagnent.",
     statement: "La liberté numérique n’est pas acquise.",

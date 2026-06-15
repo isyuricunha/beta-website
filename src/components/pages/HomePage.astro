@@ -20,6 +20,14 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
   0,
   1,
 );
+const { title, titleHighlight } = dictionary.home;
+const highlightStart = title.indexOf(titleHighlight);
+const titleBefore =
+  highlightStart >= 0 ? title.slice(0, highlightStart) : title;
+const titleAfter =
+  highlightStart >= 0
+    ? title.slice(highlightStart + titleHighlight.length)
+    : "";
 ---
 
 <BaseLayout
@@ -33,7 +41,15 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
         <span></span>
         {dictionary.home.eyebrow}
       </p>
-      <h1>{dictionary.home.title}</h1>
+      <h1>
+        {titleBefore}
+        {
+          highlightStart >= 0 && (
+            <span class="title-shimmer">{titleHighlight}</span>
+          )
+        }
+        {titleAfter}
+      </h1>
       <p class="hero-description">{dictionary.home.description}</p>
     </div>
     <aside class="statement">
@@ -103,11 +119,11 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
 <style>
   .hero {
     display: grid;
-    min-height: 38rem;
+    min-height: 34rem;
     grid-template-columns: minmax(0, 1.6fr) minmax(17rem, 0.7fr);
     align-items: end;
-    gap: clamp(3rem, 9vw, 8rem);
-    padding: clamp(6rem, 14vw, 10rem) 0 clamp(5rem, 10vw, 7rem);
+    gap: clamp(2.5rem, 7vw, 6rem);
+    padding: clamp(5.25rem, 10vw, 8rem) 0 clamp(4rem, 7vw, 5.5rem);
   }
 
   .hero-copy {
@@ -134,21 +150,51 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
   }
 
   h1 {
-    max-width: 13ch;
+    max-width: 12ch;
     margin: 0;
-    font-size: clamp(3rem, 7vw, 5.8rem);
-    font-weight: 560;
-    letter-spacing: -0.065em;
-    line-height: 0.98;
+    font-size: clamp(3.25rem, 6vw, 6.5rem);
+    font-weight: 620;
+    letter-spacing: -0.07em;
+    line-height: 0.95;
     text-wrap: balance;
   }
 
+  .title-shimmer {
+    background: linear-gradient(
+      105deg,
+      var(--color-text) 36%,
+      var(--color-accent) 47%,
+      #efc16c 50%,
+      var(--color-accent) 53%,
+      var(--color-text) 64%
+    );
+    background-position: 120% 0;
+    background-size: 260% 100%;
+    background-clip: text;
+    color: var(--color-text);
+    animation: title-shine 8s ease-in-out infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @keyframes title-shine {
+    0%,
+    58% {
+      background-position: 120% 0;
+    }
+
+    82%,
+    100% {
+      background-position: -120% 0;
+    }
+  }
+
   .hero-description {
-    max-width: 40rem;
-    margin: 2rem 0 0;
+    max-width: 38rem;
+    margin: 1.75rem 0 0;
     color: var(--color-text-muted);
-    font-size: clamp(1rem, 2vw, 1.18rem);
-    line-height: 1.75;
+    font-size: clamp(0.96rem, 1.35vw, 1.08rem);
+    line-height: 1.72;
   }
 
   .statement {
@@ -196,12 +242,12 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
   }
 
   .explore {
-    padding: 5rem 0 7rem;
+    padding: 4.5rem 0 5.5rem;
     border-top: 1px solid var(--color-border);
   }
 
   .latest {
-    padding: 5rem 0;
+    padding: 4rem 0;
     border-top: 1px solid var(--color-border);
   }
 
@@ -210,11 +256,11 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
     align-items: end;
     justify-content: space-between;
     gap: 2rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .latest > header h2 {
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-size: clamp(1.8rem, 3.2vw, 2.7rem);
   }
 
   .latest-grid {
@@ -237,19 +283,39 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
   }
 
   .latest-label a {
+    position: relative;
     color: var(--color-text-faint);
     text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .latest-label a::after {
+    position: absolute;
+    right: 0;
+    bottom: -0.2rem;
+    left: 0;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: right;
+    background: var(--color-accent);
+    content: "";
+    transition: transform 180ms ease;
   }
 
   .latest-label a:hover {
     color: var(--color-accent-bright);
   }
 
+  .latest-label a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
   .explore > header {
     display: grid;
     grid-template-columns: minmax(8rem, 0.45fr) minmax(0, 1fr);
     gap: 2rem;
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.75rem;
   }
 
   .section-index {
@@ -263,10 +329,10 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
   h2 {
     max-width: 18ch;
     margin: 0;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 540;
-    letter-spacing: -0.045em;
-    line-height: 1.05;
+    font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+    font-weight: 560;
+    letter-spacing: -0.04em;
+    line-height: 1.08;
   }
 
   .explore header div p {
@@ -286,7 +352,7 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
     grid-template-columns: 4rem 1fr auto;
     align-items: center;
     gap: 1rem;
-    min-height: 5rem;
+    min-height: 4.5rem;
     border-bottom: 1px solid var(--color-border);
     color: var(--color-text);
     text-decoration: none;
@@ -297,9 +363,9 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
   }
 
   .explore nav a:hover {
-    padding-inline: 1rem;
-    border-color: var(--color-accent-soft);
-    background: linear-gradient(90deg, rgb(199 119 31 / 7%), transparent 65%);
+    padding-inline: 0.75rem;
+    border-color: rgb(199 119 31 / 38%);
+    background: linear-gradient(90deg, rgb(199 119 31 / 5%), transparent 62%);
   }
 
   .explore nav span {
@@ -328,7 +394,7 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
       grid-template-columns: 1fr;
       align-items: start;
       gap: 3rem;
-      padding-top: 5rem;
+      padding-top: 4.5rem;
     }
 
     .statement {
@@ -341,6 +407,14 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
 
     .latest-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .title-shimmer {
+      background: none;
+      animation: none;
+      -webkit-text-fill-color: currentColor;
     }
   }
 </style>

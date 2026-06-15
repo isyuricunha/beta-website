@@ -34,3 +34,11 @@
 - [x] Inspect every generated locale and dynamic route.
 - [x] Verify RSS, robots, and sitemap artifacts.
 - [x] Self-review accessibility, performance, imports, exports, signatures, and types.
+
+## Milestone 6 - Visual refinement and deployment headers
+
+- [x] Refine global typography, ambient lighting, navigation, and logo motion.
+- [x] Add a conservative versioned Permissions Policy for Vercel.
+- [x] Reduce the home page scale and add a localized text shimmer.
+- [x] Refine editorial row interactions without changing page structure.
+- [x] Run all repository checks and inspect the final production output.

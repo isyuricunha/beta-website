@@ -44,6 +44,7 @@ export const de = {
   home: {
     eyebrow: "Persönliche Notizen aus dem offenen Web",
     title: "Ich baue private, ruhige Systeme für mich und das offene Web.",
+    titleHighlight: "ruhige",
     description:
       "Software, Self-Hosting, Datenschutz, Automatisierung und kleine nützliche Dinge. Hier bewahre ich die Arbeit und die Gedanken dahinter auf.",
     statement: "Digitale Freiheit ist nicht der Standard.",

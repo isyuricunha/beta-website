@@ -44,6 +44,7 @@ export const ptBr = {
   home: {
     eyebrow: "Notas pessoais da web aberta",
     title: "Eu construo sistemas privados e tranquilos para mim e para a web aberta.",
+    titleHighlight: "tranquilos",
     description:
       "Software, self-hosting, privacidade, automação e pequenas coisas úteis. Aqui guardo o trabalho e as ideias por trás dele.",
     statement: "Liberdade digital não é o padrão.",

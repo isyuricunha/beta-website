@@ -44,6 +44,7 @@ export const zhCn = {
   home: {
     eyebrow: "来自开放网络的个人记录",
     title: "我为自己和开放网络构建私密、安静的系统。",
+    titleHighlight: "安静",
     description:
       "软件、自托管、隐私、自动化，以及小而实用的东西。这里保存我的工作，也保存它背后的思考。",
     statement: "数字自由从来不是默认选项。",

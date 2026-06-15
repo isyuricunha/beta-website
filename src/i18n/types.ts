@@ -55,6 +55,7 @@ export type Dictionary = {
   home: {
     eyebrow: string;
     title: string;
+    titleHighlight: string;
     description: string;
     statement: string;
     statementDetail: string;

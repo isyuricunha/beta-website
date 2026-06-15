@@ -44,6 +44,7 @@ export const en = {
   home: {
     eyebrow: "Personal notes from the open web",
     title: "I build private, quiet systems for myself and the open web.",
+    titleHighlight: "quiet",
     description:
       "Software, self-hosting, privacy, automation, and small useful things. This is where I keep the work and the thinking behind it.",
     statement: "Digital freedom is not default.",

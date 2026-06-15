@@ -54,6 +54,11 @@ const { items, locale, dictionary, compact = false } = Astro.props;
   article {
     padding: 2rem 0;
     border-bottom: 1px solid var(--color-border);
+    transition: border-color 180ms ease;
+  }
+
+  article:hover {
+    border-color: rgb(199 119 31 / 34%);
   }
 
   .post-title {
@@ -98,7 +103,7 @@ const { items, locale, dictionary, compact = false } = Astro.props;
     font-weight: 540;
     letter-spacing: -0.035em;
     line-height: 1.15;
-    transition: color 160ms ease;
+    transition: color 180ms ease;
   }
 
   .post-title:hover h2 {
@@ -122,8 +127,8 @@ const { items, locale, dictionary, compact = false } = Astro.props;
     stroke-linejoin: round;
     stroke-width: 1.4;
     transition:
-      stroke 160ms ease,
-      transform 160ms ease;
+      stroke 180ms ease,
+      transform 180ms ease;
   }
 
   .post-title:hover svg {

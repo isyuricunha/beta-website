@@ -36,5 +36,10 @@ const { href, label, class: className } = Astro.props;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.5;
+    transition: transform 160ms ease;
+  }
+
+  .external-link:hover svg {
+    transform: translate(0.12rem, -0.12rem);
   }
 </style>

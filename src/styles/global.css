@@ -32,7 +32,7 @@
   --color-accent: #c7771f;
   --color-accent-soft: #8a4f16;
   --color-accent-bright: #e0a13a;
-  --color-accent-glow: rgb(199 119 31 / 28%);
+  --color-accent-glow: rgb(199 119 31 / 20%);
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 18px;
@@ -58,6 +58,8 @@ body {
   margin: 0;
   overflow-x: hidden;
   background: var(--color-bg);
+  font-weight: 400;
+  line-height: 1.65;
 }
 
 a {
@@ -95,12 +97,12 @@ svg {
 }
 
 .ambient-top {
-  top: -25rem;
-  left: -20rem;
-  width: 52rem;
-  height: 52rem;
-  background: radial-gradient(circle, rgb(199 119 31 / 11%), transparent 67%);
-  filter: blur(0.2rem);
+  top: -28rem;
+  left: -24rem;
+  width: 56rem;
+  height: 56rem;
+  background: radial-gradient(circle, rgb(153 82 20 / 8%), transparent 68%);
+  filter: blur(0.35rem);
 }
 
 .skip-link {

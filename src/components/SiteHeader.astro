@@ -58,13 +58,13 @@ function isSectionActive(section: Section): boolean {
     align-items: center;
     gap: 0.75rem;
     padding: 0.55rem;
-    border: 1px solid rgb(255 255 255 / 8%);
+    border: 1px solid rgb(255 255 255 / 7%);
     border-radius: var(--radius-lg);
-    background: rgb(7 7 7 / 82%);
+    background: rgb(3 3 3 / 78%);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 4%),
-      0 1rem 4rem rgb(0 0 0 / 28%);
-    backdrop-filter: blur(18px);
+      inset 0 1px 0 rgb(255 255 255 / 3%),
+      0 0.75rem 2.5rem rgb(0 0 0 / 22%);
+    backdrop-filter: blur(12px);
   }
 
   .home-link {
@@ -93,8 +93,9 @@ function isSectionActive(section: Section): boolean {
     padding: 0.65rem 0.75rem;
     border-radius: 0.7rem;
     color: var(--color-text-faint);
-    font-size: 0.78rem;
-    font-weight: 500;
+    font-size: 0.76rem;
+    font-weight: 480;
+    letter-spacing: -0.01em;
     text-decoration: none;
     transition:
       color 150ms ease,
@@ -106,8 +107,8 @@ function isSectionActive(section: Section): boolean {
   }
 
   nav a[aria-current="page"] {
-    background: rgb(255 255 255 / 4%);
-    color: var(--color-text);
+    background: rgb(199 119 31 / 5%);
+    color: var(--color-accent-bright);
   }
 
   nav a[aria-current="page"]::after {
@@ -116,7 +117,7 @@ function isSectionActive(section: Section): boolean {
     bottom: 0.35rem;
     left: 0.75rem;
     height: 1px;
-    background: var(--color-accent);
+    background: var(--color-accent-bright);
     content: "";
   }
 
