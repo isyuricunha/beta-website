@@ -124,3 +124,11 @@
 - [x] Add translated copy feedback without introducing a dependency.
 - [x] Test clipboard interaction and reduced-motion behavior.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 18 - Code block toolbar layout
+
+- [x] Replace the overlay copy control with a structural code block toolbar.
+- [x] Keep the language label and copy feedback aligned without width shifts.
+- [x] Keep horizontal code scrolling isolated below the fixed toolbar.
+- [x] Validate short, multiline, mobile, clipboard, and reduced-motion behavior.
+- [x] Run lint, tests, build, and content validation.
