@@ -171,3 +171,11 @@
 - [x] Keep the privacy note as a subtle direct-links detail.
 - [x] Confirm no real PGP key exists before skipping a PGP row.
 - [x] Run lint, tests, build, content validation, and visual checks.
+
+## Milestone 24 - Legacy content migration tooling
+
+- [x] Add a dry-run-first, non-destructive legacy content migration script.
+- [x] Preserve source dates, map supported locales, and protect existing content.
+- [x] Convert legacy Callouts and markers without adding React or dependencies.
+- [x] Report source changes, assets, links, slug corrections, and manual reviews.
+- [x] Add focused migration tests and run all validation gates.

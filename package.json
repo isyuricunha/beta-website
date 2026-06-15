@@ -17,7 +17,9 @@
     "content:new:post": "tsx scripts/new-post.ts",
     "content:new:snippet": "tsx scripts/new-snippet.ts",
     "content:translate": "tsx scripts/translate-content.ts",
-    "content:check": "tsx scripts/check-content.ts"
+    "content:check": "tsx scripts/check-content.ts",
+    "migrate:legacy-content:dry": "tsx scripts/migrate-legacy-content.ts",
+    "migrate:legacy-content": "tsx scripts/migrate-legacy-content.ts --apply"
   },
   "dependencies": {
     "@astrojs/mdx": "6.0.3",
