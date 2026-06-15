@@ -99,6 +99,9 @@ export type Dictionary = {
       paragraphs: string[];
       careTitle: string;
       careItems: string[];
+      currentlyTitle: string;
+      currentlyItems: string[];
+      closing: string;
     };
     contact: {
       title: string;

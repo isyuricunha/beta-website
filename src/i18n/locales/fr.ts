@@ -95,18 +95,27 @@ export const fr = {
     about: {
       title: "À propos",
       description:
-        "Je suis Yuri, développeur logiciel intéressé par l’informatique privée, l’automatisation utile et les espaces plus calmes du web.",
+        "Je suis Yuri. J’aime les logiciels qui restent compréhensibles, l’infrastructure qui ne réclame pas d’attention et les outils qui redonnent du contrôle.",
       paragraphs: [
-        "J’aime les systèmes que les personnes qui en dépendent peuvent comprendre, réparer et posséder. Cela me conduit souvent vers l’open source, l’auto-hébergement, la vie privée et les logiciels volontairement simples.",
-        "Ce site me permet de documenter ce que j’apprends, d’expliquer les choix derrière ce que je construis et de garder une trace personnelle hors des plateformes conçues autour de l’attention.",
+        "Je construis de petits systèmes pour moi-même et le web ouvert : scripts, sites, automatisations, services auto-hébergés et notes qui m’aident à me souvenir pourquoi une chose existe.",
+        "La vie privée, l’auto-hébergement, l’automatisation et les logiciels simples reviennent souvent, parce qu’ils rendent la vie numérique moins empruntée et plus réparable.",
+        "Ce site conserve cette trace : réflexions longues, notes pratiques, projets choisis et petits apprentissages qui disparaîtraient sinon dans des chats, des issues ou des plateformes fermées.",
       ],
-      careTitle: "Ce qui compte pour moi",
+      careTitle: "Petites règles",
       careItems: [
-        "Des logiciels qui respectent les personnes qui les utilisent",
-        "Des systèmes auto-hébergés aux limites opérationnelles claires",
-        "Une automatisation qui réduit les frictions sans masquer le contrôle",
-        "Des textes qui expliquent le contexte, pas seulement le résultat",
+        "Des logiciels qui restent compréhensibles",
+        "Des systèmes que je peux réparer",
+        "La vie privée sans théâtre",
+        "Une automatisation qui réduit les frictions",
+        "Des outils qui ne réclament pas d’attention",
       ],
+      currentlyTitle: "En ce moment",
+      currentlyItems: [
+        "Construire de petits outils",
+        "Écrire des notes pratiques",
+        "Garder l’infrastructure ennuyeuse",
+      ],
+      closing: "Un coin calme pour ce que je construis et apprends.",
     },
     contact: {
       title: "Contact",

@@ -95,18 +95,27 @@ export const ptBr = {
     about: {
       title: "Sobre",
       description:
-        "Sou Yuri, desenvolvedor de software interessado em computação privada, automação útil e nos cantos mais tranquilos da web.",
+        "Sou Yuri. Gosto de software que continua compreensível, infraestrutura que não exige atenção e ferramentas que dão mais controle às pessoas.",
       paragraphs: [
-        "Gosto de sistemas que possam ser compreendidos, reparados e controlados pelas pessoas que dependem deles. Isso normalmente me leva a código aberto, self-hosting, privacidade e software deliberadamente pequeno.",
-        "Este site é um lugar para documentar o que aprendo, explicar as escolhas por trás do que construo e manter um registro pessoal fora de plataformas projetadas em torno da atenção.",
+        "Construo pequenos sistemas para mim e para a web aberta: scripts, sites, automações, serviços self-hosted e notas que me ajudam a lembrar por que algo existe.",
+        "Privacidade, self-hosting, automação e software simples continuam aparecendo porque tornam a vida digital menos emprestada e mais reparável.",
+        "Este site é onde guardo esse rastro: textos longos, notas práticas, projetos selecionados e pequenos aprendizados que sumiriam em chats, issues ou plataformas fechadas.",
       ],
-      careTitle: "Coisas que importam para mim",
+      careTitle: "Pequenas regras",
       careItems: [
-        "Software que respeita quem o utiliza",
-        "Sistemas self-hosted com limites operacionais claros",
-        "Automação que remove atrito sem esconder o controle",
-        "Textos que explicam o contexto, não apenas o resultado",
+        "Software que continua compreensível",
+        "Sistemas que eu consigo reparar",
+        "Privacidade sem teatro",
+        "Automação que remove atrito",
+        "Ferramentas que não exigem atenção",
       ],
+      currentlyTitle: "Agora",
+      currentlyItems: [
+        "Construindo pequenas ferramentas",
+        "Escrevendo notas práticas",
+        "Mantendo infraestrutura previsível",
+      ],
+      closing: "Um canto quieto para coisas que construo e aprendo.",
     },
     contact: {
       title: "Contato",

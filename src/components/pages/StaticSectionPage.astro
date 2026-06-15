@@ -49,6 +49,7 @@ const archiveCount = isBlog
         "blog-page": isBlog,
         "snippets-page": isSnippets,
         "projects-page": isProjects,
+        "about-page": isAbout,
       },
     ]}
   >
@@ -59,6 +60,7 @@ const archiveCount = isBlog
           "blog-header": isBlog,
           "snippets-header": isSnippets,
           "projects-header": isProjects,
+          "about-header": isAbout,
         },
       ]}
     >
@@ -78,12 +80,23 @@ const archiveCount = isBlog
     {
       isAbout ? (
         <div class="about-grid">
-          <div class="body-copy">
-            {dictionary.pages.about.paragraphs.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
+          <div class="about-main">
+            <div class="body-copy">
+              {dictionary.pages.about.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+            <section class="currently" aria-labelledby="currently-title">
+              <h2 id="currently-title">{dictionary.pages.about.currentlyTitle}</h2>
+              <ul>
+                {dictionary.pages.about.currentlyItems.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+            <p class="about-signature">{dictionary.pages.about.closing}</p>
           </div>
-          <aside>
+          <aside class="about-card">
             <h2>{dictionary.pages.about.careTitle}</h2>
             <ul>
               {dictionary.pages.about.careItems.map((item) => (
@@ -180,6 +193,11 @@ const archiveCount = isBlog
     padding: clamp(3.75rem, 7vw, 5.4rem) 0 clamp(3.75rem, 6vw, 4.75rem);
   }
 
+  .about-page {
+    min-height: auto;
+    padding: clamp(4rem, 7vw, 5.8rem) 0 clamp(4rem, 6vw, 4.85rem);
+  }
+
   .page-header {
     display: grid;
     max-width: 48rem;
@@ -237,6 +255,10 @@ const archiveCount = isBlog
   .snippets-header .page-index,
   .projects-header .page-index {
     margin: 0 0 0.8rem;
+    color: rgb(199 119 31 / 86%);
+  }
+
+  .about-header .page-index {
     color: rgb(199 119 31 / 86%);
   }
 
@@ -312,62 +334,130 @@ const archiveCount = isBlog
 
   .about-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
-    gap: clamp(3rem, 9vw, 7rem);
-    margin-top: 4.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.58fr);
+    align-items: start;
+    gap: clamp(2.75rem, 7vw, 5.25rem);
+    margin-top: clamp(3rem, 6vw, 3.75rem);
+  }
+
+  .about-main {
+    min-width: 0;
   }
 
   .body-copy {
-    max-width: 40rem;
-    color: var(--color-text-muted);
-    font-size: 1.05rem;
-    line-height: 1.85;
+    max-width: 41rem;
+    color: rgb(212 212 216 / 84%);
+    font-size: clamp(1rem, 1.1vw, 1.05rem);
+    line-height: 1.88;
   }
 
   .body-copy p {
-    margin: 0 0 1.5rem;
+    margin: 0 0 1.45rem;
   }
 
-  aside {
-    padding: 1.5rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    background: var(--color-surface-base);
+  .body-copy p:first-child {
+    color: rgb(244 244 245 / 88%);
   }
 
-  aside h2 {
-    margin: 0 0 1.4rem;
-    color: var(--color-text);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
+  .currently {
+    max-width: 37rem;
+    margin-top: 2.2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgb(255 255 255 / 6%);
+  }
+
+  .currently h2 {
+    margin: 0 0 0.85rem;
+    color: rgb(199 119 31 / 82%);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.62rem;
+    font-weight: 400;
+    letter-spacing: 0.055em;
     text-transform: uppercase;
   }
 
-  aside ul {
-    display: grid;
-    gap: 1rem;
+  .currently ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  aside li {
+  .currently li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgb(161 161 170 / 78%);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .currently li::before {
+    width: 0.24rem;
+    height: 0.24rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: rgb(199 119 31 / 70%);
+    box-shadow: 0 0 0.5rem rgb(199 119 31 / 12%);
+    content: "";
+  }
+
+  .about-signature {
+    max-width: 37rem;
+    margin: 2rem 0 0;
+    color: rgb(161 161 170 / 70%);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.01em;
+  }
+
+  .about-card {
     position: relative;
-    padding-left: 1rem;
-    color: var(--color-text-muted);
+    overflow: hidden;
+    padding: 1.35rem;
+    border: 1px solid rgb(255 255 255 / 7%);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 0 0, rgb(199 119 31 / 5%), transparent 48%),
+      rgb(7 7 7 / 92%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 3.5%);
+  }
+
+  .about-card h2 {
+    margin: 0 0 1.25rem;
+    color: rgb(244 244 245 / 88%);
+    font-size: 0.72rem;
+    font-weight: 560;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .about-card ul {
+    display: grid;
+    gap: 0.95rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .about-card li {
+    position: relative;
+    padding-left: 0.95rem;
+    color: rgb(212 212 216 / 78%);
     font-size: 0.83rem;
     line-height: 1.6;
   }
 
-  aside li::before {
+  .about-card li::before {
     position: absolute;
-    top: 0.55rem;
+    top: 0.58rem;
     left: 0;
-    width: 0.3rem;
-    height: 0.3rem;
+    width: 0.24rem;
+    height: 0.24rem;
     border-radius: 50%;
-    background: var(--color-accent);
+    background: rgb(199 119 31 / 72%);
     content: "";
   }
 
@@ -454,6 +544,13 @@ const archiveCount = isBlog
 
     .about-grid {
       grid-template-columns: 1fr;
+      gap: 2.25rem;
+      margin-top: 3rem;
+    }
+
+    .currently ul {
+      display: grid;
+      gap: 0.55rem;
     }
 
     .contact-grid :global(.contact-row) {

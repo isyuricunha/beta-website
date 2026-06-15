@@ -94,18 +94,27 @@ export const en = {
     about: {
       title: "About",
       description:
-        "I am Yuri, a software developer interested in private computing, useful automation, and the quieter parts of the web.",
+        "I'm Yuri. I like software that stays understandable, infrastructure that does not demand attention, and tools that give people more control.",
       paragraphs: [
-        "I like systems that can be understood, repaired, and owned by the people who depend on them. That usually leads me toward open source, self-hosting, privacy, and deliberately small software.",
-        "This website is a place to document what I learn, explain the tradeoffs behind what I build, and keep a personal record outside platforms designed around attention.",
+        "I build small systems for myself and the open web: scripts, websites, automations, self-hosted services, and notes that help me remember why a thing exists.",
+        "Privacy, self-hosting, automation, and simple software keep showing up because they make the digital parts of life feel less borrowed and more repairable.",
+        "This site is where I keep the trail: longer thoughts, practical snippets, selected projects, and the small lessons that would otherwise disappear into chats, issues, or closed platforms.",
       ],
-      careTitle: "Things I care about",
+      careTitle: "Small rules",
       careItems: [
-        "Software that respects the person using it",
-        "Self-hosted systems with clear operational boundaries",
-        "Automation that removes friction without hiding control",
-        "Writing that explains context, not only outcomes",
+        "Software that stays understandable",
+        "Systems I can repair",
+        "Privacy without theater",
+        "Automation that removes friction",
+        "Tools that do not demand attention",
       ],
+      currentlyTitle: "Currently",
+      currentlyItems: [
+        "Building small tools",
+        "Writing practical notes",
+        "Keeping infrastructure boring",
+      ],
+      closing: "A quiet corner for things I build and learn.",
     },
     contact: {
       title: "Contact",

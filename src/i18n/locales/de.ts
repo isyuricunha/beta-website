@@ -95,18 +95,27 @@ export const de = {
     about: {
       title: "Über mich",
       description:
-        "Ich bin Yuri, Softwareentwickler mit Interesse an privatem Computing, nützlicher Automatisierung und den ruhigeren Teilen des Webs.",
+        "Ich bin Yuri. Ich mag Software, die verständlich bleibt, Infrastruktur, die keine Aufmerksamkeit verlangt, und Werkzeuge, die Menschen mehr Kontrolle geben.",
       paragraphs: [
-        "Ich mag Systeme, die von den Menschen, die auf sie angewiesen sind, verstanden, repariert und besessen werden können. Das führt mich meist zu Open Source, Self-Hosting, Datenschutz und bewusst kleiner Software.",
-        "Diese Website dokumentiert, was ich lerne, erklärt die Abwägungen hinter meiner Arbeit und bewahrt eine persönliche Aufzeichnung außerhalb aufmerksamkeitsgetriebener Plattformen.",
+        "Ich baue kleine Systeme für mich und das offene Web: Skripte, Websites, Automatisierungen, selbst gehostete Dienste und Notizen, die festhalten, warum etwas existiert.",
+        "Datenschutz, Self-Hosting, Automatisierung und einfache Software tauchen immer wieder auf, weil sie das digitale Leben weniger geliehen und besser reparierbar machen.",
+        "Diese Website bewahrt die Spur davon: längere Gedanken, praktische Notizen, ausgewählte Projekte und kleine Erkenntnisse, die sonst in Chats, Issues oder geschlossenen Plattformen verschwinden würden.",
       ],
-      careTitle: "Was mir wichtig ist",
+      careTitle: "Kleine Regeln",
       careItems: [
-        "Software, die ihre Nutzer respektiert",
-        "Self-Hosting mit klaren betrieblichen Grenzen",
-        "Automatisierung, die Reibung verringert, ohne Kontrolle zu verbergen",
-        "Texte, die Kontext und nicht nur Ergebnisse erklären",
+        "Software, die verständlich bleibt",
+        "Systeme, die ich reparieren kann",
+        "Datenschutz ohne Theater",
+        "Automatisierung, die Reibung verringert",
+        "Werkzeuge, die keine Aufmerksamkeit verlangen",
       ],
+      currentlyTitle: "Gerade",
+      currentlyItems: [
+        "Kleine Werkzeuge bauen",
+        "Praktische Notizen schreiben",
+        "Infrastruktur langweilig halten",
+      ],
+      closing: "Eine ruhige Ecke für Dinge, die ich baue und lerne.",
     },
     contact: {
       title: "Kontakt",

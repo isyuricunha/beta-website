@@ -148,3 +148,11 @@
 - [x] Refine individual project back links, prose, and closing navigation.
 - [x] Keep short project pages visually intentional on desktop and mobile.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 21 - About page personal polish
+
+- [x] Rewrite the about copy with a calmer, more personal voice.
+- [x] Replace the care card with shorter personal rules.
+- [x] Add a compact currently block and subtle closing line.
+- [x] Refine about spacing, card treatment, and mobile stacking.
+- [x] Run lint, tests, build, content validation, and visual checks.
