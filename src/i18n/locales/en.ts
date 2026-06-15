@@ -32,6 +32,8 @@ export const en = {
     backToProjects: "Back to projects",
     tableOfContents: "On this page",
     onThisNote: "On this note",
+    copyCode: "Copy code",
+    copied: "Copied",
     footerNote: "Built with care. Kept simple on purpose.",
     minuteRead: (minutes) => `${minutes} min read`,
   },

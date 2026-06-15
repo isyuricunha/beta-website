@@ -32,6 +32,8 @@ export const ja = {
     backToProjects: "プロジェクトへ戻る",
     tableOfContents: "目次",
     onThisNote: "このノートの内容",
+    copyCode: "コードをコピー",
+    copied: "コピー済み",
     footerNote: "丁寧に作り、意図して簡素に保つ。",
     minuteRead: (minutes) => `約${minutes}分`,
   },

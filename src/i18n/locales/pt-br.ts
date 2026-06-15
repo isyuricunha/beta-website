@@ -32,6 +32,8 @@ export const ptBr = {
     backToProjects: "Voltar para os projetos",
     tableOfContents: "Nesta página",
     onThisNote: "Nesta nota",
+    copyCode: "Copiar código",
+    copied: "Copiado",
     footerNote: "Feito com cuidado. Mantido simples de propósito.",
     minuteRead: (minutes) => `${minutes} min de leitura`,
   },

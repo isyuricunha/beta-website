@@ -1,0 +1,161 @@
+<script>
+  import { getCodeLanguageLabel } from "@/lib/code-blocks";
+
+  const codeBlockScopeSelector = "[data-code-block-scope]";
+
+  function enhanceCodeBlocks(): void {
+    document
+      .querySelectorAll<HTMLElement>(codeBlockScopeSelector)
+      .forEach((scope) => {
+        const copyLabel = scope.dataset.copyLabel ?? "Copy code";
+        const copiedLabel = scope.dataset.copiedLabel ?? "Copied";
+
+        scope
+          .querySelectorAll<HTMLPreElement>("pre[data-language]")
+          .forEach((codeBlock) => {
+            const language = codeBlock.dataset.language;
+            codeBlock.dataset.codeLanguageLabel =
+              getCodeLanguageLabel(language);
+
+            if (codeBlock.querySelector(":scope > .code-copy-button")) {
+              return;
+            }
+
+            const code = codeBlock.querySelector("code");
+            if (!code) {
+              return;
+            }
+
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "code-copy-button";
+            button.textContent = copyLabel;
+            button.setAttribute("aria-label", copyLabel);
+            button.setAttribute("aria-live", "polite");
+
+            let resetTimer: number | undefined;
+
+            button.addEventListener("click", async () => {
+              try {
+                await navigator.clipboard.writeText(code.textContent ?? "");
+                button.textContent = copiedLabel;
+                button.setAttribute("aria-label", copiedLabel);
+                button.dataset.state = "copied";
+
+                window.clearTimeout(resetTimer);
+                resetTimer = window.setTimeout(() => {
+                  button.textContent = copyLabel;
+                  button.setAttribute("aria-label", copyLabel);
+                  delete button.dataset.state;
+                }, 1800);
+              } catch {
+                button.textContent = copyLabel;
+                button.setAttribute("aria-label", copyLabel);
+                delete button.dataset.state;
+              }
+            });
+
+            codeBlock.append(button);
+          });
+      });
+  }
+
+  document.addEventListener("astro:page-load", enhanceCodeBlocks);
+  enhanceCodeBlocks();
+</script>
+
+<style is:global>
+  [data-code-block-scope] pre[data-language] {
+    position: relative;
+    margin: 1.9rem 0;
+    padding: 3.1rem 1.3rem 1.2rem;
+    border-color: rgb(255 255 255 / 9%);
+    background: #050505 !important;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 4%),
+      0 0 0 transparent;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  [data-code-block-scope] pre[data-language]:hover {
+    border-color: rgb(199 119 31 / 22%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 5%),
+      0 0 1.5rem rgb(199 119 31 / 3.5%);
+  }
+
+  [data-code-block-scope] pre[data-language]::before {
+    position: absolute;
+    top: 0.88rem;
+    left: 1.3rem;
+    color: rgb(161 161 170 / 66%);
+    content: attr(data-code-language-label);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.045em;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+
+  [data-code-block-scope] pre[data-language]::after {
+    position: absolute;
+    top: 2.35rem;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: rgb(255 255 255 / 5%);
+    content: "";
+  }
+
+  [data-code-block-scope] .code-copy-button {
+    position: absolute;
+    z-index: 1;
+    top: 0.56rem;
+    right: 0.72rem;
+    min-height: 1.65rem;
+    padding: 0.22rem 0.55rem;
+    border: 1px solid rgb(255 255 255 / 7%);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 2%);
+    color: rgb(161 161 170 / 76%);
+    cursor: pointer;
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.59rem;
+    letter-spacing: 0.015em;
+    line-height: 1;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  [data-code-block-scope] .code-copy-button:hover {
+    border-color: rgb(199 119 31 / 24%);
+    background: rgb(199 119 31 / 5%);
+    color: var(--color-text);
+  }
+
+  [data-code-block-scope] .code-copy-button[data-state="copied"] {
+    border-color: rgb(199 119 31 / 28%);
+    color: rgb(224 161 58 / 92%);
+  }
+
+  @media (max-width: 520px) {
+    [data-code-block-scope] pre[data-language] {
+      padding: 3rem 0.95rem 1.05rem;
+    }
+
+    [data-code-block-scope] pre[data-language]::before {
+      left: 0.95rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-code-block-scope] pre[data-language],
+    [data-code-block-scope] .code-copy-button {
+      transition: none;
+    }
+  }
+</style>

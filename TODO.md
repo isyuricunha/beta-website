@@ -119,8 +119,8 @@
 
 ## Milestone 17 - Snippet code block tools
 
-- [ ] Add language labels and accessible copy buttons to snippet code blocks.
-- [ ] Keep clipboard behavior working across Astro client-side navigation.
-- [ ] Add translated copy feedback without introducing a dependency.
-- [ ] Test clipboard interaction and reduced-motion behavior.
-- [ ] Run lint, tests, build, and content validation.
+- [x] Add language labels and accessible copy buttons to snippet code blocks.
+- [x] Keep clipboard behavior working across Astro client-side navigation.
+- [x] Add translated copy feedback without introducing a dependency.
+- [x] Test clipboard interaction and reduced-motion behavior.
+- [x] Run lint, tests, build, and content validation.

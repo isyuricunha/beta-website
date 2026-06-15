@@ -32,6 +32,8 @@ export const fr = {
     backToProjects: "Retour aux projets",
     tableOfContents: "Dans cette page",
     onThisNote: "Dans cette note",
+    copyCode: "Copier le code",
+    copied: "Copié",
     footerNote: "Construit avec soin. Gardé simple par choix.",
     minuteRead: (minutes) => `${minutes} min de lecture`,
   },

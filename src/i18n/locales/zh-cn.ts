@@ -32,6 +32,8 @@ export const zhCn = {
     backToProjects: "返回项目",
     tableOfContents: "本页内容",
     onThisNote: "本篇笔记",
+    copyCode: "复制代码",
+    copied: "已复制",
     footerNote: "用心构建，有意保持简单。",
     minuteRead: (minutes) => `约 ${minutes} 分钟`,
   },

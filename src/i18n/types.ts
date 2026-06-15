@@ -58,6 +58,8 @@ export type Dictionary = {
     backToProjects: string;
     tableOfContents: string;
     onThisNote: string;
+    copyCode: string;
+    copied: string;
     footerNote: string;
     minuteRead: (minutes: number) => string;
   };
