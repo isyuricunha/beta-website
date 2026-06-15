@@ -1,0 +1,1733 @@
+{
+  "schemaVersion": 1,
+  "mode": "apply",
+  "generatedAt": "2026-06-15T20:59:51.537Z",
+  "source": {
+    "repoPath": "../website",
+    "dirty": true,
+    "modifiedContentFiles": [
+      "apps/web/src/content/blog/de/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti.mdx",
+      "apps/web/src/content/blog/de/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia.mdx",
+      "apps/web/src/content/blog/de/i-would-like-to-die-but-i-dont-want-to-die.mdx",
+      "apps/web/src/content/blog/de/navigating-contradictions-in-life.mdx",
+      "apps/web/src/content/blog/de/one-day-at-a-time.mdx",
+      "apps/web/src/content/blog/de/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active.mdx",
+      "apps/web/src/content/blog/de/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business.mdx",
+      "apps/web/src/content/blog/de/the-pleasure-of-doing-nothing.mdx",
+      "apps/web/src/content/blog/de/the-problem-is-me.mdx",
+      "apps/web/src/content/blog/de/what-if-everything-goes-wrong.mdx",
+      "apps/web/src/content/blog/de/what-is-sql-server-and-sql.mdx",
+      "apps/web/src/content/blog/de/why-i-abandoned-social-media.mdx",
+      "apps/web/src/content/blog/de/work-travel-cultures-decisions.mdx",
+      "apps/web/src/content/snippet/de/bitwarden-remove-duplicates.mdx",
+      "apps/web/src/content/snippet/de/cloudflare-worker-load-balancer-health-check.mdx",
+      "apps/web/src/content/snippet/de/discord-ollama-bot.mdx",
+      "apps/web/src/content/snippet/de/mistral-agents-openwebui-pipe.mdx",
+      "apps/web/src/content/snippet/de/vscode-config.mdx"
+    ],
+    "modifiedSourceFilesMigrated": [
+      "apps/web/src/content/blog/de/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti.mdx",
+      "apps/web/src/content/blog/de/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia.mdx",
+      "apps/web/src/content/blog/de/i-would-like-to-die-but-i-dont-want-to-die.mdx",
+      "apps/web/src/content/blog/de/navigating-contradictions-in-life.mdx",
+      "apps/web/src/content/blog/de/one-day-at-a-time.mdx",
+      "apps/web/src/content/blog/de/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active.mdx",
+      "apps/web/src/content/blog/de/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business.mdx",
+      "apps/web/src/content/blog/de/the-pleasure-of-doing-nothing.mdx",
+      "apps/web/src/content/blog/de/the-problem-is-me.mdx",
+      "apps/web/src/content/blog/de/what-if-everything-goes-wrong.mdx",
+      "apps/web/src/content/blog/de/what-is-sql-server-and-sql.mdx",
+      "apps/web/src/content/blog/de/why-i-abandoned-social-media.mdx",
+      "apps/web/src/content/blog/de/work-travel-cultures-decisions.mdx",
+      "apps/web/src/content/snippet/de/bitwarden-remove-duplicates.mdx",
+      "apps/web/src/content/snippet/de/cloudflare-worker-load-balancer-health-check.mdx",
+      "apps/web/src/content/snippet/de/discord-ollama-bot.mdx",
+      "apps/web/src/content/snippet/de/mistral-agents-openwebui-pipe.mdx",
+      "apps/web/src/content/snippet/de/vscode-config.mdx"
+    ],
+    "commit": "c039e48be97a3a72e74f28cfe77577770c8b46ca"
+  },
+  "destination": {
+    "repoPath": ".",
+    "reportPath": "migration-report.json"
+  },
+  "totals": {
+    "found": 322,
+    "eligible": 276,
+    "planned": 276,
+    "migrated": 276,
+    "skippedSpanish": 46,
+    "skippedExisting": 0,
+    "skippedManualReview": 0,
+    "warnings": 0,
+    "errors": 0
+  },
+  "plannedFiles": [
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/de.mdx",
+    "src/content/blog/confessing-my-stupidity/de.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/de.mdx",
+    "src/content/blog/dappling/de.mdx",
+    "src/content/blog/disconnected/de.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/de.mdx",
+    "src/content/blog/embracing-feelings-indifference/de.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/de.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/de.mdx",
+    "src/content/blog/i-dont-care/de.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/de.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/de.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/de.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/de.mdx",
+    "src/content/blog/im-proud-of-you/de.mdx",
+    "src/content/blog/my-last-goodbye/de.mdx",
+    "src/content/blog/navigating-contradictions-in-life/de.mdx",
+    "src/content/blog/one-day-at-a-time/de.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/de.mdx",
+    "src/content/blog/pomodoro-tech/de.mdx",
+    "src/content/blog/pretending-to-be-okay/de.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/de.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/de.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/de.mdx",
+    "src/content/blog/roadmap-front-end/de.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/de.mdx",
+    "src/content/blog/the-art-of-starting-over/de.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/de.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/de.mdx",
+    "src/content/blog/the-problem-is-me/de.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/de.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/de.mdx",
+    "src/content/blog/waking-up-app/de.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/de.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/de.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/de.mdx",
+    "src/content/blog/why-i-abandoned-social-media/de.mdx",
+    "src/content/blog/work-travel-cultures-decisions/de.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/en.mdx",
+    "src/content/blog/confessing-my-stupidity/en.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/en.mdx",
+    "src/content/blog/dappling/en.mdx",
+    "src/content/blog/disconnected/en.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/en.mdx",
+    "src/content/blog/embracing-feelings-indifference/en.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/en.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/en.mdx",
+    "src/content/blog/i-dont-care/en.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/en.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/en.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/en.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/en.mdx",
+    "src/content/blog/im-proud-of-you/en.mdx",
+    "src/content/blog/my-last-goodbye/en.mdx",
+    "src/content/blog/navigating-contradictions-in-life/en.mdx",
+    "src/content/blog/one-day-at-a-time/en.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/en.mdx",
+    "src/content/blog/pomodoro-tech/en.mdx",
+    "src/content/blog/pretending-to-be-okay/en.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/en.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/en.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/en.mdx",
+    "src/content/blog/roadmap-front-end/en.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/en.mdx",
+    "src/content/blog/the-art-of-starting-over/en.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/en.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/en.mdx",
+    "src/content/blog/the-problem-is-me/en.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/en.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/en.mdx",
+    "src/content/blog/waking-up-app/en.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/en.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/en.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/en.mdx",
+    "src/content/blog/why-i-abandoned-social-media/en.mdx",
+    "src/content/blog/work-travel-cultures-decisions/en.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/fr.mdx",
+    "src/content/blog/confessing-my-stupidity/fr.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/fr.mdx",
+    "src/content/blog/dappling/fr.mdx",
+    "src/content/blog/disconnected/fr.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/fr.mdx",
+    "src/content/blog/embracing-feelings-indifference/fr.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/fr.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/fr.mdx",
+    "src/content/blog/i-dont-care/fr.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/fr.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/fr.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/fr.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/fr.mdx",
+    "src/content/blog/im-proud-of-you/fr.mdx",
+    "src/content/blog/my-last-goodbye/fr.mdx",
+    "src/content/blog/navigating-contradictions-in-life/fr.mdx",
+    "src/content/blog/one-day-at-a-time/fr.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/fr.mdx",
+    "src/content/blog/pomodoro-tech/fr.mdx",
+    "src/content/blog/pretending-to-be-okay/fr.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/fr.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/fr.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/fr.mdx",
+    "src/content/blog/roadmap-front-end/fr.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/fr.mdx",
+    "src/content/blog/the-art-of-starting-over/fr.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/fr.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/fr.mdx",
+    "src/content/blog/the-problem-is-me/fr.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/fr.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/fr.mdx",
+    "src/content/blog/waking-up-app/fr.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/fr.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/fr.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/fr.mdx",
+    "src/content/blog/why-i-abandoned-social-media/fr.mdx",
+    "src/content/blog/work-travel-cultures-decisions/fr.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/ja.mdx",
+    "src/content/blog/confessing-my-stupidity/ja.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/ja.mdx",
+    "src/content/blog/dappling/ja.mdx",
+    "src/content/blog/disconnected/ja.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/ja.mdx",
+    "src/content/blog/embracing-feelings-indifference/ja.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/ja.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/ja.mdx",
+    "src/content/blog/i-dont-care/ja.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/ja.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/ja.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/ja.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/ja.mdx",
+    "src/content/blog/im-proud-of-you/ja.mdx",
+    "src/content/blog/my-last-goodbye/ja.mdx",
+    "src/content/blog/navigating-contradictions-in-life/ja.mdx",
+    "src/content/blog/one-day-at-a-time/ja.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/ja.mdx",
+    "src/content/blog/pomodoro-tech/ja.mdx",
+    "src/content/blog/pretending-to-be-okay/ja.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/ja.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/ja.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/ja.mdx",
+    "src/content/blog/roadmap-front-end/ja.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/ja.mdx",
+    "src/content/blog/the-art-of-starting-over/ja.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/ja.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/ja.mdx",
+    "src/content/blog/the-problem-is-me/ja.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/ja.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/ja.mdx",
+    "src/content/blog/waking-up-app/ja.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/ja.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/ja.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/ja.mdx",
+    "src/content/blog/why-i-abandoned-social-media/ja.mdx",
+    "src/content/blog/work-travel-cultures-decisions/ja.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/pt-br.mdx",
+    "src/content/blog/confessing-my-stupidity/pt-br.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/pt-br.mdx",
+    "src/content/blog/dappling/pt-br.mdx",
+    "src/content/blog/disconnected/pt-br.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/pt-br.mdx",
+    "src/content/blog/embracing-feelings-indifference/pt-br.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/pt-br.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/pt-br.mdx",
+    "src/content/blog/i-dont-care/pt-br.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/pt-br.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/pt-br.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/pt-br.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/pt-br.mdx",
+    "src/content/blog/im-proud-of-you/pt-br.mdx",
+    "src/content/blog/my-last-goodbye/pt-br.mdx",
+    "src/content/blog/navigating-contradictions-in-life/pt-br.mdx",
+    "src/content/blog/one-day-at-a-time/pt-br.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/pt-br.mdx",
+    "src/content/blog/pomodoro-tech/pt-br.mdx",
+    "src/content/blog/pretending-to-be-okay/pt-br.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/pt-br.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/pt-br.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/pt-br.mdx",
+    "src/content/blog/roadmap-front-end/pt-br.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/pt-br.mdx",
+    "src/content/blog/the-art-of-starting-over/pt-br.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/pt-br.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/pt-br.mdx",
+    "src/content/blog/the-problem-is-me/pt-br.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/pt-br.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/pt-br.mdx",
+    "src/content/blog/waking-up-app/pt-br.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/pt-br.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/pt-br.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/pt-br.mdx",
+    "src/content/blog/why-i-abandoned-social-media/pt-br.mdx",
+    "src/content/blog/work-travel-cultures-decisions/pt-br.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/zh-cn.mdx",
+    "src/content/blog/confessing-my-stupidity/zh-cn.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/zh-cn.mdx",
+    "src/content/blog/dappling/zh-cn.mdx",
+    "src/content/blog/disconnected/zh-cn.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/zh-cn.mdx",
+    "src/content/blog/embracing-feelings-indifference/zh-cn.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/zh-cn.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/zh-cn.mdx",
+    "src/content/blog/i-dont-care/zh-cn.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/zh-cn.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/zh-cn.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/zh-cn.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/zh-cn.mdx",
+    "src/content/blog/im-proud-of-you/zh-cn.mdx",
+    "src/content/blog/my-last-goodbye/zh-cn.mdx",
+    "src/content/blog/navigating-contradictions-in-life/zh-cn.mdx",
+    "src/content/blog/one-day-at-a-time/zh-cn.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/zh-cn.mdx",
+    "src/content/blog/pomodoro-tech/zh-cn.mdx",
+    "src/content/blog/pretending-to-be-okay/zh-cn.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/zh-cn.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/zh-cn.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/zh-cn.mdx",
+    "src/content/blog/roadmap-front-end/zh-cn.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/zh-cn.mdx",
+    "src/content/blog/the-art-of-starting-over/zh-cn.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/zh-cn.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/zh-cn.mdx",
+    "src/content/blog/the-problem-is-me/zh-cn.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/zh-cn.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/zh-cn.mdx",
+    "src/content/blog/waking-up-app/zh-cn.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/zh-cn.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/zh-cn.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/zh-cn.mdx",
+    "src/content/blog/why-i-abandoned-social-media/zh-cn.mdx",
+    "src/content/blog/work-travel-cultures-decisions/zh-cn.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/de.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/de.mdx",
+    "src/content/snippets/discord-ollama-bot/de.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/de.mdx",
+    "src/content/snippets/mkcd-bash-function/de.mdx",
+    "src/content/snippets/remove-duplicated/de.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/de.mdx",
+    "src/content/snippets/vscode-config/de.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/en.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/en.mdx",
+    "src/content/snippets/discord-ollama-bot/en.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/en.mdx",
+    "src/content/snippets/mkcd-bash-function/en.mdx",
+    "src/content/snippets/remove-duplicated/en.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/en.mdx",
+    "src/content/snippets/vscode-config/en.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/fr.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/fr.mdx",
+    "src/content/snippets/discord-ollama-bot/fr.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/fr.mdx",
+    "src/content/snippets/mkcd-bash-function/fr.mdx",
+    "src/content/snippets/remove-duplicated/fr.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/fr.mdx",
+    "src/content/snippets/vscode-config/fr.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/ja.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/ja.mdx",
+    "src/content/snippets/discord-ollama-bot/ja.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/ja.mdx",
+    "src/content/snippets/mkcd-bash-function/ja.mdx",
+    "src/content/snippets/remove-duplicated/ja.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/ja.mdx",
+    "src/content/snippets/vscode-config/ja.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/pt-br.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/pt-br.mdx",
+    "src/content/snippets/discord-ollama-bot/pt-br.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/pt-br.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/pt-br.mdx",
+    "src/content/snippets/mkcd-bash-function/pt-br.mdx",
+    "src/content/snippets/remove-duplicated/pt-br.mdx",
+    "src/content/snippets/vscode-config/pt-br.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/zh-cn.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/zh-cn.mdx",
+    "src/content/snippets/discord-ollama-bot/zh-cn.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/zh-cn.mdx",
+    "src/content/snippets/mkcd-bash-function/zh-cn.mdx",
+    "src/content/snippets/remove-duplicated/zh-cn.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/zh-cn.mdx",
+    "src/content/snippets/vscode-config/zh-cn.mdx"
+  ],
+  "migratedFiles": [
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/de.mdx",
+    "src/content/blog/confessing-my-stupidity/de.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/de.mdx",
+    "src/content/blog/dappling/de.mdx",
+    "src/content/blog/disconnected/de.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/de.mdx",
+    "src/content/blog/embracing-feelings-indifference/de.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/de.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/de.mdx",
+    "src/content/blog/i-dont-care/de.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/de.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/de.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/de.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/de.mdx",
+    "src/content/blog/im-proud-of-you/de.mdx",
+    "src/content/blog/my-last-goodbye/de.mdx",
+    "src/content/blog/navigating-contradictions-in-life/de.mdx",
+    "src/content/blog/one-day-at-a-time/de.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/de.mdx",
+    "src/content/blog/pomodoro-tech/de.mdx",
+    "src/content/blog/pretending-to-be-okay/de.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/de.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/de.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/de.mdx",
+    "src/content/blog/roadmap-front-end/de.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/de.mdx",
+    "src/content/blog/the-art-of-starting-over/de.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/de.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/de.mdx",
+    "src/content/blog/the-problem-is-me/de.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/de.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/de.mdx",
+    "src/content/blog/waking-up-app/de.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/de.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/de.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/de.mdx",
+    "src/content/blog/why-i-abandoned-social-media/de.mdx",
+    "src/content/blog/work-travel-cultures-decisions/de.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/en.mdx",
+    "src/content/blog/confessing-my-stupidity/en.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/en.mdx",
+    "src/content/blog/dappling/en.mdx",
+    "src/content/blog/disconnected/en.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/en.mdx",
+    "src/content/blog/embracing-feelings-indifference/en.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/en.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/en.mdx",
+    "src/content/blog/i-dont-care/en.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/en.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/en.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/en.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/en.mdx",
+    "src/content/blog/im-proud-of-you/en.mdx",
+    "src/content/blog/my-last-goodbye/en.mdx",
+    "src/content/blog/navigating-contradictions-in-life/en.mdx",
+    "src/content/blog/one-day-at-a-time/en.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/en.mdx",
+    "src/content/blog/pomodoro-tech/en.mdx",
+    "src/content/blog/pretending-to-be-okay/en.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/en.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/en.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/en.mdx",
+    "src/content/blog/roadmap-front-end/en.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/en.mdx",
+    "src/content/blog/the-art-of-starting-over/en.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/en.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/en.mdx",
+    "src/content/blog/the-problem-is-me/en.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/en.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/en.mdx",
+    "src/content/blog/waking-up-app/en.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/en.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/en.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/en.mdx",
+    "src/content/blog/why-i-abandoned-social-media/en.mdx",
+    "src/content/blog/work-travel-cultures-decisions/en.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/fr.mdx",
+    "src/content/blog/confessing-my-stupidity/fr.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/fr.mdx",
+    "src/content/blog/dappling/fr.mdx",
+    "src/content/blog/disconnected/fr.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/fr.mdx",
+    "src/content/blog/embracing-feelings-indifference/fr.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/fr.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/fr.mdx",
+    "src/content/blog/i-dont-care/fr.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/fr.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/fr.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/fr.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/fr.mdx",
+    "src/content/blog/im-proud-of-you/fr.mdx",
+    "src/content/blog/my-last-goodbye/fr.mdx",
+    "src/content/blog/navigating-contradictions-in-life/fr.mdx",
+    "src/content/blog/one-day-at-a-time/fr.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/fr.mdx",
+    "src/content/blog/pomodoro-tech/fr.mdx",
+    "src/content/blog/pretending-to-be-okay/fr.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/fr.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/fr.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/fr.mdx",
+    "src/content/blog/roadmap-front-end/fr.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/fr.mdx",
+    "src/content/blog/the-art-of-starting-over/fr.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/fr.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/fr.mdx",
+    "src/content/blog/the-problem-is-me/fr.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/fr.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/fr.mdx",
+    "src/content/blog/waking-up-app/fr.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/fr.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/fr.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/fr.mdx",
+    "src/content/blog/why-i-abandoned-social-media/fr.mdx",
+    "src/content/blog/work-travel-cultures-decisions/fr.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/ja.mdx",
+    "src/content/blog/confessing-my-stupidity/ja.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/ja.mdx",
+    "src/content/blog/dappling/ja.mdx",
+    "src/content/blog/disconnected/ja.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/ja.mdx",
+    "src/content/blog/embracing-feelings-indifference/ja.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/ja.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/ja.mdx",
+    "src/content/blog/i-dont-care/ja.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/ja.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/ja.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/ja.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/ja.mdx",
+    "src/content/blog/im-proud-of-you/ja.mdx",
+    "src/content/blog/my-last-goodbye/ja.mdx",
+    "src/content/blog/navigating-contradictions-in-life/ja.mdx",
+    "src/content/blog/one-day-at-a-time/ja.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/ja.mdx",
+    "src/content/blog/pomodoro-tech/ja.mdx",
+    "src/content/blog/pretending-to-be-okay/ja.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/ja.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/ja.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/ja.mdx",
+    "src/content/blog/roadmap-front-end/ja.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/ja.mdx",
+    "src/content/blog/the-art-of-starting-over/ja.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/ja.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/ja.mdx",
+    "src/content/blog/the-problem-is-me/ja.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/ja.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/ja.mdx",
+    "src/content/blog/waking-up-app/ja.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/ja.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/ja.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/ja.mdx",
+    "src/content/blog/why-i-abandoned-social-media/ja.mdx",
+    "src/content/blog/work-travel-cultures-decisions/ja.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/pt-br.mdx",
+    "src/content/blog/confessing-my-stupidity/pt-br.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/pt-br.mdx",
+    "src/content/blog/dappling/pt-br.mdx",
+    "src/content/blog/disconnected/pt-br.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/pt-br.mdx",
+    "src/content/blog/embracing-feelings-indifference/pt-br.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/pt-br.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/pt-br.mdx",
+    "src/content/blog/i-dont-care/pt-br.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/pt-br.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/pt-br.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/pt-br.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/pt-br.mdx",
+    "src/content/blog/im-proud-of-you/pt-br.mdx",
+    "src/content/blog/my-last-goodbye/pt-br.mdx",
+    "src/content/blog/navigating-contradictions-in-life/pt-br.mdx",
+    "src/content/blog/one-day-at-a-time/pt-br.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/pt-br.mdx",
+    "src/content/blog/pomodoro-tech/pt-br.mdx",
+    "src/content/blog/pretending-to-be-okay/pt-br.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/pt-br.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/pt-br.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/pt-br.mdx",
+    "src/content/blog/roadmap-front-end/pt-br.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/pt-br.mdx",
+    "src/content/blog/the-art-of-starting-over/pt-br.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/pt-br.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/pt-br.mdx",
+    "src/content/blog/the-problem-is-me/pt-br.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/pt-br.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/pt-br.mdx",
+    "src/content/blog/waking-up-app/pt-br.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/pt-br.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/pt-br.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/pt-br.mdx",
+    "src/content/blog/why-i-abandoned-social-media/pt-br.mdx",
+    "src/content/blog/work-travel-cultures-decisions/pt-br.mdx",
+    "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti/zh-cn.mdx",
+    "src/content/blog/confessing-my-stupidity/zh-cn.mdx",
+    "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia/zh-cn.mdx",
+    "src/content/blog/dappling/zh-cn.mdx",
+    "src/content/blog/disconnected/zh-cn.mdx",
+    "src/content/blog/echoes-of-a-conflicted-impostor/zh-cn.mdx",
+    "src/content/blog/embracing-feelings-indifference/zh-cn.mdx",
+    "src/content/blog/how-privacy-has-become-increasingly-important/zh-cn.mdx",
+    "src/content/blog/how-to-plan-a-productive-day/zh-cn.mdx",
+    "src/content/blog/i-dont-care/zh-cn.mdx",
+    "src/content/blog/i-think-i-was-born-in-the-wrong-generation/zh-cn.mdx",
+    "src/content/blog/i-was-born-in-the-wrong-generation/zh-cn.mdx",
+    "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die/zh-cn.mdx",
+    "src/content/blog/im-glad-youre-here-dont-go-anywhere/zh-cn.mdx",
+    "src/content/blog/im-proud-of-you/zh-cn.mdx",
+    "src/content/blog/my-last-goodbye/zh-cn.mdx",
+    "src/content/blog/navigating-contradictions-in-life/zh-cn.mdx",
+    "src/content/blog/one-day-at-a-time/zh-cn.mdx",
+    "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active/zh-cn.mdx",
+    "src/content/blog/pomodoro-tech/zh-cn.mdx",
+    "src/content/blog/pretending-to-be-okay/zh-cn.mdx",
+    "src/content/blog/reflections-of-a-conflicted-impostor/zh-cn.mdx",
+    "src/content/blog/reflections-on-solitude-and-superficiality/zh-cn.mdx",
+    "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition/zh-cn.mdx",
+    "src/content/blog/roadmap-front-end/zh-cn.mdx",
+    "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/zh-cn.mdx",
+    "src/content/blog/the-art-of-starting-over/zh-cn.mdx",
+    "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/zh-cn.mdx",
+    "src/content/blog/the-pleasure-of-doing-nothing/zh-cn.mdx",
+    "src/content/blog/the-problem-is-me/zh-cn.mdx",
+    "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude/zh-cn.mdx",
+    "src/content/blog/tools-and-products-that-i-use-everyday/zh-cn.mdx",
+    "src/content/blog/waking-up-app/zh-cn.mdx",
+    "src/content/blog/what-if-everything-goes-wrong/zh-cn.mdx",
+    "src/content/blog/what-is-sql-server-and-sql/zh-cn.mdx",
+    "src/content/blog/when-everything-begins-to-happen-within/zh-cn.mdx",
+    "src/content/blog/why-i-abandoned-social-media/zh-cn.mdx",
+    "src/content/blog/work-travel-cultures-decisions/zh-cn.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/de.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/de.mdx",
+    "src/content/snippets/discord-ollama-bot/de.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/de.mdx",
+    "src/content/snippets/mkcd-bash-function/de.mdx",
+    "src/content/snippets/remove-duplicated/de.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/de.mdx",
+    "src/content/snippets/vscode-config/de.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/en.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/en.mdx",
+    "src/content/snippets/discord-ollama-bot/en.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/en.mdx",
+    "src/content/snippets/mkcd-bash-function/en.mdx",
+    "src/content/snippets/remove-duplicated/en.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/en.mdx",
+    "src/content/snippets/vscode-config/en.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/fr.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/fr.mdx",
+    "src/content/snippets/discord-ollama-bot/fr.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/fr.mdx",
+    "src/content/snippets/mkcd-bash-function/fr.mdx",
+    "src/content/snippets/remove-duplicated/fr.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/fr.mdx",
+    "src/content/snippets/vscode-config/fr.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/ja.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/ja.mdx",
+    "src/content/snippets/discord-ollama-bot/ja.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/ja.mdx",
+    "src/content/snippets/mkcd-bash-function/ja.mdx",
+    "src/content/snippets/remove-duplicated/ja.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/ja.mdx",
+    "src/content/snippets/vscode-config/ja.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/pt-br.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/pt-br.mdx",
+    "src/content/snippets/discord-ollama-bot/pt-br.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/pt-br.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/pt-br.mdx",
+    "src/content/snippets/mkcd-bash-function/pt-br.mdx",
+    "src/content/snippets/remove-duplicated/pt-br.mdx",
+    "src/content/snippets/vscode-config/pt-br.mdx",
+    "src/content/snippets/bitwarden-remove-duplicates/zh-cn.mdx",
+    "src/content/snippets/cloudflare-worker-load-balancer-health-check/zh-cn.mdx",
+    "src/content/snippets/discord-ollama-bot/zh-cn.mdx",
+    "src/content/snippets/mistral-agents-openwebui-pipe/zh-cn.mdx",
+    "src/content/snippets/mkcd-bash-function/zh-cn.mdx",
+    "src/content/snippets/remove-duplicated/zh-cn.mdx",
+    "src/content/snippets/set-linux-cpu-governor-to-schedutil/zh-cn.mdx",
+    "src/content/snippets/vscode-config/zh-cn.mdx"
+  ],
+  "skipped": {
+    "spanish": [
+      "apps/web/src/content/blog/es/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti.mdx",
+      "apps/web/src/content/blog/es/confessing-my-stupidity.mdx",
+      "apps/web/src/content/blog/es/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia.mdx",
+      "apps/web/src/content/blog/es/dAppling.mdx",
+      "apps/web/src/content/blog/es/disconnected.mdx",
+      "apps/web/src/content/blog/es/echoes-of-a-conflicted-impostor.mdx",
+      "apps/web/src/content/blog/es/embracing-feelings-indifference.mdx",
+      "apps/web/src/content/blog/es/how-privacy-has-become-increasingly-important.mdx",
+      "apps/web/src/content/blog/es/how-to-plan-a-productive-day.mdx",
+      "apps/web/src/content/blog/es/i-dont-care.mdx",
+      "apps/web/src/content/blog/es/i-think-i-was-born-in-the-wrong-generation.mdx",
+      "apps/web/src/content/blog/es/i-was-born-in-the-wrong-generation.mdx",
+      "apps/web/src/content/blog/es/i-would-like-to-die-but-i-dont-want-to-die.mdx",
+      "apps/web/src/content/blog/es/im-glad-youre-here-dont-go-anywhere.mdx",
+      "apps/web/src/content/blog/es/im-proud-of-you.mdx",
+      "apps/web/src/content/blog/es/my-last-goodbye.mdx",
+      "apps/web/src/content/blog/es/navigating-contradictions-in-life.mdx",
+      "apps/web/src/content/blog/es/one-day-at-a-time.mdx",
+      "apps/web/src/content/blog/es/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active.mdx",
+      "apps/web/src/content/blog/es/pomodoro-tech.mdx",
+      "apps/web/src/content/blog/es/pretending-to-be-okay.mdx",
+      "apps/web/src/content/blog/es/reflections-of-a-conflicted-impostor.mdx",
+      "apps/web/src/content/blog/es/reflections-on-solitude-and-superficiality.mdx",
+      "apps/web/src/content/blog/es/reflections-on-the-fear-of-failure-and-seeking-recognition.mdx",
+      "apps/web/src/content/blog/es/roadmap-front-end.mdx",
+      "apps/web/src/content/blog/es/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "apps/web/src/content/blog/es/the-art-of-starting-over.mdx",
+      "apps/web/src/content/blog/es/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business.mdx",
+      "apps/web/src/content/blog/es/the-pleasure-of-doing-nothing.mdx",
+      "apps/web/src/content/blog/es/the-problem-is-me.mdx",
+      "apps/web/src/content/blog/es/the-unconventional-bonds-of-friendship-and-solitude.mdx",
+      "apps/web/src/content/blog/es/tools-and-products-that-i-use-everyday.mdx",
+      "apps/web/src/content/blog/es/waking-up-app.mdx",
+      "apps/web/src/content/blog/es/what-if-everything-goes-wrong.mdx",
+      "apps/web/src/content/blog/es/what-is-sql-server-and-sql.mdx",
+      "apps/web/src/content/blog/es/when-everything-begins-to-happen-within.mdx",
+      "apps/web/src/content/blog/es/why-i-abandoned-social-media.mdx",
+      "apps/web/src/content/blog/es/work-travel-cultures-decisions.mdx",
+      "apps/web/src/content/snippet/es/bitwarden-remove-duplicates.mdx",
+      "apps/web/src/content/snippet/es/cloudflare-worker-load-balancer-health-check.mdx",
+      "apps/web/src/content/snippet/es/discord-ollama-bot.mdx",
+      "apps/web/src/content/snippet/es/mistral-agents-openwebui-pipe.mdx",
+      "apps/web/src/content/snippet/es/mkcd-bash-function.mdx",
+      "apps/web/src/content/snippet/es/remove-duplicated.mdx",
+      "apps/web/src/content/snippet/es/set-linux-cpu-governor-to-schedutil.mdx",
+      "apps/web/src/content/snippet/es/vscode-config.mdx"
+    ],
+    "existing": [],
+    "manualReview": []
+  },
+  "emptyDirectories": {
+    "eligibleForRemoval": [
+      "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti",
+      "src/content/blog/confessing-my-stupidity",
+      "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia",
+      "src/content/blog/d-appling",
+      "src/content/blog/disconnected",
+      "src/content/blog/echoes-of-a-conflicted-impostor",
+      "src/content/blog/embracing-feelings-indifference",
+      "src/content/blog/how-privacy-has-become-increasingly-important",
+      "src/content/blog/how-to-plan-a-productive-day",
+      "src/content/blog/i-dont-care",
+      "src/content/blog/i-think-i-was-born-in-the-wrong-generation",
+      "src/content/blog/i-was-born-in-the-wrong-generation",
+      "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die",
+      "src/content/blog/im-glad-youre-here-dont-go-anywhere",
+      "src/content/blog/im-proud-of-you",
+      "src/content/blog/my-last-goodbye",
+      "src/content/blog/navigating-contradictions-in-life",
+      "src/content/blog/one-day-at-a-time",
+      "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active",
+      "src/content/blog/pomodoro-tech",
+      "src/content/blog/pretending-to-be-okay",
+      "src/content/blog/reflections-of-a-conflicted-impostor",
+      "src/content/blog/reflections-on-solitude-and-superficiality",
+      "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition",
+      "src/content/blog/roadmap-front-end",
+      "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt",
+      "src/content/blog/the-art-of-starting-over",
+      "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business",
+      "src/content/blog/the-pleasure-of-doing-nothing",
+      "src/content/blog/the-problem-is-me",
+      "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude",
+      "src/content/blog/tools-and-products-that-i-use-everyday",
+      "src/content/blog/waking-up-app",
+      "src/content/blog/what-if-everything-goes-wrong",
+      "src/content/blog/what-is-sql-server-and-sql",
+      "src/content/blog/when-everything-begins-to-happen-within",
+      "src/content/blog/why-i-abandoned-social-media",
+      "src/content/blog/work-travel-cultures-decisions",
+      "src/content/snippets/bitwarden-remove-duplicates",
+      "src/content/snippets/cloudflare-worker-load-balancer-health-check",
+      "src/content/snippets/discord-ollama-bot",
+      "src/content/snippets/mistral-agents-openwebui-pipe",
+      "src/content/snippets/mkcd-bash-function",
+      "src/content/snippets/remove-duplicated",
+      "src/content/snippets/set-linux-cpu-governor-to-schedutil",
+      "src/content/snippets/vscode-config"
+    ],
+    "removed": [
+      "src/content/blog/coisas-que-eu-gostaria-que-tivessem-me-dito-quando-entrei-na-faculdade-de-ti",
+      "src/content/blog/confessing-my-stupidity",
+      "src/content/blog/conselhos-que-eu-gostaria-de-ter-ouvido-quando-comecei-na-tecnologia",
+      "src/content/blog/d-appling",
+      "src/content/blog/disconnected",
+      "src/content/blog/echoes-of-a-conflicted-impostor",
+      "src/content/blog/embracing-feelings-indifference",
+      "src/content/blog/how-privacy-has-become-increasingly-important",
+      "src/content/blog/how-to-plan-a-productive-day",
+      "src/content/blog/i-dont-care",
+      "src/content/blog/i-think-i-was-born-in-the-wrong-generation",
+      "src/content/blog/i-was-born-in-the-wrong-generation",
+      "src/content/blog/i-would-like-to-die-but-i-dont-want-to-die",
+      "src/content/blog/im-glad-youre-here-dont-go-anywhere",
+      "src/content/blog/im-proud-of-you",
+      "src/content/blog/my-last-goodbye",
+      "src/content/blog/navigating-contradictions-in-life",
+      "src/content/blog/one-day-at-a-time",
+      "src/content/blog/one-month-after-leaving-the-internet-and-leaving-everyone-believing-im-still-active",
+      "src/content/blog/pomodoro-tech",
+      "src/content/blog/pretending-to-be-okay",
+      "src/content/blog/reflections-of-a-conflicted-impostor",
+      "src/content/blog/reflections-on-solitude-and-superficiality",
+      "src/content/blog/reflections-on-the-fear-of-failure-and-seeking-recognition",
+      "src/content/blog/roadmap-front-end",
+      "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt",
+      "src/content/blog/the-art-of-starting-over",
+      "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business",
+      "src/content/blog/the-pleasure-of-doing-nothing",
+      "src/content/blog/the-problem-is-me",
+      "src/content/blog/the-unconventional-bonds-of-friendship-and-solitude",
+      "src/content/blog/tools-and-products-that-i-use-everyday",
+      "src/content/blog/waking-up-app",
+      "src/content/blog/what-if-everything-goes-wrong",
+      "src/content/blog/what-is-sql-server-and-sql",
+      "src/content/blog/when-everything-begins-to-happen-within",
+      "src/content/blog/why-i-abandoned-social-media",
+      "src/content/blog/work-travel-cultures-decisions",
+      "src/content/snippets/bitwarden-remove-duplicates",
+      "src/content/snippets/cloudflare-worker-load-balancer-health-check",
+      "src/content/snippets/discord-ollama-bot",
+      "src/content/snippets/mistral-agents-openwebui-pipe",
+      "src/content/snippets/mkcd-bash-function",
+      "src/content/snippets/remove-duplicated",
+      "src/content/snippets/set-linux-cpu-governor-to-schedutil",
+      "src/content/snippets/vscode-config"
+    ],
+    "retained": []
+  },
+  "calloutsConverted": [
+    {
+      "sourcePath": "apps/web/src/content/snippet/de/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/de.mdx",
+      "count": 2
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/de/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/de.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/de/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/de.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/de/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/de.mdx",
+      "count": 2
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/en.mdx",
+      "count": 2
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/en.mdx",
+      "count": 3
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/fr.mdx",
+      "count": 2
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/fr.mdx",
+      "count": 3
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/ja.mdx",
+      "count": 2
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/ja.mdx",
+      "count": 3
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/pt-br.mdx",
+      "count": 2
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/pt-br.mdx",
+      "count": 3
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/zh-cn.mdx",
+      "count": 2
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/zh-cn.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/zh-cn.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/zh-cn.mdx",
+      "count": 3
+    }
+  ],
+  "moreMarkersRemoved": [
+    {
+      "sourcePath": "apps/web/src/content/snippet/de/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/de.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/de/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/de.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/de/mkcd-bash-function.mdx",
+      "destinationPath": "src/content/snippets/mkcd-bash-function/de.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/de/remove-duplicated.mdx",
+      "destinationPath": "src/content/snippets/remove-duplicated/de.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/de/set-linux-cpu-governor-to-schedutil.mdx",
+      "destinationPath": "src/content/snippets/set-linux-cpu-governor-to-schedutil/de.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/cloudflare-worker-load-balancer-health-check.mdx",
+      "destinationPath": "src/content/snippets/cloudflare-worker-load-balancer-health-check/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/mkcd-bash-function.mdx",
+      "destinationPath": "src/content/snippets/mkcd-bash-function/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/remove-duplicated.mdx",
+      "destinationPath": "src/content/snippets/remove-duplicated/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/set-linux-cpu-governor-to-schedutil.mdx",
+      "destinationPath": "src/content/snippets/set-linux-cpu-governor-to-schedutil/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/en/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/en.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/cloudflare-worker-load-balancer-health-check.mdx",
+      "destinationPath": "src/content/snippets/cloudflare-worker-load-balancer-health-check/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/mkcd-bash-function.mdx",
+      "destinationPath": "src/content/snippets/mkcd-bash-function/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/remove-duplicated.mdx",
+      "destinationPath": "src/content/snippets/remove-duplicated/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/set-linux-cpu-governor-to-schedutil.mdx",
+      "destinationPath": "src/content/snippets/set-linux-cpu-governor-to-schedutil/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/fr/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/fr.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/cloudflare-worker-load-balancer-health-check.mdx",
+      "destinationPath": "src/content/snippets/cloudflare-worker-load-balancer-health-check/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/mkcd-bash-function.mdx",
+      "destinationPath": "src/content/snippets/mkcd-bash-function/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/remove-duplicated.mdx",
+      "destinationPath": "src/content/snippets/remove-duplicated/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/set-linux-cpu-governor-to-schedutil.mdx",
+      "destinationPath": "src/content/snippets/set-linux-cpu-governor-to-schedutil/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/ja.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/cloudflare-worker-load-balancer-health-check.mdx",
+      "destinationPath": "src/content/snippets/cloudflare-worker-load-balancer-health-check/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/linux-cpu-governor-schedutil.mdx",
+      "destinationPath": "src/content/snippets/set-linux-cpu-governor-to-schedutil/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/mkcd-bash-function.mdx",
+      "destinationPath": "src/content/snippets/mkcd-bash-function/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/remove-duplicated.mdx",
+      "destinationPath": "src/content/snippets/remove-duplicated/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/bitwarden-remove-duplicates.mdx",
+      "destinationPath": "src/content/snippets/bitwarden-remove-duplicates/zh-cn.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/cloudflare-worker-load-balancer-health-check.mdx",
+      "destinationPath": "src/content/snippets/cloudflare-worker-load-balancer-health-check/zh-cn.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/discord-ollama-bot.mdx",
+      "destinationPath": "src/content/snippets/discord-ollama-bot/zh-cn.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/mistral-agents-openwebui-pipe.mdx",
+      "destinationPath": "src/content/snippets/mistral-agents-openwebui-pipe/zh-cn.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/mkcd-bash-function.mdx",
+      "destinationPath": "src/content/snippets/mkcd-bash-function/zh-cn.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/remove-duplicated.mdx",
+      "destinationPath": "src/content/snippets/remove-duplicated/zh-cn.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/set-linux-cpu-governor-to-schedutil.mdx",
+      "destinationPath": "src/content/snippets/set-linux-cpu-governor-to-schedutil/zh-cn.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/zh-CN/vscode-config.mdx",
+      "destinationPath": "src/content/snippets/vscode-config/zh-cn.mdx",
+      "count": 1
+    }
+  ],
+  "markdownHardBreaksNormalized": [
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/i-was-born-in-the-wrong-generation.mdx",
+      "destinationPath": "src/content/blog/i-was-born-in-the-wrong-generation/pt-br.mdx",
+      "count": 1
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/roadmap-front-end.mdx",
+      "destinationPath": "src/content/blog/roadmap-front-end/pt-br.mdx",
+      "count": 6
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business.mdx",
+      "destinationPath": "src/content/blog/the-latest-trends-in-artificial-intelligence-and-their-impact-on-business/pt-br.mdx",
+      "count": 6
+    }
+  ],
+  "assets": [
+    {
+      "sourcePath": "apps/web/public/images/blog/i-dont-care/lonely-in-park.jpg",
+      "destinationPath": "public/images/blog/i-dont-care/lonely-in-park.jpg",
+      "oldReferences": [
+        "https://yuricunha.com/static/images/blog/i-dont-care/lonely-in-park.jpg"
+      ],
+      "newReference": "/images/blog/i-dont-care/lonely-in-park.jpg",
+      "referencingFiles": [
+        "apps/web/src/content/blog/de/i-dont-care.mdx",
+        "apps/web/src/content/blog/en/i-dont-care.mdx",
+        "apps/web/src/content/blog/fr/i-dont-care.mdx",
+        "apps/web/src/content/blog/ja/i-dont-care.mdx",
+        "apps/web/src/content/blog/pt/i-dont-care.mdx",
+        "apps/web/src/content/blog/zh-CN/i-dont-care.mdx"
+      ],
+      "status": "copied"
+    },
+    {
+      "sourcePath": "apps/web/public/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg",
+      "destinationPath": "public/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg",
+      "oldReferences": [
+        "/static/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg"
+      ],
+      "newReference": "/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg",
+      "referencingFiles": [
+        "apps/web/src/content/blog/de/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+        "apps/web/src/content/blog/en/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+        "apps/web/src/content/blog/fr/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+        "apps/web/src/content/blog/ja/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+        "apps/web/src/content/blog/zh-CN/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx"
+      ],
+      "status": "copied"
+    }
+  ],
+  "legacyLinks": [
+    {
+      "sourcePath": "apps/web/src/content/blog/de/echoes-of-a-conflicted-impostor.mdx",
+      "line": 2,
+      "kind": "link",
+      "value": "https://yuricunha.com/blog/reflections-of-a-conflicted-impostor",
+      "suggestion": "Review whether this should use a locale-aware internal blog route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/de/i-dont-care.mdx",
+      "line": 106,
+      "kind": "image",
+      "value": "https://yuricunha.com/static/images/blog/i-dont-care/lonely-in-park.jpg",
+      "suggestion": "/images/blog/i-dont-care/lonely-in-park.jpg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/de/reflections-on-solitude-and-superficiality.mdx",
+      "line": 52,
+      "kind": "link",
+      "value": "yuricunha.com",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/de/reflections-on-solitude-and-superficiality.mdx",
+      "line": 52,
+      "kind": "link",
+      "value": "yuricunha.com/blog",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/de/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "line": 22,
+      "kind": "image",
+      "value": "/static/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg",
+      "suggestion": "/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/echoes-of-a-conflicted-impostor.mdx",
+      "line": 2,
+      "kind": "link",
+      "value": "https://yuricunha.com/blog/reflections-of-a-conflicted-impostor",
+      "suggestion": "Review whether this should use a locale-aware internal blog route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/i-dont-care.mdx",
+      "line": 102,
+      "kind": "image",
+      "value": "https://yuricunha.com/static/images/blog/i-dont-care/lonely-in-park.jpg",
+      "suggestion": "/images/blog/i-dont-care/lonely-in-park.jpg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/reflections-on-solitude-and-superficiality.mdx",
+      "line": 54,
+      "kind": "link",
+      "value": "yuricunha.com",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/reflections-on-solitude-and-superficiality.mdx",
+      "line": 54,
+      "kind": "link",
+      "value": "yuricunha.com/blog",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "line": 24,
+      "kind": "image",
+      "value": "/static/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg",
+      "suggestion": "/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/echoes-of-a-conflicted-impostor.mdx",
+      "line": 2,
+      "kind": "link",
+      "value": "https://yuricunha.com/blog/reflections-of-a-conflicted-impostor",
+      "suggestion": "Review whether this should use a locale-aware internal blog route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/i-dont-care.mdx",
+      "line": 100,
+      "kind": "image",
+      "value": "https://yuricunha.com/static/images/blog/i-dont-care/lonely-in-park.jpg",
+      "suggestion": "/images/blog/i-dont-care/lonely-in-park.jpg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/reflections-on-solitude-and-superficiality.mdx",
+      "line": 52,
+      "kind": "link",
+      "value": "yuricunha.com",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/reflections-on-solitude-and-superficiality.mdx",
+      "line": 52,
+      "kind": "link",
+      "value": "yuricunha.com/blog",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "line": 22,
+      "kind": "image",
+      "value": "/static/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg",
+      "suggestion": "/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/i-dont-care.mdx",
+      "line": 106,
+      "kind": "image",
+      "value": "https://yuricunha.com/static/images/blog/i-dont-care/lonely-in-park.jpg",
+      "suggestion": "/images/blog/i-dont-care/lonely-in-park.jpg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/reflections-on-solitude-and-superficiality.mdx",
+      "line": 52,
+      "kind": "link",
+      "value": "yuricunha.com",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/reflections-on-solitude-and-superficiality.mdx",
+      "line": 52,
+      "kind": "link",
+      "value": "yuricunha.com/blog",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "line": 22,
+      "kind": "image",
+      "value": "/static/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg",
+      "suggestion": "/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/echoes-of-a-conflicted-impostor.mdx",
+      "line": 2,
+      "kind": "link",
+      "value": "https://yuricunha.com/blog/reflections-of-a-conflicted-impostor",
+      "suggestion": "Review whether this should use a locale-aware internal blog route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/i-dont-care.mdx",
+      "line": 112,
+      "kind": "image",
+      "value": "https://yuricunha.com/static/images/blog/i-dont-care/lonely-in-park.jpg",
+      "suggestion": "/images/blog/i-dont-care/lonely-in-park.jpg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/reflections-on-solitude-and-superficiality.mdx",
+      "line": 54,
+      "kind": "link",
+      "value": "https://yuricunha.com",
+      "suggestion": "Review whether this should use the site root route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/reflections-on-solitude-and-superficiality.mdx",
+      "line": 54,
+      "kind": "link",
+      "value": "https://yuricunha.com/blog",
+      "suggestion": "Review whether this should use the locale-aware blog index route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/echoes-of-a-conflicted-impostor.mdx",
+      "line": 2,
+      "kind": "link",
+      "value": "https://yuricunha.com/blog/reflections-of-a-conflicted-impostor",
+      "suggestion": "Review whether this should use a locale-aware internal blog route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/i-dont-care.mdx",
+      "line": 106,
+      "kind": "image",
+      "value": "https://yuricunha.com/static/images/blog/i-dont-care/lonely-in-park.jpg",
+      "suggestion": "/images/blog/i-dont-care/lonely-in-park.jpg"
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/reflections-on-solitude-and-superficiality.mdx",
+      "line": 52,
+      "kind": "link",
+      "value": "yuricunha.com",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/reflections-on-solitude-and-superficiality.mdx",
+      "line": 52,
+      "kind": "link",
+      "value": "yuricunha.com/blog",
+      "suggestion": "Add a protocol or replace with a locale-aware internal route."
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "line": 22,
+      "kind": "image",
+      "value": "/static/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg",
+      "suggestion": "/images/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/graphic.jpeg"
+    }
+  ],
+  "slugCorrections": [
+    {
+      "collection": "blog",
+      "sourceSlug": "dAppling",
+      "targetSlug": "dappling",
+      "sourcePath": "apps/web/src/content/blog/de/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/de.mdx"
+    },
+    {
+      "collection": "blog",
+      "sourceSlug": "dAppling",
+      "targetSlug": "dappling",
+      "sourcePath": "apps/web/src/content/blog/en/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/en.mdx"
+    },
+    {
+      "collection": "blog",
+      "sourceSlug": "dAppling",
+      "targetSlug": "dappling",
+      "sourcePath": "apps/web/src/content/blog/fr/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/fr.mdx"
+    },
+    {
+      "collection": "blog",
+      "sourceSlug": "dAppling",
+      "targetSlug": "dappling",
+      "sourcePath": "apps/web/src/content/blog/ja/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/ja.mdx"
+    },
+    {
+      "collection": "blog",
+      "sourceSlug": "dAppling",
+      "targetSlug": "dappling",
+      "sourcePath": "apps/web/src/content/blog/pt/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/pt-br.mdx"
+    },
+    {
+      "collection": "blog",
+      "sourceSlug": "dAppling",
+      "targetSlug": "dappling",
+      "sourcePath": "apps/web/src/content/blog/zh-CN/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/zh-cn.mdx"
+    },
+    {
+      "collection": "snippets",
+      "sourceSlug": "linux-cpu-governor-schedutil",
+      "targetSlug": "set-linux-cpu-governor-to-schedutil",
+      "sourcePath": "apps/web/src/content/snippet/pt/linux-cpu-governor-schedutil.mdx",
+      "destinationPath": "src/content/snippets/set-linux-cpu-governor-to-schedutil/pt-br.mdx"
+    }
+  ],
+  "snippetTaxonomy": [
+    {
+      "slug": "bitwarden-remove-duplicates",
+      "category": "security",
+      "stack": [
+        "Bitwarden",
+        "Python"
+      ]
+    },
+    {
+      "slug": "cloudflare-worker-load-balancer-health-check",
+      "category": "infrastructure",
+      "stack": [
+        "Cloudflare",
+        "Cloudflare Workers",
+        "JavaScript"
+      ]
+    },
+    {
+      "slug": "discord-ollama-bot",
+      "category": "automation",
+      "stack": [
+        "Discord",
+        "Ollama",
+        "SQLite",
+        "Python"
+      ]
+    },
+    {
+      "slug": "mistral-agents-openwebui-pipe",
+      "category": "ai",
+      "stack": [
+        "Mistral",
+        "Open WebUI",
+        "Python"
+      ]
+    },
+    {
+      "slug": "mkcd-bash-function",
+      "category": "linux",
+      "stack": [
+        "Bash",
+        "Linux"
+      ]
+    },
+    {
+      "slug": "remove-duplicated",
+      "category": "programming",
+      "stack": [
+        "JavaScript"
+      ]
+    },
+    {
+      "slug": "set-linux-cpu-governor-to-schedutil",
+      "category": "linux",
+      "stack": [
+        "systemd",
+        "Linux"
+      ]
+    },
+    {
+      "slug": "vscode-config",
+      "category": "tooling",
+      "stack": [
+        "VS Code"
+      ]
+    }
+  ],
+  "uncategorized": [],
+  "needsManualReview": [
+    {
+      "sourcePath": "apps/web/src/content/blog/de/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/de.mdx",
+      "reasons": [
+        "The legacy mixed-case slug was normalized to \"dappling\"."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/de/echoes-of-a-conflicted-impostor.mdx",
+      "destinationPath": "src/content/blog/echoes-of-a-conflicted-impostor/de.mdx",
+      "reasons": [
+        "Review absolute links to the previous website and localized route behavior."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/de/i-dont-care.mdx",
+      "destinationPath": "src/content/blog/i-dont-care/de.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/de/reflections-on-solitude-and-superficiality.mdx",
+      "destinationPath": "src/content/blog/reflections-on-solitude-and-superficiality/de.mdx",
+      "reasons": [
+        "Review internal links and protocol-less URLs from the previous website."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/de/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "destinationPath": "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/de.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/de/what-is-sql-server-and-sql.mdx",
+      "destinationPath": "src/content/blog/what-is-sql-server-and-sql/de.mdx",
+      "reasons": [
+        "The German article contains malformed nested code fences that render content incorrectly."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/en.mdx",
+      "reasons": [
+        "The legacy mixed-case slug was normalized to \"dappling\"."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/echoes-of-a-conflicted-impostor.mdx",
+      "destinationPath": "src/content/blog/echoes-of-a-conflicted-impostor/en.mdx",
+      "reasons": [
+        "Review absolute links to the previous website and localized route behavior."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/i-dont-care.mdx",
+      "destinationPath": "src/content/blog/i-dont-care/en.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/reflections-on-solitude-and-superficiality.mdx",
+      "destinationPath": "src/content/blog/reflections-on-solitude-and-superficiality/en.mdx",
+      "reasons": [
+        "Review internal links and protocol-less URLs from the previous website."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/en/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "destinationPath": "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/en.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/fr.mdx",
+      "reasons": [
+        "The legacy mixed-case slug was normalized to \"dappling\"."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/echoes-of-a-conflicted-impostor.mdx",
+      "destinationPath": "src/content/blog/echoes-of-a-conflicted-impostor/fr.mdx",
+      "reasons": [
+        "Review absolute links to the previous website and localized route behavior."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/i-dont-care.mdx",
+      "destinationPath": "src/content/blog/i-dont-care/fr.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/reflections-on-solitude-and-superficiality.mdx",
+      "destinationPath": "src/content/blog/reflections-on-solitude-and-superficiality/fr.mdx",
+      "reasons": [
+        "Review internal links and protocol-less URLs from the previous website."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/fr/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "destinationPath": "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/fr.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/ja.mdx",
+      "reasons": [
+        "The legacy mixed-case slug was normalized to \"dappling\"."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/echoes-of-a-conflicted-impostor.mdx",
+      "destinationPath": "src/content/blog/echoes-of-a-conflicted-impostor/ja.mdx",
+      "reasons": [
+        "Review absolute links to the previous website and localized route behavior."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/i-dont-care.mdx",
+      "destinationPath": "src/content/blog/i-dont-care/ja.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/reflections-on-solitude-and-superficiality.mdx",
+      "destinationPath": "src/content/blog/reflections-on-solitude-and-superficiality/ja.mdx",
+      "reasons": [
+        "Review internal links and protocol-less URLs from the previous website."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/roadmap-front-end.mdx",
+      "destinationPath": "src/content/blog/roadmap-front-end/ja.mdx",
+      "reasons": [
+        "The Japanese body contains a translation-tool response instead of the article."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/ja/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "destinationPath": "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/ja.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/pt-br.mdx",
+      "reasons": [
+        "The legacy mixed-case slug was normalized to \"dappling\"."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/echoes-of-a-conflicted-impostor.mdx",
+      "destinationPath": "src/content/blog/echoes-of-a-conflicted-impostor/pt-br.mdx",
+      "reasons": [
+        "Review absolute links to the previous website and localized route behavior."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/i-dont-care.mdx",
+      "destinationPath": "src/content/blog/i-dont-care/pt-br.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/reflections-on-solitude-and-superficiality.mdx",
+      "destinationPath": "src/content/blog/reflections-on-solitude-and-superficiality/pt-br.mdx",
+      "reasons": [
+        "Review internal links and protocol-less URLs from the previous website."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/pt/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "destinationPath": "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/pt-br.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/dAppling.mdx",
+      "destinationPath": "src/content/blog/dappling/zh-cn.mdx",
+      "reasons": [
+        "The legacy mixed-case slug was normalized to \"dappling\"."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/echoes-of-a-conflicted-impostor.mdx",
+      "destinationPath": "src/content/blog/echoes-of-a-conflicted-impostor/zh-cn.mdx",
+      "reasons": [
+        "Review absolute links to the previous website and localized route behavior."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/i-dont-care.mdx",
+      "destinationPath": "src/content/blog/i-dont-care/zh-cn.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/reflections-on-solitude-and-superficiality.mdx",
+      "destinationPath": "src/content/blog/reflections-on-solitude-and-superficiality/zh-cn.mdx",
+      "reasons": [
+        "Review internal links and protocol-less URLs from the previous website."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/blog/zh-CN/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt.mdx",
+      "destinationPath": "src/content/blog/sometimes-humans-just-need-to-sit-in-one-place-and-like-hurt/zh-cn.mdx",
+      "reasons": [
+        "The article references a legacy image path; verify the copied asset and rendered image."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/ja/cloudflare-worker-load-balancer-health-check.mdx",
+      "destinationPath": "src/content/snippets/cloudflare-worker-load-balancer-health-check/ja.mdx",
+      "reasons": [
+        "The Japanese snippet contains repeated and nested code fences that require manual repair."
+      ]
+    },
+    {
+      "sourcePath": "apps/web/src/content/snippet/pt/linux-cpu-governor-schedutil.mdx",
+      "destinationPath": "src/content/snippets/set-linux-cpu-governor-to-schedutil/pt-br.mdx",
+      "reasons": [
+        "The Portuguese slug was aligned with \"set-linux-cpu-governor-to-schedutil\"."
+      ]
+    }
+  ],
+  "warnings": [],
+  "errors": []
+}

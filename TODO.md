@@ -179,3 +179,12 @@
 - [x] Convert legacy Callouts and markers without adding React or dependencies.
 - [x] Report source changes, assets, links, slug corrections, and manual reviews.
 - [x] Add focused migration tests and run all validation gates.
+
+## Milestone 25 - Legacy blog and snippet migration
+
+- [x] Remove only the 46 confirmed empty directories from the reverted attempt.
+- [x] Migrate 228 blog files and 48 snippet files without overwriting content.
+- [x] Skip all 46 Spanish files and preserve the six supported locales.
+- [x] Copy the two referenced legacy assets and normalize their public paths.
+- [x] Commit the audit report with links, source changes, and manual-review cases.
+- [x] Run lint, tests, build, content validation, and diff checks.
