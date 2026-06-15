@@ -68,20 +68,36 @@ const { items, dictionary } = Astro.props;
 <style>
   .project-list {
     display: grid;
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid rgb(255 255 255 / 5.5%);
   }
 
   article {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: 3rem minmax(0, 1fr) auto;
     gap: 1.5rem;
     padding: 2rem 0;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid rgb(255 255 255 / 5.5%);
     transition: border-color 180ms ease;
   }
 
+  article::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(199 119 31 / 2.4%), transparent 58%);
+    content: "";
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
   article:hover {
-    border-color: rgb(199 119 31 / 34%);
+    border-color: rgb(199 119 31 / 22%);
+  }
+
+  article:hover::before {
+    opacity: 1;
   }
 
   .project-number,
@@ -118,7 +134,7 @@ const { items, dictionary } = Astro.props;
   }
 
   .project-title:hover h2 {
-    color: var(--color-accent-bright);
+    color: rgb(235 181 88);
   }
 
   .project-main > p {
@@ -156,8 +172,8 @@ const { items, dictionary } = Astro.props;
     width: 0.35rem;
     height: 0.35rem;
     border-radius: 50%;
-    background: var(--color-accent);
-    box-shadow: 0 0 0.75rem var(--color-accent-glow);
+    background: rgb(199 119 31 / 92%);
+    box-shadow: 0 0 0.7rem rgb(199 119 31 / 16%);
   }
 
   .project-side :global(a) {

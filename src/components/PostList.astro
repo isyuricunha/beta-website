@@ -48,17 +48,33 @@ const { items, locale, dictionary, compact = false } = Astro.props;
 <style>
   .post-list {
     display: grid;
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid rgb(255 255 255 / 5.5%);
   }
 
   article {
+    position: relative;
+    isolation: isolate;
     padding: 2rem 0;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid rgb(255 255 255 / 5.5%);
     transition: border-color 180ms ease;
   }
 
+  article::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(199 119 31 / 2.6%), transparent 58%);
+    content: "";
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
   article:hover {
-    border-color: rgb(199 119 31 / 34%);
+    border-color: rgb(199 119 31 / 22%);
+  }
+
+  article:hover::before {
+    opacity: 1;
   }
 
   .post-title {
@@ -84,7 +100,7 @@ const { items, locale, dictionary, compact = false } = Astro.props;
 
   .post-title:hover .marker {
     background: var(--color-accent);
-    box-shadow: 0 0 1rem var(--color-accent-glow);
+    box-shadow: 0 0 0.85rem rgb(199 119 31 / 18%);
   }
 
   small {
@@ -107,7 +123,7 @@ const { items, locale, dictionary, compact = false } = Astro.props;
   }
 
   .post-title:hover h2 {
-    color: var(--color-accent-bright);
+    color: rgb(235 181 88);
   }
 
   p {
@@ -132,8 +148,8 @@ const { items, locale, dictionary, compact = false } = Astro.props;
   }
 
   .post-title:hover svg {
-    transform: translateX(0.25rem);
-    stroke: var(--color-accent-bright);
+    transform: translateX(0.18rem);
+    stroke: rgb(224 161 58 / 84%);
   }
 
   .compact article {

@@ -70,3 +70,10 @@
 - [x] Replace the home section title with a more personal editorial label.
 - [x] Refine the header, hero statement card, and footer note.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 11 - Archive row micro-polish
+
+- [x] Soften archive row dividers and hover treatments.
+- [x] Refine title, arrow, tag, and metadata microinteractions.
+- [x] Preserve the existing list structure and content.
+- [x] Run lint, tests, build, and content validation.

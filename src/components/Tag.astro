@@ -14,12 +14,16 @@ const { label } = Astro.props;
     min-height: 1.5rem;
     align-items: center;
     padding: 0.2rem 0.5rem;
-    border: 1px solid rgb(255 255 255 / 8%);
+    border: 1px solid rgb(255 255 255 / 6%);
     border-radius: 999px;
-    color: var(--color-text-faint);
+    background: rgb(255 255 255 / 1.5%);
+    color: rgb(161 161 170 / 74%);
     font-family: var(--font-jetbrains-mono), monospace;
     font-size: 0.59rem;
     font-weight: 400;
     letter-spacing: 0.015em;
+    transition:
+      border-color 160ms ease,
+      color 160ms ease;
   }
 </style>

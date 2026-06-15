@@ -45,20 +45,36 @@ const { items, locale, dictionary, compact = false } = Astro.props;
 <style>
   .snippet-list {
     display: grid;
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid rgb(255 255 255 / 5.5%);
   }
 
   article {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
     gap: 1.25rem 2rem;
     padding: 2rem 0;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid rgb(255 255 255 / 5.5%);
     transition: border-color 180ms ease;
   }
 
+  article::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(90deg, rgb(199 119 31 / 2.4%), transparent 58%);
+    content: "";
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
   article:hover {
-    border-color: rgb(199 119 31 / 34%);
+    border-color: rgb(199 119 31 / 22%);
+  }
+
+  article:hover::before {
+    opacity: 1;
   }
 
   .snippet-label {
@@ -71,7 +87,7 @@ const { items, locale, dictionary, compact = false } = Astro.props;
 
   .snippet-label > span {
     width: 100%;
-    color: var(--color-accent);
+    color: rgb(199 119 31 / 86%);
     font-family: var(--font-jetbrains-mono), monospace;
     font-size: 0.65rem;
     letter-spacing: 0.05em;
@@ -102,7 +118,7 @@ const { items, locale, dictionary, compact = false } = Astro.props;
   }
 
   a:hover h2 {
-    color: var(--color-accent-bright);
+    color: rgb(235 181 88);
   }
 
   a p {
