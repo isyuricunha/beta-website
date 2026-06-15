@@ -58,6 +58,7 @@ export type Dictionary = {
     titleHighlight: string;
     description: string;
     statement: string;
+    statementHighlight: string;
     statementDetail: string;
     exploreTitle: string;
     exploreDescription: string;

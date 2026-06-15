@@ -48,6 +48,7 @@ export const en = {
     description:
       "Software, self-hosting, privacy, automation, and small useful things. This is where I keep the work and the thinking behind it.",
     statement: "Digital freedom is not default.",
+    statementHighlight: "freedom",
     statementDetail:
       "It is built through deliberate tools, understandable systems, and the choice to own more of our digital lives.",
     exploreTitle: "A small archive, kept on purpose.",

@@ -48,6 +48,7 @@ export const zhCn = {
     description:
       "软件、自托管、隐私、自动化，以及小而实用的东西。这里保存我的工作，也保存它背后的思考。",
     statement: "数字自由从来不是默认选项。",
+    statementHighlight: "自由",
     statementDetail:
       "它来自有意识选择的工具、可以理解的系统，以及对更多数字生活拥有所有权的决定。",
     exploreTitle: "一个有意维护的小型档案。",

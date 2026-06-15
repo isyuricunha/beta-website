@@ -48,6 +48,7 @@ export const fr = {
     description:
       "Logiciel, auto-hébergement, vie privée, automatisation et petites choses utiles. Je conserve ici le travail et les idées qui l’accompagnent.",
     statement: "La liberté numérique n’est pas acquise.",
+    statementHighlight: "liberté",
     statementDetail:
       "Elle se construit avec des outils choisis, des systèmes compréhensibles et la décision de posséder une plus grande part de notre vie numérique.",
     exploreTitle: "Une petite archive, entretenue avec intention.",

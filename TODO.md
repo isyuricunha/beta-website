@@ -49,3 +49,10 @@
 - [x] Reduce the home hero title to a clearly smaller desktop range.
 - [x] Keep shimmer behavior without increasing title weight or contrast.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 8 - Text shimmer refinement
+
+- [x] Replace the hero-only shimmer with a reusable text shimmer component.
+- [x] Use one-direction keyframes with a short sweep and long resting state.
+- [x] Apply shimmer manually in limited, staggered locations.
+- [x] Run lint, tests, build, and content validation.

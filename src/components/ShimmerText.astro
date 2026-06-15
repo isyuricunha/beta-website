@@ -1,0 +1,94 @@
+---
+type Props = {
+  text: string;
+  class?: string;
+  delay?: "delay-1" | "delay-2" | "delay-3";
+  subtle?: boolean;
+};
+
+const { text, class: className, delay, subtle = false } = Astro.props;
+---
+
+<span class:list={["text-shimmer", delay, { subtle }, className]}>{text}</span>
+
+<style>
+  .text-shimmer {
+    display: inline;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+    text-transform: inherit;
+  }
+
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .text-shimmer {
+      --shimmer-edge: var(--color-accent);
+      --shimmer-peak: #efc16c;
+
+      background-image: linear-gradient(
+        100deg,
+        currentColor 0%,
+        currentColor 43%,
+        var(--shimmer-edge) 48%,
+        var(--shimmer-peak) 50%,
+        var(--shimmer-edge) 52%,
+        currentColor 57%,
+        currentColor 100%
+      );
+      background-position: 100% 0;
+      background-repeat: no-repeat;
+      background-size: 240% 100%;
+      background-clip: text;
+      animation-name: text-shimmer-sweep;
+      animation-duration: 7.6s;
+      animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+      animation-iteration-count: infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-shimmer.subtle {
+      --shimmer-edge: var(--color-accent-soft);
+      --shimmer-peak: var(--color-accent-bright);
+    }
+
+    .text-shimmer.delay-1 {
+      animation-delay: 1.7s;
+    }
+
+    .text-shimmer.delay-2 {
+      animation-delay: 3.1s;
+    }
+
+    .text-shimmer.delay-3 {
+      animation-delay: 4.6s;
+    }
+
+    @keyframes text-shimmer-sweep {
+      0%,
+      10% {
+        background-position: 100% 0;
+      }
+
+      24% {
+        background-position: 0% 0;
+      }
+
+      24.01%,
+      100% {
+        background-position: 0% 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .text-shimmer {
+        background-image: none;
+        animation: none;
+        -webkit-text-fill-color: currentColor;
+      }
+    }
+  }
+</style>

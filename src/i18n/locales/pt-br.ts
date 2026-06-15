@@ -48,6 +48,7 @@ export const ptBr = {
     description:
       "Software, self-hosting, privacidade, automação e pequenas coisas úteis. Aqui guardo o trabalho e as ideias por trás dele.",
     statement: "Liberdade digital não é o padrão.",
+    statementHighlight: "Liberdade",
     statementDetail:
       "Ela é construída com ferramentas deliberadas, sistemas compreensíveis e a escolha de possuir mais da nossa vida digital.",
     exploreTitle: "Um pequeno arquivo, mantido de propósito.",

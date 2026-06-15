@@ -48,6 +48,7 @@ export const de = {
     description:
       "Software, Self-Hosting, Datenschutz, Automatisierung und kleine nützliche Dinge. Hier bewahre ich die Arbeit und die Gedanken dahinter auf.",
     statement: "Digitale Freiheit ist nicht der Standard.",
+    statementHighlight: "Freiheit",
     statementDetail:
       "Sie entsteht durch bewusst gewählte Werkzeuge, verständliche Systeme und die Entscheidung, mehr vom eigenen digitalen Leben zu besitzen.",
     exploreTitle: "Ein kleines Archiv, bewusst gepflegt.",

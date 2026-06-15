@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import LogoMark from "@/components/LogoMark.astro";
 import PostList from "@/components/PostList.astro";
+import ShimmerText from "@/components/ShimmerText.astro";
 import SnippetList from "@/components/SnippetList.astro";
 import { getDictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
@@ -20,14 +21,29 @@ const latestSnippets = (await getLocalizedListing("snippets", locale)).slice(
   0,
   1,
 );
-const { title, titleHighlight } = dictionary.home;
-const highlightStart = title.indexOf(titleHighlight);
-const titleBefore =
-  highlightStart >= 0 ? title.slice(0, highlightStart) : title;
-const titleAfter =
-  highlightStart >= 0
-    ? title.slice(highlightStart + titleHighlight.length)
-    : "";
+
+function splitHighlight(text: string, highlight: string) {
+  const start = text.indexOf(highlight);
+
+  if (start < 0) {
+    return { before: text, highlight: "", after: "" };
+  }
+
+  return {
+    before: text.slice(0, start),
+    highlight,
+    after: text.slice(start + highlight.length),
+  };
+}
+
+const titleParts = splitHighlight(
+  dictionary.home.title,
+  dictionary.home.titleHighlight,
+);
+const statementParts = splitHighlight(
+  dictionary.home.statement,
+  dictionary.home.statementHighlight,
+);
 ---
 
 <BaseLayout
@@ -42,26 +58,32 @@ const titleAfter =
         {dictionary.home.eyebrow}
       </p>
       <h1>
-        {titleBefore}
-        {
-          highlightStart >= 0 && (
-            <span class="title-shimmer">{titleHighlight}</span>
-          )
-        }
-        {titleAfter}
+        {titleParts.before}
+        {titleParts.highlight && <ShimmerText text={titleParts.highlight} />}
+        {titleParts.after}
       </h1>
       <p class="hero-description">{dictionary.home.description}</p>
     </div>
     <aside class="statement">
       <LogoMark class="signature" />
-      <p>{dictionary.home.statement}</p>
+      <p>
+        {statementParts.before}
+        {
+          statementParts.highlight && (
+            <ShimmerText text={statementParts.highlight} delay="delay-2" subtle />
+          )
+        }
+        {statementParts.after}
+      </p>
       <span>{dictionary.home.statementDetail}</span>
     </aside>
   </section>
 
   <section class="latest" aria-labelledby="latest-title">
     <header>
-      <p class="section-index">01 / {dictionary.common.latest}</p>
+      <p class="section-index">
+        01 / <ShimmerText text={dictionary.common.latest} delay="delay-3" subtle />
+      </p>
       <h2 id="latest-title">{dictionary.common.featured}</h2>
     </header>
     <div class="latest-grid">
@@ -157,36 +179,6 @@ const titleAfter =
     letter-spacing: -0.055em;
     line-height: 0.98;
     text-wrap: balance;
-  }
-
-  .title-shimmer {
-    background: linear-gradient(
-      105deg,
-      var(--color-text) 36%,
-      var(--color-accent) 47%,
-      #efc16c 50%,
-      var(--color-accent) 53%,
-      var(--color-text) 64%
-    );
-    background-position: 120% 0;
-    background-size: 260% 100%;
-    background-clip: text;
-    color: var(--color-text);
-    animation: title-shine 8s ease-in-out infinite;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  @keyframes title-shine {
-    0%,
-    58% {
-      background-position: 120% 0;
-    }
-
-    82%,
-    100% {
-      background-position: -120% 0;
-    }
   }
 
   .hero-description {
@@ -410,11 +402,4 @@ const titleAfter =
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .title-shimmer {
-      background: none;
-      animation: none;
-      -webkit-text-fill-color: currentColor;
-    }
-  }
 </style>
