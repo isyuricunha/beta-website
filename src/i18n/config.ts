@@ -1,4 +1,4 @@
-export const locales = ["en", "pt-br", "ja", "zh-cn", "de", "fr"] as const;
+export const locales = ["en", "pt-br", "ja", "zh-cn", "de", "fr", "es"] as const;
 
 export type Locale = (typeof locales)[number];
 
@@ -18,6 +18,7 @@ export const localeMetadata: Record<
   "zh-cn": { label: "中文", languageTag: "zh-CN" },
   de: { label: "Deutsch", languageTag: "de" },
   fr: { label: "Français", languageTag: "fr" },
+  es: { label: "Español", languageTag: "es" },
 };
 
 export function isLocale(value: string): value is Locale {
