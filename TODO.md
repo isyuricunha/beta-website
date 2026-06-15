@@ -42,3 +42,10 @@
 - [x] Reduce the home page scale and add a localized text shimmer.
 - [x] Refine editorial row interactions without changing page structure.
 - [x] Run all repository checks and inspect the final production output.
+
+## Milestone 7 - Hero typography correction
+
+- [x] Compare the refined hero scale with the previous deployed baseline.
+- [x] Reduce the home hero title to a clearly smaller desktop range.
+- [x] Keep shimmer behavior without increasing title weight or contrast.
+- [x] Run lint, tests, build, and content validation.
