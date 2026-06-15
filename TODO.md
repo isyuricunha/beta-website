@@ -56,3 +56,10 @@
 - [x] Use one-direction keyframes with a short sweep and long resting state.
 - [x] Apply shimmer manually in limited, staggered locations.
 - [x] Run lint, tests, build, and content validation.
+
+## Milestone 9 - Shimmer timing polish
+
+- [x] Slow the shimmer cycle and active sweep window.
+- [x] Space shimmer delays so nearby words do not animate together.
+- [x] Preserve typography inheritance and reduced-motion behavior.
+- [x] Run lint, tests, build, and content validation.

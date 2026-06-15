@@ -43,8 +43,8 @@ const { text, class: className, delay, subtle = false } = Astro.props;
       background-size: 240% 100%;
       background-clip: text;
       animation-name: text-shimmer-sweep;
-      animation-duration: 7.6s;
-      animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+      animation-duration: 10.5s;
+      animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
       animation-iteration-count: infinite;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -56,28 +56,28 @@ const { text, class: className, delay, subtle = false } = Astro.props;
     }
 
     .text-shimmer.delay-1 {
-      animation-delay: 1.7s;
+      animation-delay: 2.2s;
     }
 
     .text-shimmer.delay-2 {
-      animation-delay: 3.1s;
+      animation-delay: 4.1s;
     }
 
     .text-shimmer.delay-3 {
-      animation-delay: 4.6s;
+      animation-delay: 6.4s;
     }
 
     @keyframes text-shimmer-sweep {
       0%,
-      10% {
+      8% {
         background-position: 100% 0;
       }
 
-      24% {
+      42% {
         background-position: 0% 0;
       }
 
-      24.01%,
+      42.01%,
       100% {
         background-position: 0% 0;
       }
