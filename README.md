@@ -94,7 +94,7 @@ an adapter or serverless functions.
 - Output directory: `dist`
 - Node.js: `24.x`
 
-The canonical production URL is `https://yuricunha.com`.
+The canonical production URL is `[https://yuricunha.com](https://breaking.yuricunha.com/)`.
 
 ## Structure
 
