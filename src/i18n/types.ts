@@ -64,6 +64,8 @@ export type Dictionary = {
     rss: string;
     website: string;
     externalLink: string;
+    primaryNavigation: string;
+    externalLinks: string;
     published: string;
     updated: string;
     availableInEnglish: string;

@@ -25,6 +25,8 @@ export const ja = {
     rss: "RSS",
     website: "ウェブサイト",
     externalLink: "外部リンク",
+    primaryNavigation: "メインナビゲーション",
+    externalLinks: "外部リンク",
     published: "公開",
     updated: "更新",
     availableInEnglish: "英語版を表示",

@@ -25,6 +25,8 @@ export const en = {
     rss: "RSS",
     website: "Website",
     externalLink: "External link",
+    primaryNavigation: "Primary navigation",
+    externalLinks: "External links",
     published: "Published",
     updated: "Updated",
     availableInEnglish: "Available in English",

@@ -25,6 +25,8 @@ export const ptBr = {
     rss: "RSS",
     website: "Site",
     externalLink: "Link externo",
+    primaryNavigation: "Navegação principal",
+    externalLinks: "Links externos",
     published: "Publicado",
     updated: "Atualizado",
     availableInEnglish: "Disponível em inglês",

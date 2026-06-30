@@ -25,6 +25,8 @@ export const zhCn = {
     rss: "RSS",
     website: "网站",
     externalLink: "外部链接",
+    primaryNavigation: "主导航",
+    externalLinks: "外部链接",
     published: "发布",
     updated: "更新",
     availableInEnglish: "提供英文版本",

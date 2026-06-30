@@ -7,8 +7,8 @@
     document
       .querySelectorAll<HTMLElement>(codeBlockScopeSelector)
       .forEach((scope) => {
-        const copyLabel = scope.dataset.copyLabel ?? "Copy code";
-        const copiedLabel = scope.dataset.copiedLabel ?? "Copied";
+        const copyLabel = scope.dataset.copyLabel ?? "";
+        const copiedLabel = scope.dataset.copiedLabel ?? "";
 
         scope
           .querySelectorAll<HTMLPreElement>("pre[data-language]")
