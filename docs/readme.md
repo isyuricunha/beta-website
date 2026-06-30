@@ -105,6 +105,3 @@ Docs are in `/docs` as Markdown files. To update:
 - **Content Collections:** https://docs.astro.build/en/guides/content-collections/
 - **i18n Routing:** https://docs.astro.build/en/guides/internationalization/
 
----
-
-*Last updated: 2025*
