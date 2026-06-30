@@ -39,6 +39,9 @@ export const zhCn = {
     copied: "已复制",
     footerNote: "用心构建，有意保持简单。",
     minuteRead: (minutes) => `约 ${minutes} 分钟`,
+    relatedPosts: "相关文章",
+    nextPost: "下一篇",
+    previousPost: "上一篇",
   },
   projectStatuses: {
     active: "进行中",

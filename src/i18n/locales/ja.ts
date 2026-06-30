@@ -39,6 +39,9 @@ export const ja = {
     copied: "コピー済み",
     footerNote: "丁寧に作り、意図して簡素に保つ。",
     minuteRead: (minutes) => `約${minutes}分`,
+    relatedPosts: "関連記事",
+    nextPost: "次の記事",
+    previousPost: "前の記事",
   },
   projectStatuses: {
     active: "進行中",

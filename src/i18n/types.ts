@@ -78,6 +78,9 @@ export type Dictionary = {
     copied: string;
     footerNote: string;
     minuteRead: (minutes: number) => string;
+    relatedPosts: string;
+    nextPost: string;
+    previousPost: string;
   };
   projectStatuses: Record<ProjectStatus, string>;
   home: {

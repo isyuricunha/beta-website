@@ -103,3 +103,46 @@ export function getContentPath(
   const prefix = locale === defaultLocale ? "" : `/${locale}`;
   return `${prefix}/${collection}/${slug}/`;
 }
+
+export async function getRelatedPosts(
+  locale: Locale,
+  currentSlug: string,
+  currentTags: string[],
+  limit = 3,
+): Promise<LocalizedEntry<"blog">[]> {
+  if (!currentTags.length) return [];
+
+  const allPosts = await getLocalizedListing("blog", locale);
+
+  // Score posts by shared tags
+  const scored = allPosts
+    .filter((p) => p.slug !== currentSlug)
+    .map((p) => ({
+      ...p,
+      score: p.entry.data.tags.filter((tag) => currentTags.includes(tag)).length,
+    }))
+    .filter((p) => p.score > 0)
+    .sort((a, b) => b.score - a.score || getEntryDate(b.entry) - getEntryDate(a.entry));
+
+  return scored.slice(0, limit);
+}
+
+export async function getAdjacentPosts(
+  locale: Locale,
+  currentSlug: string,
+): Promise<{ prev: LocalizedEntry<"blog"> | null; next: LocalizedEntry<"blog"> | null }> {
+  const allPosts = await getLocalizedListing("blog", locale);
+  const currentIndex = allPosts.findIndex((p) => p.slug === currentSlug);
+
+  if (currentIndex === -1) {
+    return { prev: null, next: null };
+  }
+
+  // Posts are sorted by date descending (newest first)
+  // Previous = older post (higher index)
+  // Next = newer post (lower index)
+  const prev = currentIndex + 1 < allPosts.length ? allPosts[currentIndex + 1] ?? null : null;
+  const next = currentIndex - 1 >= 0 ? allPosts[currentIndex - 1] ?? null : null;
+
+  return { prev, next };
+}

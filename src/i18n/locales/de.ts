@@ -39,6 +39,9 @@ export const de = {
     copied: "Kopiert",
     footerNote: "Mit Sorgfalt gebaut. Bewusst einfach gehalten.",
     minuteRead: (minutes) => `${minutes} Min. Lesezeit`,
+    relatedPosts: "Ähnliche Beiträge",
+    nextPost: "Nächster Beitrag",
+    previousPost: "Vorheriger Beitrag",
   },
   projectStatuses: {
     active: "Aktiv",

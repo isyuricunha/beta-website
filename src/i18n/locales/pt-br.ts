@@ -39,6 +39,9 @@ export const ptBr = {
     copied: "Copiado",
     footerNote: "Feito com cuidado. Mantido simples de propósito.",
     minuteRead: (minutes) => `${minutes} min de leitura`,
+    relatedPosts: "Posts relacionados",
+    nextPost: "Próximo post",
+    previousPost: "Post anterior",
   },
   projectStatuses: {
     active: "Ativo",
