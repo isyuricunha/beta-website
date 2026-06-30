@@ -10,7 +10,10 @@
   }
 
   .prose :global(h2),
-  .prose :global(h3) {
+  .prose :global(h3),
+  .prose :global(h4),
+  .prose :global(h5),
+  .prose :global(h6) {
     scroll-margin-top: 2rem;
     color: var(--color-text);
     font-weight: 560;
@@ -27,6 +30,23 @@
   .prose :global(h3) {
     margin: 2.5rem 0 0.8rem;
     font-size: 1.3rem;
+  }
+
+  .prose :global(h4) {
+    margin: 2.1rem 0 0.7rem;
+    color: rgb(244 244 245 / 92%);
+    font-size: 1.05rem;
+  }
+
+  .prose :global(h5),
+  .prose :global(h6) {
+    margin: 1.75rem 0 0.65rem;
+    color: rgb(212 212 216 / 88%);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
   }
 
   .prose :global(p) {
