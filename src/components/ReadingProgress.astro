@@ -1,0 +1,114 @@
+---
+/**
+ * Reading progress bar — thin indicator at top of viewport showing scroll progress.
+ * Uses requestAnimationFrame for smooth, performant updates.
+ * Respects prefers-reduced-motion and color-scheme.
+ */
+
+const barColor = "var(--color-accent, #c7771f)";
+const barHeight = "2px";
+const barZIndex = "9999";
+---
+
+<div
+  id="reading-progress"
+  class="reading-progress"
+  role="progressbar"
+  aria-valuenow={0}
+  aria-valuemin={0}
+  aria-valuemax={100}
+  aria-label="Reading progress"
+  style={`--progress-color: ${barColor}; --progress-height: ${barHeight}; --progress-z: ${barZIndex};`}
+  hidden
+>
+  <div class="progress-fill"></div>
+</div>
+
+<script>
+  (() => {
+    const bar = document.getElementById("reading-progress");
+    const fill = bar?.querySelector<HTMLElement>(".progress-fill");
+
+    if (!bar || !fill) return;
+
+    const barEl: HTMLElement = bar;
+    const fillEl: HTMLElement = fill;
+
+    // Respect prefers-reduced-motion
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let ticking = false;
+
+    function update() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+
+      fillEl.style.width = `${pct}%`;
+      barEl.setAttribute("aria-valuenow", String(Math.round(pct)));
+
+      // Show/hide based on scroll position
+      if (pct > 0 && pct < 100) {
+        barEl.hidden = false;
+      } else {
+        barEl.hidden = true;
+      }
+
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        if (prefersReduced) {
+          update();
+        } else {
+          requestAnimationFrame(update);
+        }
+      }
+    }
+
+    // Listen with passive for performance
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Initial check
+    update();
+
+    // Re-evaluate on resize (height changes)
+    window.addEventListener("resize", update, { passive: true });
+  })();
+</script>
+
+<style>
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--progress-height, 2px);
+    background: transparent;
+    z-index: var(--progress-z, 9999);
+    pointer-events: none;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--progress-color, var(--color-accent, #c7771f));
+    transition: width 0.1s linear;
+    will-change: width;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress-fill {
+      transition: none;
+    }
+  }
+
+  /* Hide on print */
+  @media print {
+    .reading-progress {
+      display: none;
+    }
+  }
+</style>

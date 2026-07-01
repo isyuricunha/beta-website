@@ -2,6 +2,7 @@
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 
+import ReadingProgress from "@/components/ReadingProgress.astro";
 import SeoHead from "@/components/SeoHead.astro";
 import SiteFooter from "@/components/SiteFooter.astro";
 import SiteHeader from "@/components/SiteHeader.astro";
@@ -59,6 +60,7 @@ const dictionary = getDictionary(locale);
     />
   </head>
   <body>
+    <ReadingProgress />
     <a class="skip-link" href="#content">{dictionary.common.skipToContent}</a>
     <div class="ambient ambient-top" aria-hidden="true"></div>
     <div class="site-shell">
