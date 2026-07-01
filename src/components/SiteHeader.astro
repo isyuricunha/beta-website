@@ -156,19 +156,29 @@ function isSectionActive(section: Section): boolean {
   }
 
   .search-box::part(input) {
-    background: rgb(255 255 255 / 3%);
-    border: 1px solid rgb(255 255 255 / 8%);
+    background: var(--color-surface-base);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     color: var(--color-text);
     font-family: var(--font-jetbrains-mono), monospace;
     font-size: 0.72rem;
     padding: 0.4rem 0.75rem;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      background-color 150ms ease;
+  }
+
+  .search-box::part(input):hover {
+    border-color: var(--color-border-strong);
   }
 
   .search-box::part(input):focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 2px rgb(199 119 31 / 20%);
+    box-shadow:
+      0 0 0 2px rgb(199 119 31 / 18%),
+      0 0 0 1px var(--color-accent);
   }
 
   .search-box::part(input)::placeholder {
@@ -176,14 +186,35 @@ function isSectionActive(section: Section): boolean {
   }
 
   .search-box::part(result) {
-    background: var(--color-surface-raised-base, rgb(10 10 10 / 96%));
+    background: rgb(7 7 7 / 96%);
     border: 1px solid var(--color-border-strong);
     border-radius: var(--radius-lg);
     box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 45%);
   }
 
-  .search-box::part(result):hover {
-    background: rgb(199 119 31 / 8%);
+  .search-box::part(result-item) {
+    background: transparent;
+    border-radius: 0.65rem;
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    padding: 0.55rem 0.65rem;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+
+  .search-box::part(result-item):hover,
+  .search-box::part(result-item):focus {
+    background: rgb(199 119 31 / 10%);
+    color: var(--color-text);
+  }
+
+  .search-box::part(result-title) {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .search-box::part(result-excerpt) {
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
   }
 
   .header-actions {
@@ -208,6 +239,10 @@ function isSectionActive(section: Section): boolean {
       grid-column: 1 / -1;
       grid-row: 1;
       justify-self: end;
+    }
+
+    .search-box {
+      min-width: 10rem;
     }
 
     .site-header > :global(.language-switcher) {
