@@ -90,7 +90,7 @@ const statementParts = splitHighlight(
       <div>
         <div class="latest-label">
           <span>{dictionary.navigation.blog}</span>
-          <a href={getSectionPath(locale, "blog")}>{dictionary.common.viewAll}</a>
+          <a href={getSectionPath(locale, "blog")} aria-label={`${dictionary.common.viewAll} ${dictionary.navigation.blog}`}>{dictionary.common.viewAll}</a>
         </div>
         <PostList
           items={latestPosts}
@@ -102,7 +102,7 @@ const statementParts = splitHighlight(
       <div>
         <div class="latest-label">
           <span>{dictionary.navigation.snippets}</span>
-          <a href={getSectionPath(locale, "snippets")}>{dictionary.common.viewAll}</a>
+          <a href={getSectionPath(locale, "snippets")} aria-label={`${dictionary.common.viewAll} ${dictionary.navigation.snippets}`}>{dictionary.common.viewAll}</a>
         </div>
         <SnippetList
           items={latestSnippets}
