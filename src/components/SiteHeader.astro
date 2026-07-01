@@ -41,12 +41,15 @@ function isSectionActive(section: Section): boolean {
       ))
     }
   </nav>
-  <LanguageSwitcher
-    locale={locale}
-    pathname={pathname}
-    dictionary={dictionary}
-    availableLocales={availableLocales}
-  />
+  <div class="header-actions">
+    <pagefind-searchbox class="search-box" placeholder={dictionary.common.search ?? "Search"} />
+    <LanguageSwitcher
+      locale={locale}
+      pathname={pathname}
+      dictionary={dictionary}
+      availableLocales={availableLocales}
+    />
+  </div>
 </header>
 
 <style>
@@ -141,6 +144,54 @@ function isSectionActive(section: Section): boolean {
     background: var(--color-accent-bright);
   }
 
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .search-box {
+    --pagefind-ui-scale: 0.9;
+    min-width: 14rem;
+  }
+
+  .search-box::part(input) {
+    background: rgb(255 255 255 / 3%);
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-family: var(--font-jetbrains-mono), monospace;
+    font-size: 0.72rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .search-box::part(input):focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgb(199 119 31 / 20%);
+  }
+
+  .search-box::part(input)::placeholder {
+    color: var(--color-text-faint);
+  }
+
+  .search-box::part(result) {
+    background: var(--color-surface-raised-base, rgb(10 10 10 / 96%));
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 45%);
+  }
+
+  .search-box::part(result):hover {
+    background: rgb(199 119 31 / 8%);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   @media (max-width: 740px) {
     .site-header {
       grid-template-columns: auto auto;
@@ -151,6 +202,12 @@ function isSectionActive(section: Section): boolean {
       grid-row: 2;
       justify-content: flex-start;
       padding: 0.15rem;
+    }
+
+    .header-actions {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      justify-self: end;
     }
 
     .site-header > :global(.language-switcher) {

@@ -32,6 +32,7 @@
   "devDependencies": {
     "@astrojs/check": "0.9.9",
     "@playwright/test": "^1.60.0",
+    "astro-pagefind": "^2.0.0",
     "gray-matter": "4.0.3",
     "tsx": "4.22.4",
     "typescript": "6.0.3"

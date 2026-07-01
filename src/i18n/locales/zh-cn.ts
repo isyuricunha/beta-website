@@ -42,6 +42,7 @@ export const zhCn = {
     relatedPosts: "相关文章",
     nextPost: "下一篇",
     previousPost: "上一篇",
+    search: "搜索",
   },
   projectStatuses: {
     active: "进行中",

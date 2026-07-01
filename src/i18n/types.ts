@@ -81,6 +81,7 @@ export type Dictionary = {
     relatedPosts: string;
     nextPost: string;
     previousPost: string;
+    search: string;
   };
   projectStatuses: Record<ProjectStatus, string>;
   home: {

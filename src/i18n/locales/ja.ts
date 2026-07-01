@@ -42,6 +42,7 @@ export const ja = {
     relatedPosts: "関連記事",
     nextPost: "次の記事",
     previousPost: "前の記事",
+    search: "検索",
   },
   projectStatuses: {
     active: "進行中",

@@ -42,6 +42,7 @@ export const de = {
     relatedPosts: "Ähnliche Beiträge",
     nextPost: "Nächster Beitrag",
     previousPost: "Vorheriger Beitrag",
+    search: "Suchen",
   },
   projectStatuses: {
     active: "Aktiv",

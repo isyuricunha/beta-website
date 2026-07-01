@@ -42,6 +42,7 @@ export const ptBr = {
     relatedPosts: "Posts relacionados",
     nextPost: "Próximo post",
     previousPost: "Post anterior",
+    search: "Buscar",
   },
   projectStatuses: {
     active: "Ativo",

@@ -8,6 +8,7 @@ import SiteFooter from "@/components/SiteFooter.astro";
 import SiteHeader from "@/components/SiteHeader.astro";
 import { getDictionary } from "@/i18n";
 import { localeMetadata, type Locale } from "@/i18n/config";
+import PagefindConfig from "astro-pagefind/components/PagefindConfig.astro";
 
 import "@/styles/global.css";
 
@@ -47,6 +48,7 @@ const dictionary = getDictionary(locale);
     <Font cssVariable="--font-inter" preload />
     <Font cssVariable="--font-jetbrains-mono" />
     <ClientRouter />
+    <PagefindConfig />
     <SeoHead
       title={title}
       description={description}
