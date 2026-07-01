@@ -9,7 +9,7 @@ type Props = {
 const { text, class: className, delay, subtle = false } = Astro.props;
 ---
 
-<span class:list={["text-shimmer", delay, { subtle }, className]}>{text}</span>
+<span class:list={["text-shimmer", delay, { subtle }, className]} data-text={text}>{text}</span>
 
 <style>
   .text-shimmer {
@@ -25,61 +25,64 @@ const { text, class: className, delay, subtle = false } = Astro.props;
 
   @supports ((background-clip: text) or (-webkit-background-clip: text)) {
     .text-shimmer {
+      position: relative;
+    }
+
+    .text-shimmer::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
       --shimmer-edge: var(--color-accent);
       --shimmer-peak: #efc16c;
 
       background-image: linear-gradient(
         100deg,
-        currentColor 0%,
-        currentColor 43%,
-        var(--shimmer-edge) 48%,
+        transparent 0%,
+        var(--shimmer-edge) 30%,
         var(--shimmer-peak) 50%,
-        var(--shimmer-edge) 52%,
-        currentColor 57%,
-        currentColor 100%
+        var(--shimmer-edge) 70%,
+        transparent 100%
       );
-      background-position: 100% 0;
-      background-repeat: no-repeat;
-      background-size: 240% 100%;
       background-clip: text;
-      animation-name: text-shimmer-sweep;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0;
+      pointer-events: none;
+      animation-name: text-shimmer-pulse;
       animation-duration: 10.5s;
       animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1);
       animation-iteration-count: infinite;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
-    .text-shimmer.subtle {
+    .text-shimmer.subtle::after {
       --shimmer-edge: var(--color-accent-soft);
       --shimmer-peak: var(--color-accent-bright);
     }
 
-    .text-shimmer.delay-1 {
+    .text-shimmer.delay-1::after {
       animation-delay: 2.2s;
     }
 
-    .text-shimmer.delay-2 {
+    .text-shimmer.delay-2::after {
       animation-delay: 4.1s;
     }
 
-    .text-shimmer.delay-3 {
+    .text-shimmer.delay-3::after {
       animation-delay: 6.4s;
     }
 
-    @keyframes text-shimmer-sweep {
+    @keyframes text-shimmer-pulse {
       0%,
-      8% {
-        background-position: 100% 0;
-      }
-
-      42% {
-        background-position: 0% 0;
-      }
-
-      42.01%,
+      8%,
+      42%,
       100% {
-        background-position: 0% 0;
+        opacity: 0;
+      }
+
+      25% {
+        opacity: 1;
       }
     }
 
