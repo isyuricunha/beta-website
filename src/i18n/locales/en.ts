@@ -16,6 +16,8 @@ export const en = {
     skipToContent: "Skip to content",
     language: "Language",
     openLanguageMenu: "Choose language",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
     latest: "Latest",
     featured: "Latest notes",
     viewAll: "View all",

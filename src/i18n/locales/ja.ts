@@ -16,6 +16,8 @@ export const ja = {
     skipToContent: "本文へ移動",
     language: "言語",
     openLanguageMenu: "言語を選択",
+    openMenu: "メニューを開く",
+    closeMenu: "メニューを閉じる",
     latest: "最新",
     featured: "最近の記録",
     viewAll: "すべて見る",

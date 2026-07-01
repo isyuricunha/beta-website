@@ -16,6 +16,8 @@ export const ptBr = {
     skipToContent: "Ir para o conteúdo",
     language: "Idioma",
     openLanguageMenu: "Escolher idioma",
+    openMenu: "Abrir menu",
+    closeMenu: "Fechar menu",
     latest: "Recentes",
     featured: "Notas recentes",
     viewAll: "Ver tudo",

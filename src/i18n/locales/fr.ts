@@ -16,6 +16,8 @@ export const fr = {
     skipToContent: "Aller au contenu",
     language: "Langue",
     openLanguageMenu: "Choisir la langue",
+    openMenu: "Ouvrir le menu",
+    closeMenu: "Fermer le menu",
     latest: "Récent",
     featured: "Notes récentes",
     viewAll: "Tout voir",

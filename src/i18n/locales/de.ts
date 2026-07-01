@@ -16,6 +16,8 @@ export const de = {
     skipToContent: "Zum Inhalt springen",
     language: "Sprache",
     openLanguageMenu: "Sprache wählen",
+    openMenu: "Menü öffnen",
+    closeMenu: "Menü schließen",
     latest: "Neu",
     featured: "Neue Notizen",
     viewAll: "Alle ansehen",

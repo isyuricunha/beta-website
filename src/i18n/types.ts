@@ -55,6 +55,8 @@ export type Dictionary = {
     skipToContent: string;
     language: string;
     openLanguageMenu: string;
+    openMenu: string;
+    closeMenu: string;
     latest: string;
     featured: string;
     viewAll: string;

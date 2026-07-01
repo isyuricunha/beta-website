@@ -16,6 +16,8 @@ export const zhCn = {
     skipToContent: "跳到正文",
     language: "语言",
     openLanguageMenu: "选择语言",
+    openMenu: "打开菜单",
+    closeMenu: "关闭菜单",
     latest: "最新",
     featured: "最新记录",
     viewAll: "查看全部",
