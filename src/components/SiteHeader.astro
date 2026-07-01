@@ -74,6 +74,9 @@ function isSectionActive(section: Section): boolean {
     const toggle = document.querySelector('.menu-toggle');
     if (!header || !toggle) return;
 
+    if (toggle.getAttribute('data-header-initialized') === 'true') return;
+    toggle.setAttribute('data-header-initialized', 'true');
+
     // Toggle menu visibility
     toggle.addEventListener('click', () => {
       const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
