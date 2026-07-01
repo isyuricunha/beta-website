@@ -24,7 +24,7 @@ export const GET: APIRoute = async (context) => {
     title: "Yuri Cunha",
     description:
       "Software, self-hosting, privacy, automation, and small useful things.",
-    site: context.site ?? "https://yuricunha.com",
+    site: context.site ?? "https://breaking.yuricunha.com",
     customData: "<language>en</language>",
     items: posts.map((entry) => {
       const { slug } = parseContentId(entry.id);

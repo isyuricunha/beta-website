@@ -5,7 +5,7 @@ import {
 } from "@/i18n/config";
 import type { Section } from "@/i18n/types";
 
-const SITE_ORIGIN = "https://yuricunha.com";
+const SITE_ORIGIN = "https://breaking.yuricunha.com";
 
 export function getLocaleFromPathname(pathname: string): Locale {
   const firstSegment = new URL(pathname, SITE_ORIGIN).pathname.split("/")[1];

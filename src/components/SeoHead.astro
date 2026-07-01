@@ -31,6 +31,7 @@ const {
 
 const siteName = "Yuri Cunha";
 const pageTitle = title === siteName ? title : `${title} · ${siteName}`;
+const safeDescription = description || "Yuri Cunha - Software, privacy, self-hosting, and small useful things.";
 const canonicalUrl = new URL(pathname, Astro.site);
 const imageUrl = new URL(image, Astro.site);
 
@@ -45,7 +46,7 @@ const websiteSchema = {
   "@type": "WebSite",
   name: siteName,
   url: Astro.site,
-  description: description,
+  description: safeDescription,
   author: authorSchema,
 };
 
@@ -53,7 +54,7 @@ const articleSchema = type === "article" ? {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: title,
-  description: description,
+  description: safeDescription,
   image: imageUrl,
   author: authorSchema,
   url: canonicalUrl,
@@ -65,7 +66,7 @@ const schemaLd = type === "article" ? articleSchema : websiteSchema;
 ---
 
 <title>{pageTitle}</title>
-<meta name="description" content={description} />
+<meta name="description" content={safeDescription} />
 <meta name="author" content={siteName} />
 <link rel="canonical" href={canonicalUrl} />
 {
@@ -85,13 +86,13 @@ const schemaLd = type === "article" ? articleSchema : websiteSchema;
 <meta property="og:type" content={type} />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:title" content={pageTitle} />
-<meta property="og:description" content={description} />
+<meta property="og:description" content={safeDescription} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:image" content={imageUrl} />
 <meta property="og:locale" content={localeMetadata[locale].languageTag} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={pageTitle} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:description" content={safeDescription} />
 <meta name="twitter:image" content={imageUrl} />
 {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
 {updatedTime && <meta property="article:modified_time" content={updatedTime.toISOString()} />}

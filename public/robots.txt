@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yuricunha.com/sitemap-index.xml
+Sitemap: https://breaking.yuricunha.com/sitemap-index.xml

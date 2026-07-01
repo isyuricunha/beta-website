@@ -5,7 +5,7 @@ import pagefind from "astro-pagefind";
 import { defineConfig, fontProviders } from "astro/config";
 
 export default defineConfig({
-  site: "https://yuricunha.com",
+  site: "https://breaking.yuricunha.com",
   output: "static",
   trailingSlash: "always",
   i18n: {
