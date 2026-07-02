@@ -1,0 +1,25 @@
+name: Ella Mizuki
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+  pull_request_target:
+    types: [opened, synchronize]
+  workflow_run:
+    workflows: ["*"]
+    types: [completed]
+
+jobs:
+  ella:
+    runs-on: ubuntu-latest
+    env:
+      ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
+      ELLA_AI_BASE_URL: ${{ secrets.ELLA_AI_BASE_URL }}
+      ELLA_AI_MODEL: ${{ secrets.ELLA_AI_MODEL }}
+    steps:
+      - name: Chamando a Ella
+        uses: isyuricunha/ella@main
+        with:
+          ella_app_client_id: ${{ secrets.ELLA_APP_CLIENT_ID }}
+          ella_app_private_key: ${{ secrets.ELLA_APP_PRIVATE_KEY }}
