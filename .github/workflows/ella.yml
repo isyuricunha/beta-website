@@ -12,11 +12,6 @@ on:
 
 jobs:
   ella:
-    if: >
-      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.name != 'Ella Mizuki') ||
-      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '/ella') && github.event.comment.user.login == github.repository_owner) ||
-      (github.event_name == 'issues' && github.event.action == 'opened') ||
-      (github.event_name == 'pull_request_target' && (github.event.action == 'opened' || github.event.action == 'synchronize'))
     runs-on: ubuntu-latest
     env:
       ELLA_AI_API_KEY: ${{ secrets.ELLA_AI_API_KEY }}
